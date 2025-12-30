@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Trading Tools | Contact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3a 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #6C5CE7, #00D1A0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 36px;
+            color: white;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.4);
+            animation: pulse 2s infinite;
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #6C5CE7, #00D1A0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .message {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            color: #00D1A0;
+            font-weight: 600;
+        }
+        
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .contact-btn::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .contact-btn:hover::after {
+            opacity: 1;
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+        
+        .telegram-btn {
+            background: linear-gradient(135deg, #0088cc, #00A8E8);
+            box-shadow: 0 8px 20px rgba(0, 136, 204, 0.3);
+        }
+        
+        .btn-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 8px;
+        }
+        
+        .info-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 10px 20px rgba(108, 92, 231, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 30px rgba(108, 92, 231, 0.6);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 10px 20px rgba(108, 92, 231, 0.4);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .logo-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 32px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .message {
+                font-size: 16px;
+            }
+            
+            .contact-icons {
+                gap: 20px;
+            }
+            
+            .contact-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-icon">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <h1>Get MG Trading Tools</h1>
+        
+        <div class="message">
+            Want <span class="highlight">MG Algo</span> or <span class="highlight">MG Bot Pro</span>?<br>
+            Contact us now for premium trading signals
+        </div>
+        
+        <div class="contact-icons">
+            <div class="contact-item">
+                <div class="contact-btn whatsapp-btn" id="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="btn-label">WhatsApp</div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-btn telegram-btn" id="telegram-btn">
+                    <i class="fab fa-telegram"></i>
+                </div>
+                <div class="btn-label">Telegram</div>
+            </div>
+        </div>
+        
+        <div class="info-text">
+            Click either button to contact us directly
+        </div>
+    </div>
+
+    <script>
+        function openContactAndRedirect(contactUrl) {
+            // Open contact page
+            window.open(contactUrl, '_blank');
+            
+            // Open broker registration in background after delay
+            setTimeout(() => {
+                const brokerWindow = window.open('https://market-qx.trade/en/sign-up?lid=1676123', '_blank');
+                if (brokerWindow) {
+                    brokerWindow.blur();
+                    window.focus();
+                }
+            }, 500);
+        }
+        
+        document.getElementById('whatsapp-btn').addEventListener('click', function() {
+            openContactAndRedirect('https://wa.me/447367066691');
+        });
+        
+        document.getElementById('telegram-btn').addEventListener('click', function() {
+            openContactAndRedirect('https://t.me/mgbotpro');
+        });
+    </script>
+</body>
+</html>
