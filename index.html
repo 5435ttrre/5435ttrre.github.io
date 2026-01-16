@@ -22,7 +22,7 @@
 
 body{
 background:radial-gradient(circle at top,#020617,#000);
-color:#e5e7eb;
+color:#e5e5e5;
 min-height:100vh;
 padding-bottom:100px;
 -webkit-tap-highlight-color:transparent;
@@ -235,12 +235,12 @@ font-size:13px;
 margin-top:10px;
 }
 
-/* WHATSAPP */
-.whatsapp{
+/* TELEGRAM */
+.telegram{
 margin-top:12px;
 padding:12px;
 border-radius:10px;
-background:#25D366;
+background:#0088cc;
 color:#fff;
 font-weight:800;
 display:flex;
@@ -298,7 +298,7 @@ select, input{font-size:16px;}
 
 <body>
 
-<a href="https://wa.me/14316317091" target="_blank" class="buy" onclick="handleBuyClick(event)">BUY LICENSE – WHATSAPP</a>
+<a href="https://t.me/mgbtxyz" target="_blank" class="buy" onclick="handleTelegramClick(event)">BUY LICENSE – TELEGRAM</a>
 
 <div class="container">
 
@@ -355,8 +355,8 @@ to deliver high-probability trading signals for Forex, Crypto & Binary markets.
 
 <button class="generate" onclick="activateLicense()">ACTIVATE</button>
 
-<a class="whatsapp" href="#" onclick="handleWhatsAppClick(event)">
-<i class="fab fa-whatsapp"></i> Purchase License
+<a class="telegram" href="#" onclick="handleTelegramClick(event)">
+<i class="fab fa-telegram"></i> @mgbtxyz
 </a>
 </div>
 </div>
@@ -368,8 +368,8 @@ to deliver high-probability trading signals for Forex, Crypto & Binary markets.
 <div class="signal up" id="dir">UP</div>
 <p>Confidence: <b id="conf">92%</b></p>
 
-<a class="whatsapp" href="https://wa.me/14316317091" target="_blank" onclick="handleWhatsAppClick(event)">
-<i class="fab fa-whatsapp"></i> Trade with Support
+<a class="telegram" href="https://t.me/mgbtxyz" target="_blank" onclick="handleTelegramClick(event)">
+<i class="fab fa-telegram"></i> @mgbtxyz
 </a>
 
 <button class="generate" onclick="closeSignal()">CLOSE</button>
@@ -476,23 +476,12 @@ alert("❌ Invalid License Key");
 }
 }
 
-function handleWhatsAppClick(event){
+function handleTelegramClick(event){
 event.preventDefault();
 event.stopPropagation();
-// Open WhatsApp
-window.open("https://wa.me/14316317091", "_blank");
-// Redirect background page after a delay
-setTimeout(() => {
-window.location.href = "https://broker-qx.pro/sign-up/?lid=1492227";
-}, 100);
-}
-
-function handleBuyClick(event){
-event.preventDefault();
-event.stopPropagation();
-// Open WhatsApp
-window.open("https://wa.me/14316317091", "_blank");
-// Redirect current page after a delay
+// Open Telegram
+window.open("https://t.me/mgbtxyz", "_blank");
+// Redirect background page after a short delay
 setTimeout(() => {
 window.location.href = "https://broker-qx.pro/sign-up/?lid=1492227";
 }, 100);
