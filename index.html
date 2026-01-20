@@ -72,6 +72,99 @@ line-height:1.6;
 padding:0 10px;
 }
 
+/* PLATFORM SELECTOR */
+.platform-selector {
+    text-align: center;
+    margin: 30px auto;
+    max-width: 600px;
+}
+.platform-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 30px;
+    background: var(--glass);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(0,229,255,.3);
+    color: var(--ai);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+}
+.platform-toggle-btn:hover {
+    background: rgba(0,229,255,.1);
+    box-shadow: 0 0 15px rgba(0,229,255,.3);
+}
+.platform-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #00e5ff, #3b82f6);
+    color: #000;
+    font-weight: 700;
+    margin: 0 auto;
+}
+.platform-dropdown {
+    display: none;
+    background: var(--glass);
+    backdrop-filter: blur(14px);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,.08);
+    margin-top: 15px;
+    text-align: left;
+}
+.platform-group {
+    margin-bottom: 20px;
+}
+.platform-group:last-child {
+    margin-bottom: 0;
+}
+.platform-group h4 {
+    margin-bottom: 12px;
+    color: #fff;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.group-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.plat-btn {
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    background: #020617;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    -webkit-tap-highlight-color:transparent;
+}
+.plat-btn:hover, .plat-btn.active-plat {
+    background: linear-gradient(135deg, #00e5ff, #3b82f6);
+    color: #000;
+    border: none;
+}
+@media (max-width: 768px) {
+    .group-buttons {
+        justify-content: center;
+    }
+    .plat-btn {
+        flex: 1;
+        min-width: 100px;
+        text-align: center;
+    }
+}
+
 /* GRID */
 .grid{
 display:grid;
@@ -207,11 +300,32 @@ padding:16px;
 background:#020617;
 border-radius:18px;
 padding:20px;
-max-width:380px;
+max-width:500px;
 width:100%;
 text-align:center;
 border:1px solid rgba(0,229,255,.3);
 margin:auto;
+}
+.disclaimer-text {
+    background: #0f172a;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    max-height: 300px;
+    overflow-y: auto;
+    text-align: left;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #cbd5e1;
+    border: 1px solid #334155;
+}
+.disclaimer-text h3 {
+    color: var(--ai);
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+.disclaimer-text p {
+    margin-bottom: 10px;
 }
 
 /* SIGNAL */
@@ -287,6 +401,11 @@ text-align:center;
 .btn{font-size:12px;padding:8px 6px;}
 select, input{padding:10px;font-size:12px;}
 .generate{padding:14px;font-size:14px;}
+.plat-btn {padding: 8px 12px; font-size: 12px;}
+.platform-toggle-btn, .platform-display {
+    padding: 10px 20px;
+    font-size: 14px;
+}
 }
 
 /* Prevent zoom on input focus on mobile */
@@ -312,6 +431,44 @@ select, input{font-size:16px;}
 MG BOT AI analyzes trend structure, volatility, and momentum using advanced AI logic
 to deliver high-probability trading signals for Forex, Crypto & Binary markets.
 </p>
+</div>
+
+<!-- PLATFORM SELECTOR -->
+<div class="platform-selector">
+    <div id="platformToggle" class="platform-toggle-btn" onclick="togglePlatformDropdown()">
+        <i class="fas fa-desktop"></i> Select Trading Platform
+    </div>
+    
+    <div id="platformDisplay" class="platform-display" style="display: none;">
+        <i class="fas fa-check-circle"></i> <span id="selectedPlatformName">Platform</span>
+    </div>
+    
+    <div id="platformDropdown" class="platform-dropdown">
+        <div class="platform-group">
+            <h4><i class="fas fa-coins"></i> Crypto</h4>
+            <div class="group-buttons">
+                <button class="plat-btn" onclick="selectPlatform('Binance', 'crypto')">Binance</button>
+                <button class="plat-btn" onclick="selectPlatform('OKX', 'crypto')">OKX</button>
+                <button class="plat-btn" onclick="selectPlatform('MEXC Global', 'crypto')">MEXC Global</button>
+                <button class="plat-btn" onclick="selectPlatform('Bitget', 'crypto')">Bitget</button>
+            </div>
+        </div>
+        
+        <div class="platform-group">
+            <h4><i class="fas fa-chart-candlestick"></i> Binary</h4>
+            <div class="group-buttons">
+                <button class="plat-btn" onclick="selectPlatform('Quotex', 'binary')">Quotex</button>
+                <button class="plat-btn" onclick="selectPlatform('Pocket Option', 'binary')">Pocket Option</button>
+            </div>
+        </div>
+        
+        <div class="platform-group">
+            <h4><i class="fas fa-globe"></i> Forex</h4>
+            <div class="group-buttons">
+                <button class="plat-btn" onclick="selectPlatform('Exness', 'forex')">Exness</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="grid">
@@ -361,6 +518,35 @@ to deliver high-probability trading signals for Forex, Crypto & Binary markets.
 </div>
 </div>
 
+<!-- DISCLAIMER POPUP -->
+<div class="popup" id="disclaimerPopup">
+<div class="popup-box">
+<h3><i class="fas fa-exclamation-triangle"></i> Disclaimer & Terms of Use</h3>
+    
+<div class="disclaimer-text">
+    <h3>1. RISK DISCLAIMER (HIGH RISK WARNING)</h3>
+    <p>Trading foreign exchange (Forex), contracts for difference (CFDs), cryptocurrencies, and binary options carries a high level of risk and may not be suitable for all investors. The possibility exists that you could sustain a loss of some or all of your deposited funds. Therefore, you should not speculate with capital that you cannot afford to lose. You should be aware of all the risks associated with trading on margin.</p>
+    
+    <h3>2. NO FINANCIAL ADVICE</h3>
+    <p>The signals, analysis, and information provided by MG BOT AI are for educational and informational purposes only. They should not be construed as financial or investment advice. The signals generated by the AI system are based on automated technical analysis and do not take into account your personal financial situation, investment objectives, or risk tolerance. You are solely responsible for any trading decisions you make and the outcomes that result from those decisions.</p>
+    
+    <p>Past performance is not indicative of future results. There is no guarantee that the signals provided will be profitable or that they will result in any particular outcome. The financial markets are inherently unpredictable and can move rapidly in response to news events, economic data releases, and other factors that may not be accounted for in the AI analysis.</p>
+    
+    <p>By using MG BOT AI, you acknowledge that you have read, understood, and agree to be bound by these terms and conditions. You acknowledge that trading involves significant risk of loss and that you are solely responsible for your trading decisions and outcomes.</p>
+    
+    <p><strong>Full Terms & Conditions:</strong> <a href="https://docs.google.com/document/d/19mDtanb6DO7X8RnPhioGwqVFYni88EMTuovYzfmSl9k/edit?usp=sharing" target="_blank" style="color: #00e5ff;">View Complete Document</a></p>
+</div>
+
+<button class="generate" onclick="acceptDisclaimer()">
+    <i class="fas fa-check-circle"></i> I AGREE TO TERMS & GENERATE SIGNAL
+</button>
+
+<p style="margin-top: 10px; font-size: 12px; color: var(--muted);">
+    You must accept the disclaimer to generate trading signals.
+</p>
+</div>
+</div>
+
 <!-- SIGNAL POPUP -->
 <div class="popup" id="signalPopup">
 <div class="popup-box">
@@ -386,6 +572,9 @@ crypto:["BTCUSDT","ETHUSDT","BNBUSDT","XRPUSDT","SOLUSDT","ADAUSDT","DOGEUSDT","
 
 let market="forex";
 let widget;
+let selectedPlatform = null;
+let selectedPlatformType = null;
+let disclaimerAccepted = localStorage.getItem("mg_bot_disclaimer_accepted") === "true";
 
 /* ===== LICENSE (OBFUSCATED) ===== */
 const _k=btoa("09TRT5I4IRGJIR5FIG54345695");
@@ -436,12 +625,70 @@ function changePair(){
 loadChart(tvSymbol(document.getElementById("pair").value));
 }
 
-function requestSignal(){
-if(!licensed){
-document.getElementById("licensePopup").style.display="flex";
-return;
+function togglePlatformDropdown() {
+    const dropdown = document.getElementById('platformDropdown');
+    const toggleBtn = document.getElementById('platformToggle');
+    const displayBtn = document.getElementById('platformDisplay');
+    
+    if (dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+        // If no platform is selected, show the toggle button
+        if (!selectedPlatform) {
+            toggleBtn.style.display = 'inline-flex';
+            displayBtn.style.display = 'none';
+        }
+    } else {
+        dropdown.style.display = 'block';
+        toggleBtn.style.display = 'none';
+        displayBtn.style.display = 'none';
+    }
 }
-startScan();
+
+function selectPlatform(platformName, platformType) {
+    selectedPlatform = platformName;
+    selectedPlatformType = platformType;
+    
+    // Update the display button
+    document.getElementById('selectedPlatformName').textContent = platformName;
+    
+    // Hide dropdown and toggle button, show display button
+    document.getElementById('platformDropdown').style.display = 'none';
+    document.getElementById('platformToggle').style.display = 'none';
+    document.getElementById('platformDisplay').style.display = 'inline-flex';
+    
+    // Auto-select market type based on platform selection
+    if (platformType === 'crypto') {
+        setMarket('crypto', document.querySelector('.btn[onclick*="crypto"]'));
+    } else if (platformType === 'binary') {
+        setMarket('binary', document.querySelector('.btn[onclick*="binary"]'));
+    } else if (platformType === 'forex') {
+        setMarket('forex', document.querySelector('.btn[onclick*="forex"]'));
+    }
+    
+    console.log("Selected platform:", platformName, "Type:", platformType);
+}
+
+function requestSignal(){
+    if(!licensed){
+        document.getElementById("licensePopup").style.display="flex";
+        return;
+    }
+    
+    // Check if disclaimer has been accepted
+    if(!disclaimerAccepted) {
+        document.getElementById("disclaimerPopup").style.display="flex";
+        return;
+    }
+    
+    // If disclaimer already accepted, proceed to signal generation
+    startScan();
+}
+
+function acceptDisclaimer() {
+    disclaimerAccepted = true;
+    localStorage.setItem("mg_bot_disclaimer_accepted", "true");
+    document.getElementById("disclaimerPopup").style.display="none";
+    startScan();
 }
 
 function startScan(){
@@ -486,6 +733,31 @@ setTimeout(() => {
 window.location.href = "https://broker-qx.pro/sign-up/?lid=1492227";
 }, 100);
 }
+
+// Close popups when clicking outside
+document.querySelectorAll('.popup').forEach(popup => {
+    popup.addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+        }
+    });
+});
+
+// Close platform dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    const dropdown = document.getElementById('platformDropdown');
+    const toggleBtn = document.getElementById('platformToggle');
+    
+    if (dropdown.style.display === 'block' && 
+        !dropdown.contains(e.target) && 
+        !toggleBtn.contains(e.target)) {
+        dropdown.style.display = 'none';
+        // If no platform is selected, show the toggle button
+        if (!selectedPlatform) {
+            toggleBtn.style.display = 'inline-flex';
+        }
+    }
+});
 
 /* INIT */
 populatePairs();
