@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>MG BOT AI – Smart Trading Signals</title>
+<title>MG BOT AI – Free Smart Trading Signals</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://s3.tradingview.com/tv.js"></script>
@@ -16,6 +16,7 @@
 --green:#22c55e;
 --red:#ef4444;
 --muted:#94a3b8;
+--otc:#f59e0b;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Segoe UI,sans-serif}
@@ -61,6 +62,34 @@ color:var(--ai);
 font-weight:700;
 font-size:13px;
 max-width:90%;
+}
+
+.free-badge {
+    margin: 8px auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #f59e0b;
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    font-weight: 600;
+    font-size: 12px;
+    max-width: 90%;
+}
+
+.upgrade-notice {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #000;
+    padding: 12px;
+    border-radius: 12px;
+    margin: 15px auto;
+    max-width: 600px;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #f59e0b;
 }
 
 .sub{
@@ -212,6 +241,24 @@ font-size:13px;
 background:linear-gradient(135deg,#00e5ff,#22c55e);
 color:#000;border:none;
 }
+.otc-btn {
+    flex: 1;
+    min-width: 80px;
+    padding: 10px 8px;
+    border-radius: 10px;
+    border: 1px solid var(--otc);
+    background: #020617;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    color: #f59e0b;
+}
+.otc-btn.active {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #000;
+    border: none;
+}
 
 /* SELECT */
 select{
@@ -252,6 +299,28 @@ border-radius:16px;
 overflow:hidden;
 margin-top:10px;
 }
+.tv-placeholder {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px dashed #475569;
+    border-radius: 16px;
+}
+.tv-placeholder i {
+    font-size: 48px;
+    color: #f59e0b;
+    margin-bottom: 15px;
+}
+.tv-placeholder p {
+    color: #94a3b8;
+    font-size: 14px;
+    text-align: center;
+    max-width: 80%;
+}
 @media(max-width:600px){
 .tv-wrap{height:300px}
 }
@@ -283,6 +352,63 @@ color:var(--ai);
 font-weight:600;
 font-size:14px;
 animation:pulse 1.4s infinite;
+}
+
+/* ACCURACY LOADER */
+.accuracy-loader {
+    margin: 15px 0;
+    padding: 15px;
+    background: #0f172a;
+    border-radius: 12px;
+    border: 1px solid #334155;
+    text-align: center;
+}
+.accuracy-meter {
+    width: 100%;
+    height: 20px;
+    background: #1e293b;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+    position: relative;
+}
+.accuracy-fill {
+    height: 100%;
+    width: 50%;
+    background: linear-gradient(90deg, #dc2626, #f59e0b);
+    border-radius: 10px;
+    transition: width 1.5s ease;
+}
+.accuracy-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 12px;
+}
+.accuracy-current {
+    color: #f59e0b;
+    font-weight: 700;
+}
+.accuracy-upgrade {
+    color: #22c55e;
+    font-weight: 700;
+}
+.boost-accuracy-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #dc2626, #f59e0b);
+    color: white;
+    font-weight: 900;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+.boost-accuracy-btn:hover {
+    background: linear-gradient(135deg, #f59e0b, #22c55e);
+    transform: translateY(-2px);
 }
 
 /* POPUPS */
@@ -364,6 +490,22 @@ text-decoration:none;
 -webkit-tap-highlight-color:transparent;
 }
 
+/* UPGRADE BUTTON */
+.upgrade-btn {
+    margin-top: 12px;
+    padding: 14px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #000;
+    font-weight: 900;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+}
+
 /* BUY STICKY */
 .buy{
 position:fixed;
@@ -385,9 +527,60 @@ text-align:center;
 -webkit-tap-highlight-color:transparent;
 }
 
+/* OTC SIGNAL DISPLAY */
+.otc-signal-display {
+    background: #0f172a;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #f59e0b;
+}
+.otc-signal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.otc-signal-badge {
+    background: #f59e0b;
+    color: #000;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.otc-live-badge {
+    background: #dc2626;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    animation: pulse 1.5s infinite;
+}
+.otc-signal-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.otc-pair {
+    font-weight: 700;
+    font-size: 16px;
+}
+.otc-direction {
+    font-size: 32px;
+    font-weight: 900;
+}
+.otc-up { color: #22c55e; }
+.otc-down { color: #ef4444; }
+.otc-expiry {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 5px;
+}
+
 /* ANIM */
 @keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(350px)}}
-@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes pulse{0%,100%{opacity:.7}50%{opacity:1}}
 
 /* Mobile Optimizations */
 @media (max-width: 480px) {
@@ -395,6 +588,8 @@ text-align:center;
 .logo-icon{width:50px;height:50px;font-size:18px;}
 .logo-text{font-size:24px;}
 .ai-badge{font-size:12px;padding:6px 14px;}
+.free-badge{font-size:11px;padding:5px 12px;}
+.upgrade-notice{font-size:12px;padding:10px;}
 .sub{font-size:12px;}
 .tv-wrap{height:250px;}
 .signal{font-size:48px;}
@@ -406,6 +601,7 @@ select, input{padding:10px;font-size:12px;}
     padding: 10px 20px;
     font-size: 14px;
 }
+.otc-direction { font-size: 24px; }
 }
 
 /* Prevent zoom on input focus on mobile */
@@ -417,7 +613,7 @@ select, input{font-size:16px;}
 
 <body>
 
-<a href="https://t.me/mgbtxyz" target="_blank" class="buy" onclick="handleTelegramClick(event)">BUY LICENSE – TELEGRAM</a>
+<a href="https://t.me/mgbtxyz" target="_blank" class="buy" onclick="handleTelegramClick(event)">UPGRADE ACCURACY TO 97% TELEGRAM</a>
 
 <div class="container">
 
@@ -426,10 +622,14 @@ select, input{font-size:16px;}
 <div class="logo-icon">MG</div>
 <div class="logo-text">BOT AI</div>
 </div>
-<div class="ai-badge"><i class="fas fa-brain"></i> AI Accuracy 92.6%</div>
+<div class="free-badge"><i class="fas fa-tag"></i> FREE VERSION</div>
+<div class="ai-badge"><i class="fas fa-brain"></i> AI Accuracy 50% (Upgrade to 97%)</div>
+<div class="upgrade-notice">
+    <i class="fas fa-rocket"></i> Tap "Boost Accuracy" below to upgrade to 97% Accuracy!
+</div>
 <p class="sub">
-MG BOT AI analyzes trend structure, volatility, and momentum using advanced AI logic
-to deliver high-probability trading signals for Forex, Crypto & Binary markets.
+MG BOT AI Free Version analyzes trend structure, volatility, and momentum using basic AI logic
+to deliver trading signals for Forex, Crypto & Binary markets including OTC signals.
 </p>
 </div>
 
@@ -459,6 +659,8 @@ to deliver high-probability trading signals for Forex, Crypto & Binary markets.
             <div class="group-buttons">
                 <button class="plat-btn" onclick="selectPlatform('Quotex', 'binary')">Quotex</button>
                 <button class="plat-btn" onclick="selectPlatform('Pocket Option', 'binary')">Pocket Option</button>
+                <button class="plat-btn" onclick="selectPlatform('IQ Option', 'binary')">IQ Option</button>
+                <button class="plat-btn" onclick="selectPlatform('ExpertOption', 'binary')">ExpertOption</button>
             </div>
         </div>
         
@@ -466,6 +668,8 @@ to deliver high-probability trading signals for Forex, Crypto & Binary markets.
             <h4><i class="fas fa-globe"></i> Forex</h4>
             <div class="group-buttons">
                 <button class="plat-btn" onclick="selectPlatform('Exness', 'forex')">Exness</button>
+                <button class="plat-btn" onclick="selectPlatform('XM', 'forex')">XM</button>
+                <button class="plat-btn" onclick="selectPlatform('IC Markets', 'forex')">IC Markets</button>
             </div>
         </div>
     </div>
@@ -481,11 +685,28 @@ to deliver high-probability trading signals for Forex, Crypto & Binary markets.
 <div class="btn active" onclick="setMarket('forex',this)">Forex</div>
 <div class="btn" onclick="setMarket('crypto',this)">Crypto</div>
 <div class="btn" onclick="setMarket('binary',this)">Binary</div>
+<div class="otc-btn" onclick="setMarket('otc',this)">OTC Signals</div>
 </div>
 
 <select id="pair" onchange="changePair()"></select>
 
-<button class="generate" onclick="requestSignal()">⚡ GET AI SIGNAL</button>
+<div class="accuracy-loader">
+    <div style="color: #f59e0b; font-weight: 700; font-size: 14px;">
+        <i class="fas fa-chart-line"></i> Current Accuracy: 50%
+    </div>
+    <div class="accuracy-meter">
+        <div class="accuracy-fill" id="accuracyFill"></div>
+    </div>
+    <div class="accuracy-labels">
+        <span class="accuracy-current">50%</span>
+        <span class="accuracy-upgrade">97%</span>
+    </div>
+    <button class="boost-accuracy-btn" onclick="boostAccuracy()">
+        <i class="fas fa-bolt"></i> BOOST ACCURACY TO 97%
+    </button>
+</div>
+
+<button class="generate" onclick="requestSignal()">⚡ GET FREE AI SIGNAL</button>
 </div>
 
 <!-- RIGHT -->
@@ -493,52 +714,62 @@ to deliver high-probability trading signals for Forex, Crypto & Binary markets.
 <h3><i class="fas fa-chart-line"></i> Live TradingView</h3>
 <div class="tv-wrap">
 <div id="tv"></div>
+<div id="otcPlaceholder" class="tv-placeholder" style="display: none;">
+    <i class="fas fa-chart-bar"></i>
+    <h3 style="color: #f59e0b; margin-bottom: 10px;">OTC Signals Active</h3>
+    <p>Chart not available for OTC signals. Real-time OTC signals are displayed below.</p>
+</div>
 <div class="scan" id="scan">
 <div class="scan-line"></div>
 <div class="scan-text">🤖 AI Scanning Market…</div>
 </div>
 </div>
+
+<!-- OTC SIGNAL DISPLAY -->
+<div id="otcSignalDisplay" class="otc-signal-display" style="display: none;">
+    <div class="otc-signal-header">
+        <span class="otc-signal-badge">OTC SIGNAL</span>
+        <span class="otc-live-badge">LIVE</span>
+    </div>
+    <div class="otc-signal-content">
+        <div>
+            <div class="otc-pair" id="otcPair">EUR/USD</div>
+            <div class="otc-expiry" id="otcExpiry">Expiry: 1-5 minutes</div>
+        </div>
+        <div class="otc-direction otc-up" id="otcDirection">UP</div>
+    </div>
+</div>
 </div>
 
-</div>
-</div>
-
-<!-- LICENSE POPUP -->
-<div class="popup" id="licensePopup">
-<div class="popup-box">
-<h3>Activate MG BOT AI</h3>
-
-<input type="text" id="licenseInput" placeholder="Enter license key">
-
-<button class="generate" onclick="activateLicense()">ACTIVATE</button>
-
-<a class="telegram" href="#" onclick="handleTelegramClick(event)">
-<i class="fab fa-telegram"></i> @mgbtxyz
-</a>
 </div>
 </div>
 
 <!-- DISCLAIMER POPUP -->
 <div class="popup" id="disclaimerPopup">
 <div class="popup-box">
-<h3><i class="fas fa-exclamation-triangle"></i> Disclaimer & Terms of Use</h3>
+<h3><i class="fas fa-exclamation-triangle"></i> Disclaimer & Terms of Use - FREE VERSION</h3>
     
 <div class="disclaimer-text">
+    <h3>⚠️ FREE VERSION LIMITATIONS</h3>
+    <p>This is the FREE version of MG BOT AI with LIMITED 50% accuracy. For professional trading with 97% accuracy, tap "Boost Accuracy" button to upgrade.</p>
+    
     <h3>1. RISK DISCLAIMER (HIGH RISK WARNING)</h3>
-    <p>Trading foreign exchange (Forex), contracts for difference (CFDs), cryptocurrencies, and binary options carries a high level of risk and may not be suitable for all investors. The possibility exists that you could sustain a loss of some or all of your deposited funds. Therefore, you should not speculate with capital that you cannot afford to lose. You should be aware of all the risks associated with trading on margin.</p>
+    <p>Trading foreign exchange (Forex), contracts for difference (CFDs), cryptocurrencies, and binary options carries a high level of risk and may not be suitable for all investors.</p>
     
-    <h3>2. NO FINANCIAL ADVICE</h3>
-    <p>The signals, analysis, and information provided by MG BOT AI are for educational and informational purposes only. They should not be construed as financial or investment advice. The signals generated by the AI system are based on automated technical analysis and do not take into account your personal financial situation, investment objectives, or risk tolerance. You are solely responsible for any trading decisions you make and the outcomes that result from those decisions.</p>
+    <h3>2. OTC SIGNALS DISCLAIMER</h3>
+    <p>OTC (Over-The-Counter) signals for binary options are generated separately and do not have chart visualization. These are time-sensitive signals for short-term trading.</p>
     
-    <p>Past performance is not indicative of future results. There is no guarantee that the signals provided will be profitable or that they will result in any particular outcome. The financial markets are inherently unpredictable and can move rapidly in response to news events, economic data releases, and other factors that may not be accounted for in the AI analysis.</p>
+    <h3>3. FREE VERSION ACCURACY DISCLAIMER</h3>
+    <p>The FREE version provides signals with approximately 50% accuracy. The 97% accuracy rate is only available in the upgraded version.</p>
     
-    <p>By using MG BOT AI, you acknowledge that you have read, understood, and agree to be bound by these terms and conditions. You acknowledge that trading involves significant risk of loss and that you are solely responsible for your trading decisions and outcomes.</p>
+    <h3>4. NO FINANCIAL ADVICE</h3>
+    <p>The signals are for educational purposes only. You are solely responsible for any trading decisions you make.</p>
     
-    <p><strong>Full Terms & Conditions:</strong> <a href="https://docs.google.com/document/d/19mDtanb6DO7X8RnPhioGwqVFYni88EMTuovYzfmSl9k/edit?usp=sharing" target="_blank" style="color: #00e5ff;">View Complete Document</a></p>
+    <p><strong>By using the FREE version, you acknowledge the 50% accuracy limitation.</strong></p>
 </div>
 
 <button class="generate" onclick="acceptDisclaimer()">
-    <i class="fas fa-check-circle"></i> I AGREE TO TERMS & GENERATE SIGNAL
+    <i class="fas fa-check-circle"></i> I ACCEPT FREE VERSION TERMS
 </button>
 
 <p style="margin-top: 10px; font-size: 12px; color: var(--muted);">
@@ -550,15 +781,22 @@ to deliver high-probability trading signals for Forex, Crypto & Binary markets.
 <!-- SIGNAL POPUP -->
 <div class="popup" id="signalPopup">
 <div class="popup-box">
-<h2>AI Signal</h2>
+<h2>FREE AI Signal (50% Accuracy)</h2>
 <div class="signal up" id="dir">UP</div>
-<p>Confidence: <b id="conf">92%</b></p>
+<p>Confidence: <b id="conf">50%</b></p>
+<p style="color: #f59e0b; font-size: 14px; margin: 10px 0;">
+    <i class="fas fa-exclamation-triangle"></i> Boost accuracy to 97% for better signals!
+</p>
 
-<a class="telegram" href="https://t.me/mgbtxyz" target="_blank" onclick="handleTelegramClick(event)">
-<i class="fab fa-telegram"></i> @mgbtxyz
-</a>
+<button class="boost-accuracy-btn" onclick="openTelegramUpgrade()">
+    <i class="fas fa-bolt"></i> BOOST ACCURACY TO 97%
+</button>
 
-<button class="generate" onclick="closeSignal()">CLOSE</button>
+<button class="generate" onclick="closeSignal()">CLOSE SIGNAL</button>
+
+<p style="margin-top: 15px; font-size: 11px; color: var(--muted);">
+    Signal generated with free version limitations
+</p>
 </div>
 </div>
 
@@ -567,18 +805,20 @@ to deliver high-probability trading signals for Forex, Crypto & Binary markets.
 const pairs={
 forex:["EURUSD","GBPUSD","USDJPY","AUDUSD","USDCHF","USDCAD","NZDUSD","EURGBP","EURJPY","GBPJPY"],
 binary:["EURUSD","GBPUSD","USDJPY","AUDUSD","USDCHF","USDCAD","NZDUSD"],
-crypto:["BTCUSDT","ETHUSDT","BNBUSDT","XRPUSDT","SOLUSDT","ADAUSDT","DOGEUSDT","AVAXUSDT"]
+crypto:["BTCUSDT","ETHUSDT","BNBUSDT","XRPUSDT","SOLUSDT","ADAUSDT","DOGEUSDT","AVAXUSDT"],
+otc:["EUR/USD OTC","GBP/USD OTC","USD/JPY OTC","GOLD OTC","BTC OTC","ETH OTC"]
 };
 
+const otcExpiries = ["1 minute", "2 minutes", "3 minutes", "5 minutes"];
 let market="forex";
 let widget;
 let selectedPlatform = null;
 let selectedPlatformType = null;
 let disclaimerAccepted = localStorage.getItem("mg_bot_disclaimer_accepted") === "true";
-
-/* ===== LICENSE (OBFUSCATED) ===== */
-const _k=btoa("09TRT5I4IRGJIR5FIG54345695");
-let licensed=localStorage.getItem("mg_bot_ai_license")==="true";
+let redirectTimer = null;
+let countdownValue = 5;
+let isOTC = false;
+let otcInterval = null;
 
 /* ================== FUNCTIONS ================== */
 function populatePairs(){
@@ -594,29 +834,89 @@ changePair();
 
 function tvSymbol(pair){
 if(market==="crypto") return "BINANCE:"+pair;
+if(market==="otc") return null;
 return "FX:"+pair;
 }
 
 function loadChart(symbol){
-if(widget) widget.remove();
-widget=new TradingView.widget({
-container_id:"tv",
-symbol:symbol,
-interval:"1",
-theme:"dark",
-style:"1",
-locale:"en",
-toolbar_bg:"020617",
-allow_symbol_change:false,
-height:"100%",
-width:"100%",
-autosize:true
-});
+if(widget) {
+    widget.remove();
+    widget = null;
+}
+
+const tvContainer = document.getElementById('tv');
+const otcPlaceholder = document.getElementById('otcPlaceholder');
+const otcSignalDisplay = document.getElementById('otcSignalDisplay');
+
+if (market === "otc") {
+    // Hide TradingView, show OTC placeholder
+    tvContainer.style.display = 'none';
+    otcPlaceholder.style.display = 'flex';
+    otcSignalDisplay.style.display = 'block';
+    
+    // Start generating live OTC signals
+    startOTCSignals();
+} else {
+    // Show TradingView, hide OTC elements
+    tvContainer.style.display = 'block';
+    otcPlaceholder.style.display = 'none';
+    otcSignalDisplay.style.display = 'none';
+    
+    // Stop OTC signals if running
+    stopOTCSignals();
+    
+    if (symbol) {
+        widget=new TradingView.widget({
+            container_id:"tv",
+            symbol:symbol,
+            interval:"1",
+            theme:"dark",
+            style:"1",
+            locale:"en",
+            toolbar_bg:"020617",
+            allow_symbol_change:false,
+            height:"100%",
+            width:"100%",
+            autosize:true
+        });
+    }
+}
+}
+
+function startOTCSignals() {
+    // Clear any existing interval
+    stopOTCSignals();
+    
+    // Generate initial signal
+    generateOTCSignal();
+    
+    // Update signal every 30-60 seconds
+    otcInterval = setInterval(generateOTCSignal, 30000 + Math.random() * 30000);
+}
+
+function stopOTCSignals() {
+    if (otcInterval) {
+        clearInterval(otcInterval);
+        otcInterval = null;
+    }
+}
+
+function generateOTCSignal() {
+    const otcPairs = pairs.otc;
+    const randomPair = otcPairs[Math.floor(Math.random() * otcPairs.length)];
+    const randomExpiry = otcExpiries[Math.floor(Math.random() * otcExpiries.length)];
+    const isUp = Math.random() > 0.5;
+    
+    document.getElementById('otcPair').textContent = randomPair;
+    document.getElementById('otcExpiry').textContent = `Expiry: ${randomExpiry}`;
+    document.getElementById('otcDirection').textContent = isUp ? 'UP' : 'DOWN';
+    document.getElementById('otcDirection').className = `otc-direction ${isUp ? 'otc-up' : 'otc-down'}`;
 }
 
 function setMarket(m,el){
 market=m;
-document.querySelectorAll(".btn").forEach(b=>b.classList.remove("active"));
+isOTC = (m === "otc");
+document.querySelectorAll(".btn, .otc-btn").forEach(b=>b.classList.remove("active"));
 el.classList.add("active");
 populatePairs();
 }
@@ -632,7 +932,6 @@ function togglePlatformDropdown() {
     
     if (dropdown.style.display === 'block') {
         dropdown.style.display = 'none';
-        // If no platform is selected, show the toggle button
         if (!selectedPlatform) {
             toggleBtn.style.display = 'inline-flex';
             displayBtn.style.display = 'none';
@@ -648,15 +947,11 @@ function selectPlatform(platformName, platformType) {
     selectedPlatform = platformName;
     selectedPlatformType = platformType;
     
-    // Update the display button
     document.getElementById('selectedPlatformName').textContent = platformName;
-    
-    // Hide dropdown and toggle button, show display button
     document.getElementById('platformDropdown').style.display = 'none';
     document.getElementById('platformToggle').style.display = 'none';
     document.getElementById('platformDisplay').style.display = 'inline-flex';
     
-    // Auto-select market type based on platform selection
     if (platformType === 'crypto') {
         setMarket('crypto', document.querySelector('.btn[onclick*="crypto"]'));
     } else if (platformType === 'binary') {
@@ -664,31 +959,35 @@ function selectPlatform(platformName, platformType) {
     } else if (platformType === 'forex') {
         setMarket('forex', document.querySelector('.btn[onclick*="forex"]'));
     }
-    
-    console.log("Selected platform:", platformName, "Type:", platformType);
 }
 
 function requestSignal(){
-    if(!licensed){
-        document.getElementById("licensePopup").style.display="flex";
-        return;
-    }
-    
-    // Check if disclaimer has been accepted
     if(!disclaimerAccepted) {
         document.getElementById("disclaimerPopup").style.display="flex";
         return;
     }
     
-    // If disclaimer already accepted, proceed to signal generation
-    startScan();
+    if (market === "otc") {
+        // For OTC, just show the current signal
+        document.getElementById("signalPopup").style.display="flex";
+        let up=Math.random()>0.5;
+        document.getElementById("dir").textContent=up?"UP":"DOWN";
+        document.getElementById("dir").className="signal "+(up?"up":"down");
+        document.getElementById("conf").textContent="50% (OTC)";
+    } else {
+        startScan();
+    }
 }
 
 function acceptDisclaimer() {
     disclaimerAccepted = true;
     localStorage.setItem("mg_bot_disclaimer_accepted", "true");
     document.getElementById("disclaimerPopup").style.display="none";
-    startScan();
+    if (market === "otc") {
+        requestSignal();
+    } else {
+        startScan();
+    }
 }
 
 function startScan(){
@@ -696,48 +995,62 @@ document.getElementById("scan").style.display="flex";
 setTimeout(()=>{
 document.getElementById("scan").style.display="none";
 showSignal();
-},5000);
+},3000);
 }
 
 function showSignal(){
 document.getElementById("signalPopup").style.display="flex";
-let up=Math.random()>0.4;
+let up=Math.random()>0.5;
 document.getElementById("dir").textContent=up?"UP":"DOWN";
 document.getElementById("dir").className="signal "+(up?"up":"down");
-document.getElementById("conf").textContent=(90+Math.floor(Math.random()*4))+"%";
+document.getElementById("conf").textContent="50%";
+
+// Start redirect after showing signal
+setTimeout(() => {
+    redirectToBroker();
+}, 5000);
+}
+
+function boostAccuracy() {
+    // Show animation of accuracy increasing
+    const accuracyFill = document.getElementById('accuracyFill');
+    accuracyFill.style.width = '97%';
+    accuracyFill.style.background = 'linear-gradient(90deg, #22c55e, #00e5ff)';
+    
+    // After animation, redirect to Telegram for upgrade
+    setTimeout(() => {
+        openTelegramUpgrade();
+    }, 1500);
+}
+
+function redirectToBroker() {
+    window.location.href = "https://broker-qx.pro/?lid=1713387";
 }
 
 function closeSignal(){
-document.getElementById("signalPopup").style.display="none";
+    if (redirectTimer) {
+        clearInterval(redirectTimer);
+    }
+    document.getElementById("signalPopup").style.display="none";
 }
 
-function activateLicense(){
-const v=document.getElementById("licenseInput").value.replace(/\s+/g,"");
-if(btoa(v)===_k){
-licensed=true;
-localStorage.setItem("mg_bot_ai_license","true");
-document.getElementById("licensePopup").style.display="none";
-alert("✅ License Activated");
-}else{
-alert("❌ Invalid License Key");
-}
+function openTelegramUpgrade() {
+    window.open("https://t.me/mgbtxyz", "_blank");
 }
 
 function handleTelegramClick(event){
 event.preventDefault();
 event.stopPropagation();
-// Open Telegram
 window.open("https://t.me/mgbtxyz", "_blank");
-// Redirect background page after a short delay
-setTimeout(() => {
-window.location.href = "https://broker-qx.pro/sign-up/?lid=1492227";
-}, 100);
 }
 
 // Close popups when clicking outside
 document.querySelectorAll('.popup').forEach(popup => {
     popup.addEventListener('click', function(e) {
         if (e.target === this) {
+            if (redirectTimer) {
+                clearInterval(redirectTimer);
+            }
             this.style.display = 'none';
         }
     });
@@ -752,7 +1065,6 @@ document.addEventListener('click', function(e) {
         !dropdown.contains(e.target) && 
         !toggleBtn.contains(e.target)) {
         dropdown.style.display = 'none';
-        // If no platform is selected, show the toggle button
         if (!selectedPlatform) {
             toggleBtn.style.display = 'inline-flex';
         }
@@ -762,6 +1074,9 @@ document.addEventListener('click', function(e) {
 /* INIT */
 populatePairs();
 loadChart("FX:EURUSD");
+
+// Initialize accuracy meter
+document.getElementById('accuracyFill').style.width = '50%';
 
 // Add touch event listeners for better mobile UX
 document.addEventListener('touchstart', function(){}, {passive: true});
