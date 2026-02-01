@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>MG BOT AI – Free Smart Trading Signals</title>
+<title>MG BOT AI – DEMO VERSION – Random Trading Signals Simulator</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://s3.tradingview.com/tv.js"></script>
@@ -17,6 +17,7 @@
 --red:#ef4444;
 --muted:#94a3b8;
 --otc:#f59e0b;
+--warning:#ff4444;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Segoe UI,sans-serif}
@@ -49,8 +50,42 @@ box-shadow:0 0 25px rgba(0,229,255,.7)
 }
 .logo-text{font-size:28px;font-weight:800}
 
-.ai-badge{
+.warning-banner {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    color: white;
+    padding: 14px;
+    border-radius: 12px;
+    margin: 15px auto;
+    max-width: 800px;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #ff4444;
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+}
+
+.warning-banner i {
+    margin-right: 8px;
+    animation: pulse 1.5s infinite;
+}
+
+.demo-badge{
 margin:12px auto;
+display:inline-flex;
+align-items:center;
+gap:6px;
+padding:10px 22px;
+border-radius:25px;
+border:2px solid #ff4444;
+background:rgba(255, 68, 68, 0.15);
+color:#ff9999;
+font-weight:700;
+font-size:14px;
+max-width:90%;
+}
+
+.ai-badge{
+margin:8px auto;
 display:inline-flex;
 align-items:center;
 gap:6px;
@@ -99,6 +134,18 @@ color:var(--muted);
 font-size:13px;
 line-height:1.6;
 padding:0 10px;
+}
+
+.disclaimer-bar {
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    border-radius: 10px;
+    padding: 12px;
+    margin: 15px auto;
+    max-width: 800px;
+    text-align: center;
+    font-size: 12px;
+    color: #ff9999;
 }
 
 /* PLATFORM SELECTOR */
@@ -587,6 +634,8 @@ text-align:center;
 .container{padding:12px;}
 .logo-icon{width:50px;height:50px;font-size:18px;}
 .logo-text{font-size:24px;}
+.warning-banner{font-size:12px;padding:10px;}
+.demo-badge{font-size:12px;padding:8px 16px;}
 .ai-badge{font-size:12px;padding:6px 14px;}
 .free-badge{font-size:11px;padding:5px 12px;}
 .upgrade-notice{font-size:12px;padding:10px;}
@@ -613,7 +662,12 @@ select, input{font-size:16px;}
 
 <body>
 
-<a href="https://t.me/mgbtxyz" target="_blank" class="buy" onclick="handleTelegramClick(event)">UPGRADE ACCURACY TO 97% TELEGRAM</a>
+<div class="warning-banner">
+    <i class="fas fa-exclamation-triangle"></i>
+    ⚠️ HIGH RISK DEMO VERSION - SIGNALS ARE RANDOMLY GENERATED - NOT FOR REAL TRADING ⚠️
+</div>
+
+<a href="https://t.me/mgbtxyz" target="_blank" class="buy" onclick="handleTelegramClick(event)">UPGRADE TO REAL VERSION</a>
 
 <div class="container">
 
@@ -622,14 +676,26 @@ select, input{font-size:16px;}
 <div class="logo-icon">MG</div>
 <div class="logo-text">BOT AI</div>
 </div>
-<div class="free-badge"><i class="fas fa-tag"></i> FREE VERSION</div>
-<div class="ai-badge"><i class="fas fa-brain"></i> AI Accuracy 50% (Upgrade to 97%)</div>
-<div class="upgrade-notice">
-    <i class="fas fa-rocket"></i> Tap "Boost Accuracy" below to upgrade to 97% Accuracy!
+
+<div class="demo-badge">
+    <i class="fas fa-vial"></i> DEMO SIMULATOR VERSION - SIGNALS ARE RANDOM
 </div>
+
+<div class="free-badge"><i class="fas fa-tag"></i> DEMO VERSION - RANDOM SIGNALS</div>
+<div class="ai-badge"><i class="fas fa-brain"></i> DEMO Accuracy 50% (Upgrade to Real Version)</div>
+
+<div class="disclaimer-bar">
+    <i class="fas fa-exclamation-circle"></i> This is a DEMONSTRATION version only. All signals are randomly generated for testing purposes.
+</div>
+
+<div class="upgrade-notice">
+    <i class="fas fa-rocket"></i> This is a DEMO - Signals are RANDOM. Upgrade for real AI signals!
+</div>
+
 <p class="sub">
-MG BOT AI Free Version analyzes trend structure, volatility, and momentum using basic AI logic
-to deliver trading signals for Forex, Crypto & Binary markets including OTC signals.
+⚠️ <strong>DISCLAIMER:</strong> MG BOT AI DEMO VERSION generates RANDOM trading signals for demonstration purposes only. 
+This is NOT a real trading tool. Trading involves substantial risk of loss. 
+The signals shown are completely random and should NOT be used for actual trading decisions.
 </p>
 </div>
 
@@ -692,21 +758,21 @@ to deliver trading signals for Forex, Crypto & Binary markets including OTC sign
 
 <div class="accuracy-loader">
     <div style="color: #f59e0b; font-weight: 700; font-size: 14px;">
-        <i class="fas fa-chart-line"></i> Current Accuracy: 50%
+        <i class="fas fa-chart-line"></i> DEMO Accuracy: 50% (Random)
     </div>
     <div class="accuracy-meter">
         <div class="accuracy-fill" id="accuracyFill"></div>
     </div>
     <div class="accuracy-labels">
-        <span class="accuracy-current">50%</span>
-        <span class="accuracy-upgrade">97%</span>
+        <span class="accuracy-current">DEMO 50%</span>
+        <span class="accuracy-upgrade">REAL 97%</span>
     </div>
     <button class="boost-accuracy-btn" onclick="boostAccuracy()">
-        <i class="fas fa-bolt"></i> BOOST ACCURACY TO 97%
+        <i class="fas fa-bolt"></i> UPGRADE TO REAL VERSION
     </button>
 </div>
 
-<button class="generate" onclick="requestSignal()">⚡ GET FREE AI SIGNAL</button>
+<button class="generate" onclick="requestSignal()">⚡ GET DEMO SIGNAL (RANDOM)</button>
 </div>
 
 <!-- RIGHT -->
@@ -721,15 +787,15 @@ to deliver trading signals for Forex, Crypto & Binary markets including OTC sign
 </div>
 <div class="scan" id="scan">
 <div class="scan-line"></div>
-<div class="scan-text">🤖 AI Scanning Market…</div>
+<div class="scan-text">🤖 DEMO: Generating Random Signal…</div>
 </div>
 </div>
 
 <!-- OTC SIGNAL DISPLAY -->
 <div id="otcSignalDisplay" class="otc-signal-display" style="display: none;">
     <div class="otc-signal-header">
-        <span class="otc-signal-badge">OTC SIGNAL</span>
-        <span class="otc-live-badge">LIVE</span>
+        <span class="otc-signal-badge">DEMO OTC SIGNAL</span>
+        <span class="otc-live-badge">RANDOM</span>
     </div>
     <div class="otc-signal-content">
         <div>
@@ -747,33 +813,45 @@ to deliver trading signals for Forex, Crypto & Binary markets including OTC sign
 <!-- DISCLAIMER POPUP -->
 <div class="popup" id="disclaimerPopup">
 <div class="popup-box">
-<h3><i class="fas fa-exclamation-triangle"></i> Disclaimer & Terms of Use - FREE VERSION</h3>
+<h3><i class="fas fa-exclamation-triangle"></i> ⚠️ DEMO VERSION DISCLAIMER ⚠️</h3>
     
 <div class="disclaimer-text">
-    <h3>⚠️ FREE VERSION LIMITATIONS</h3>
-    <p>This is the FREE version of MG BOT AI with LIMITED 50% accuracy. For professional trading with 97% accuracy, tap "Boost Accuracy" button to upgrade.</p>
+    <h3 style="color: #ff4444;">⚠️ CRITICAL WARNING: DEMO VERSION ONLY</h3>
+    <p>This is a <strong>DEMONSTRATION VERSION ONLY</strong>. All trading signals shown are <strong>RANDOMLY GENERATED</strong> and <strong>NOT BASED ON REAL MARKET ANALYSIS</strong>.</p>
     
-    <h3>1. RISK DISCLAIMER (HIGH RISK WARNING)</h3>
-    <p>Trading foreign exchange (Forex), contracts for difference (CFDs), cryptocurrencies, and binary options carries a high level of risk and may not be suitable for all investors.</p>
+    <h3>🚫 NOT FOR REAL TRADING</h3>
+    <p>This demo version is for testing and demonstration purposes only. <strong>DO NOT USE</strong> these signals for actual trading. You will lose money if you follow random signals.</p>
+    
+    <h3>🔢 RANDOM SIGNAL GENERATION</h3>
+    <p>The "AI" in this demo version is simulated. Signals are generated using random number algorithms with no actual market analysis or prediction capability.</p>
+    
+    <h3>1. HIGH RISK DEMO DISCLAIMER</h3>
+    <p>This demo simulates trading signals but <strong>ALL SIGNALS ARE RANDOM</strong>. Real trading involves substantial risk of loss. Only trade with money you can afford to lose.</p>
     
     <h3>2. OTC SIGNALS DISCLAIMER</h3>
-    <p>OTC (Over-The-Counter) signals for binary options are generated separately and do not have chart visualization. These are time-sensitive signals for short-term trading.</p>
+    <p>OTC (Over-The-Counter) signals in this demo are randomly generated and time-sensitive. They do not represent real market opportunities.</p>
     
-    <h3>3. FREE VERSION ACCURACY DISCLAIMER</h3>
-    <p>The FREE version provides signals with approximately 50% accuracy. The 97% accuracy rate is only available in the upgraded version.</p>
+    <h3>3. ACCURACY DISCLAIMER</h3>
+    <p>The 50% accuracy shown is <strong>SIMULATED AND RANDOM</strong>. The 97% accuracy rate is only available in the real, upgraded version (not this demo).</p>
     
     <h3>4. NO FINANCIAL ADVICE</h3>
-    <p>The signals are for educational purposes only. You are solely responsible for any trading decisions you make.</p>
+    <p>This demo provides NO financial advice. All signals are randomly generated for demonstration purposes only.</p>
     
-    <p><strong>By using the FREE version, you acknowledge the 50% accuracy limitation.</strong></p>
+    <h3>5. UPGRADE NOTICE</h3>
+    <p>To receive real AI-powered trading signals, you must upgrade to the paid version. This demo version contains only random signals.</p>
+    
+    <p style="color: #ff4444; font-weight: bold; border: 1px solid #ff4444; padding: 10px; border-radius: 5px;">
+        <i class="fas fa-exclamation-circle"></i> 
+        <strong>WARNING:</strong> By continuing, you acknowledge this is a DEMO with RANDOM signals only.
+    </p>
 </div>
 
 <button class="generate" onclick="acceptDisclaimer()">
-    <i class="fas fa-check-circle"></i> I ACCEPT FREE VERSION TERMS
+    <i class="fas fa-check-circle"></i> I UNDERSTAND THIS IS A DEMO WITH RANDOM SIGNALS
 </button>
 
 <p style="margin-top: 10px; font-size: 12px; color: var(--muted);">
-    You must accept the disclaimer to generate trading signals.
+    You must accept this disclaimer to generate demo trading signals.
 </p>
 </div>
 </div>
@@ -781,21 +859,22 @@ to deliver trading signals for Forex, Crypto & Binary markets including OTC sign
 <!-- SIGNAL POPUP -->
 <div class="popup" id="signalPopup">
 <div class="popup-box">
-<h2>FREE AI Signal (50% Accuracy)</h2>
+<h2>DEMO SIGNAL - RANDOMLY GENERATED</h2>
 <div class="signal up" id="dir">UP</div>
-<p>Confidence: <b id="conf">50%</b></p>
-<p style="color: #f59e0b; font-size: 14px; margin: 10px 0;">
-    <i class="fas fa-exclamation-triangle"></i> Boost accuracy to 97% for better signals!
+<p>Confidence: <b id="conf">50% (RANDOM)</b></p>
+<p style="color: #ff4444; font-size: 14px; margin: 10px 0; border: 1px solid #ff4444; padding: 10px; border-radius: 5px;">
+    <i class="fas fa-exclamation-triangle"></i> 
+    <strong>DEMO SIGNAL:</strong> This signal was randomly generated. Do not use for real trading!
 </p>
 
 <button class="boost-accuracy-btn" onclick="openTelegramUpgrade()">
-    <i class="fas fa-bolt"></i> BOOST ACCURACY TO 97%
+    <i class="fas fa-bolt"></i> UPGRADE TO REAL AI SIGNALS
 </button>
 
-<button class="generate" onclick="closeSignal()">CLOSE SIGNAL</button>
+<button class="generate" onclick="closeSignal()">CLOSE DEMO SIGNAL</button>
 
 <p style="margin-top: 15px; font-size: 11px; color: var(--muted);">
-    Signal generated with free version limitations
+    ⚠️ This is a DEMO VERSION - All signals are randomly generated
 </p>
 </div>
 </div>
@@ -973,7 +1052,7 @@ function requestSignal(){
         let up=Math.random()>0.5;
         document.getElementById("dir").textContent=up?"UP":"DOWN";
         document.getElementById("dir").className="signal "+(up?"up":"down");
-        document.getElementById("conf").textContent="50% (OTC)";
+        document.getElementById("conf").textContent="50% (RANDOM OTC)";
     } else {
         startScan();
     }
@@ -1003,12 +1082,7 @@ document.getElementById("signalPopup").style.display="flex";
 let up=Math.random()>0.5;
 document.getElementById("dir").textContent=up?"UP":"DOWN";
 document.getElementById("dir").className="signal "+(up?"up":"down");
-document.getElementById("conf").textContent="50%";
-
-// Start redirect after showing signal
-setTimeout(() => {
-    redirectToBroker();
-}, 5000);
+document.getElementById("conf").textContent="50% (RANDOM)";
 }
 
 function boostAccuracy() {
@@ -1021,10 +1095,6 @@ function boostAccuracy() {
     setTimeout(() => {
         openTelegramUpgrade();
     }, 1500);
-}
-
-function redirectToBroker() {
-    window.location.href = "https://broker-qx.pro/?lid=1713387";
 }
 
 function closeSignal(){
@@ -1078,8 +1148,18 @@ loadChart("FX:EURUSD");
 // Initialize accuracy meter
 document.getElementById('accuracyFill').style.width = '50%';
 
+// Show disclaimer on first load if not accepted
+if (!disclaimerAccepted) {
+    setTimeout(() => {
+        document.getElementById("disclaimerPopup").style.display = "flex";
+    }, 1000);
+}
+
 // Add touch event listeners for better mobile UX
 document.addEventListener('touchstart', function(){}, {passive: true});
+
+// Add console warning
+console.warn("⚠️ MG BOT AI DEMO VERSION - All signals are randomly generated for demonstration purposes only. NOT FOR REAL TRADING.");
 </script>
 
 </body>
