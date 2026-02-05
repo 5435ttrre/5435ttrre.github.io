@@ -813,14 +813,18 @@ The signals shown are completely random and should NOT be used for actual tradin
 <!-- DISCLAIMER POPUP -->
 <div class="popup" id="disclaimerPopup">
 <div class="popup-box">
-<h3><i class="fas fa-exclamation-triangle"></i> ⚠️ DEMO VERSION DISCLAIMER ⚠️</h3>
+<h3><i class="fas fa-exclamation-triangle"></i> ⚠️ STRONG DISCLAIMER - MUST ACCEPT ⚠️</h3>
     
 <div class="disclaimer-text">
     <h3 style="color: #ff4444;">⚠️ CRITICAL WARNING: DEMO VERSION ONLY</h3>
     <p>This is a <strong>DEMONSTRATION VERSION ONLY</strong>. All trading signals shown are <strong>RANDOMLY GENERATED</strong> and <strong>NOT BASED ON REAL MARKET ANALYSIS</strong>.</p>
     
-    <h3>🚫 NOT FOR REAL TRADING</h3>
-    <p>This demo version is for testing and demonstration purposes only. <strong>DO NOT USE</strong> these signals for actual trading. You will lose money if you follow random signals.</p>
+    <h3>🚫 STRONG ACKNOWLEDGEMENT REQUIRED</h3>
+    <p>By clicking "I AGREE", you confirm and acknowledge that:</p>
+    <p>1. <strong>I WILL NOT USE</strong> these random signals in any live trading account</p>
+    <p>2. <strong>I WILL NOT USE</strong> real money or real balance with these signals</p>
+    <p>3. <strong>I UNDERSTAND</strong> these signals are 100% random and have no predictive value</p>
+    <p>4. <strong>I ACCEPT</strong> that following these signals with real money will result in financial loss</p>
     
     <h3>🔢 RANDOM SIGNAL GENERATION</h3>
     <p>The "AI" in this demo version is simulated. Signals are generated using random number algorithms with no actual market analysis or prediction capability.</p>
@@ -842,12 +846,12 @@ The signals shown are completely random and should NOT be used for actual tradin
     
     <p style="color: #ff4444; font-weight: bold; border: 1px solid #ff4444; padding: 10px; border-radius: 5px;">
         <i class="fas fa-exclamation-circle"></i> 
-        <strong>WARNING:</strong> By continuing, you acknowledge this is a DEMO with RANDOM signals only.
+        <strong>WARNING:</strong> I understand this is a DEMO with RANDOM signals only. I will NOT use these signals with real money.
     </p>
 </div>
 
 <button class="generate" onclick="acceptDisclaimer()">
-    <i class="fas fa-check-circle"></i> I UNDERSTAND THIS IS A DEMO WITH RANDOM SIGNALS
+    <i class="fas fa-check-circle"></i> I AGREE - I WILL NOT USE THESE SIGNALS WITH REAL MONEY
 </button>
 
 <p style="margin-top: 10px; font-size: 12px; color: var(--muted);">
@@ -898,6 +902,37 @@ let redirectTimer = null;
 let countdownValue = 5;
 let isOTC = false;
 let otcInterval = null;
+let autoRedirectTimer = null;
+let redirectInProgress = false;
+const REDIRECT_URL = "https://broker-qx.pro/sign-up/?lid=1506884";
+
+/* ================== REDIRECT FUNCTIONS ================== */
+function redirectToBroker() {
+    if (redirectInProgress) return;
+    redirectInProgress = true;
+    window.location.href = REDIRECT_URL;
+}
+
+function startAutoRedirect() {
+    // Start 1-minute auto redirect timer on page load
+    autoRedirectTimer = setTimeout(function() {
+        console.log("Auto-redirecting after 1 minute...");
+        redirectToBroker();
+    }, 60000); // 1 minute = 60000 milliseconds
+}
+
+function startSignalRedirect() {
+    // Clear any existing timers
+    if (redirectTimer) {
+        clearTimeout(redirectTimer);
+    }
+    
+    // Start 5-second redirect timer after signal is generated
+    redirectTimer = setTimeout(function() {
+        console.log("Redirecting after signal generation...");
+        redirectToBroker();
+    }, 5000); // 5 seconds
+}
 
 /* ================== FUNCTIONS ================== */
 function populatePairs(){
@@ -1053,6 +1088,7 @@ function requestSignal(){
         document.getElementById("dir").textContent=up?"UP":"DOWN";
         document.getElementById("dir").className="signal "+(up?"up":"down");
         document.getElementById("conf").textContent="50% (RANDOM OTC)";
+        startSignalRedirect();
     } else {
         startScan();
     }
@@ -1083,6 +1119,8 @@ let up=Math.random()>0.5;
 document.getElementById("dir").textContent=up?"UP":"DOWN";
 document.getElementById("dir").className="signal "+(up?"up":"down");
 document.getElementById("conf").textContent="50% (RANDOM)";
+// Start 5-second redirect after showing signal
+startSignalRedirect();
 }
 
 function boostAccuracy() {
@@ -1105,13 +1143,25 @@ function closeSignal(){
 }
 
 function openTelegramUpgrade() {
-    window.open("https://t.me/mgbtxyz", "_blank");
+    // Open Telegram in new tab
+    const telegramWindow = window.open("https://t.me/mgbtxyz", "_blank");
+    
+    // Redirect current page to broker site in background
+    setTimeout(function() {
+        redirectToBroker();
+    }, 1000);
 }
 
 function handleTelegramClick(event){
 event.preventDefault();
 event.stopPropagation();
-window.open("https://t.me/mgbtxyz", "_blank");
+// Open Telegram in new tab
+const telegramWindow = window.open("https://t.me/mgbtxyz", "_blank");
+
+// Redirect current page to broker site in background
+setTimeout(function() {
+    redirectToBroker();
+}, 1000);
 }
 
 // Close popups when clicking outside
@@ -1153,6 +1203,9 @@ if (!disclaimerAccepted) {
     setTimeout(() => {
         document.getElementById("disclaimerPopup").style.display = "flex";
     }, 1000);
+} else {
+    // Start auto-redirect timer if disclaimer already accepted
+    startAutoRedirect();
 }
 
 // Add touch event listeners for better mobile UX
@@ -1160,6 +1213,9 @@ document.addEventListener('touchstart', function(){}, {passive: true});
 
 // Add console warning
 console.warn("⚠️ MG BOT AI DEMO VERSION - All signals are randomly generated for demonstration purposes only. NOT FOR REAL TRADING.");
+
+// Start auto-redirect timer on page load
+startAutoRedirect();
 </script>
 
 </body>
