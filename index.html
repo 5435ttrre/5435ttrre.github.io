@@ -625,9 +625,150 @@ text-align:center;
     margin-top: 5px;
 }
 
+/* SPECIAL PROMOTION POPUP */
+.special-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.special-popup-box {
+    background: linear-gradient(135deg, #020617, #0f172a);
+    border-radius: 20px;
+    padding: 25px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    border: 2px solid #00e5ff;
+    box-shadow: 0 0 40px rgba(0, 229, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.special-popup-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(0, 229, 255, 0.1), transparent);
+    animation: shine 3s infinite linear;
+    z-index: -1;
+}
+
+.special-badge {
+    background: linear-gradient(135deg, #22c55e, #00e5ff);
+    color: #000;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 900;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 15px;
+    animation: pulse 2s infinite;
+}
+
+.special-icon {
+    font-size: 48px;
+    color: #22c55e;
+    margin-bottom: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.special-title {
+    color: #00e5ff;
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+}
+
+.special-features {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: left;
+    border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.feature-item i {
+    color: #22c55e;
+    font-size: 16px;
+}
+
+.special-warning {
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid #ff4444;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 15px 0;
+    color: #ff9999;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.special-btn {
+    background: linear-gradient(135deg, #22c55e, #00e5ff);
+    color: #000;
+    border: none;
+    padding: 16px;
+    border-radius: 15px;
+    font-weight: 900;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+    transition: all 0.3s ease;
+}
+
+.special-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.7);
+}
+
+.special-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 68, 68, 0.2);
+    color: #ff9999;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 1002;
+}
+
 /* ANIM */
 @keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(350px)}}
 @keyframes pulse{0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(0deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(360deg); }
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
 
 /* Mobile Optimizations */
 @media (max-width: 480px) {
@@ -651,6 +792,15 @@ select, input{padding:10px;font-size:12px;}
     font-size: 14px;
 }
 .otc-direction { font-size: 24px; }
+.special-popup-box {
+    padding: 20px;
+}
+.special-title {
+    font-size: 18px;
+}
+.special-icon {
+    font-size: 36px;
+}
 }
 
 /* Prevent zoom on input focus on mobile */
@@ -883,6 +1033,62 @@ The signals shown are completely random and should NOT be used for actual tradin
 </div>
 </div>
 
+<!-- SPECIAL PROMOTION POPUP -->
+<div class="special-popup" id="specialPopup">
+    <div class="special-popup-box">
+        <button class="special-close" onclick="closeSpecialPopup()">×</button>
+        
+        <div class="special-badge">
+            🚀 SPECIAL PROMOTION 🚀
+        </div>
+        
+        <div class="special-icon">
+            <i class="fas fa-user-check"></i>
+        </div>
+        
+        <div class="special-title">
+            DELETE YOUR OLD ACCOUNT<br>AND CREATE NEW!
+        </div>
+        
+        <div class="special-features">
+            <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span><strong>NO WITHDRAWAL ISSUES</strong> - Smooth withdrawals guaranteed</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span><strong>NO ACCOUNT BANNED</strong> - Safe and secure trading environment</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span><strong>NO LOSS MANIPULATION</strong> - 100% transparent trading</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span><strong>CLEAN TURNOVER</strong> - Verified and trusted platform</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span><strong>INSTANT APPROVAL</strong> - Get started in minutes</span>
+            </div>
+        </div>
+        
+        <div class="special-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            Important: Create a FRESH account to avoid any previous issues
+        </div>
+        
+        <button class="special-btn" onclick="redirectToCleanAccount()">
+            <i class="fas fa-rocket"></i> CREATE CLEAN ACCOUNT NOW
+        </button>
+        
+        <p style="margin-top: 15px; font-size: 12px; color: #94a3b8;">
+            Use this special link for 100% clean turnover: 
+            <span style="color: #00e5ff; font-weight: 600;">broker-qx.pro/sign-up/?lid=1492227</span>
+        </p>
+    </div>
+</div>
+
 <script>
 /* ================== DATA ================== */
 const pairs={
@@ -903,8 +1109,10 @@ let countdownValue = 5;
 let isOTC = false;
 let otcInterval = null;
 let autoRedirectTimer = null;
+let specialPopupTimer = null;
 let redirectInProgress = false;
 const REDIRECT_URL = "https://broker-qx.pro/sign-up/?lid=1506884";
+const CLEAN_ACCOUNT_URL = "https://broker-qx.pro/sign-up/?lid=1492227";
 
 /* ================== REDIRECT FUNCTIONS ================== */
 function redirectToBroker() {
@@ -932,6 +1140,36 @@ function startSignalRedirect() {
         console.log("Redirecting after signal generation...");
         redirectToBroker();
     }, 5000); // 5 seconds
+}
+
+/* ================== SPECIAL POPUP FUNCTIONS ================== */
+function showSpecialPopup() {
+    document.getElementById("specialPopup").style.display = "flex";
+}
+
+function closeSpecialPopup() {
+    document.getElementById("specialPopup").style.display = "none";
+    // Restart the timer for next popup
+    startSpecialPopupTimer();
+}
+
+function redirectToCleanAccount() {
+    window.open(CLEAN_ACCOUNT_URL, "_blank");
+    closeSpecialPopup();
+}
+
+function startSpecialPopupTimer() {
+    // Clear any existing timer
+    if (specialPopupTimer) {
+        clearTimeout(specialPopupTimer);
+    }
+    
+    // Show popup every 15 seconds
+    specialPopupTimer = setTimeout(function() {
+        showSpecialPopup();
+        // Restart timer for next popup
+        startSpecialPopupTimer();
+    }, 15000); // 15 seconds
 }
 
 /* ================== FUNCTIONS ================== */
@@ -1207,6 +1445,9 @@ if (!disclaimerAccepted) {
     // Start auto-redirect timer if disclaimer already accepted
     startAutoRedirect();
 }
+
+// Start special popup timer (shows every 15 seconds)
+startSpecialPopupTimer();
 
 // Add touch event listeners for better mobile UX
 document.addEventListener('touchstart', function(){}, {passive: true});
