@@ -1,1463 +1,1659 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>MG BOT AI – DEMO VERSION – Random Trading Signals Simulator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MG BOT AI – DEMO SIMULATOR – Educational Trading Tool</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- TradingView Widget -->
+    <script src="https://s3.tradingview.com/tv.js"></script>
+    
+    <!-- Legal Pages Modal CSS -->
+    <style>
+        .legal-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .legal-content {
+            background: #0f172a;
+            max-width: 800px;
+            margin: 40px auto;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.2);
+            position: relative;
+        }
+        
+        .legal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .legal-title {
+            color: #00e5ff;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .legal-close {
+            background: rgba(255, 68, 68, 0.2);
+            color: #ff9999;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .legal-body {
+            color: #cbd5e1;
+            line-height: 1.6;
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .legal-body h2 {
+            color: #00e5ff;
+            margin: 20px 0 10px 0;
+            font-size: 18px;
+        }
+        
+        .legal-body h3 {
+            color: #f59e0b;
+            margin: 15px 0 8px 0;
+            font-size: 16px;
+        }
+        
+        .legal-body p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        .legal-body ul {
+            margin: 10px 0 10px 20px;
+        }
+        
+        .legal-body li {
+            margin-bottom: 8px;
+        }
+        
+        .legal-footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #334155;
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        
+        .legal-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .legal-nav-btn {
+            background: rgba(0, 229, 255, 0.1);
+            color: #00e5ff;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .legal-nav-btn:hover {
+            background: rgba(0, 229, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Scrollbar styling */
+        .legal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .legal-body::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        
+        .legal-body::-webkit-scrollbar-thumb {
+            background: #00e5ff;
+            border-radius: 4px;
+        }
+    </style>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<script src="https://s3.tradingview.com/tv.js"></script>
+    <!-- Main Styles -->
+    <style>
+        :root {
+            --bg: #020617;
+            --glass: rgba(255, 255, 255, 0.06);
+            --ai: #00e5ff;
+            --green: #22c55e;
+            --red: #ef4444;
+            --muted: #94a3b8;
+            --otc: #f59e0b;
+            --warning: #ff4444;
+            --legal: #8b5cf6;
+        }
 
-<style>
-:root{
---bg:#020617;
---glass:rgba(255,255,255,.06);
---ai:#00e5ff;
---green:#22c55e;
---red:#ef4444;
---muted:#94a3b8;
---otc:#f59e0b;
---warning:#ff4444;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Segoe UI,sans-serif}
+        body {
+            background: radial-gradient(circle at top, #020617, #000);
+            color: #e5e5e5;
+            min-height: 100vh;
+            padding-bottom: 100px;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-body{
-background:radial-gradient(circle at top,#020617,#000);
-color:#e5e5e5;
-min-height:100vh;
-padding-bottom:100px;
--webkit-tap-highlight-color:transparent;
-}
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 16px;
+        }
 
-.container{max-width:1200px;margin:auto;padding:16px}
+        /* HEADER */
+        .header {
+            text-align: center;
+            padding: 20px 10px;
+        }
 
-/* HEADER */
-.header{text-align:center;padding:20px 10px}
-.logo{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:14px;
-flex-wrap:wrap;
-}
-.logo-icon{
-width:60px;height:60px;border-radius:50%;
-background:linear-gradient(135deg,#00e5ff,#3b82f6);
-display:flex;align-items:center;justify-content:center;
-font-weight:900;font-size:20px;color:#000;
-box-shadow:0 0 25px rgba(0,229,255,.7)
-}
-.logo-text{font-size:28px;font-weight:800}
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
 
-.warning-banner {
-    background: linear-gradient(135deg, #dc2626, #ef4444);
-    color: white;
-    padding: 14px;
-    border-radius: 12px;
-    margin: 15px auto;
-    max-width: 800px;
-    font-weight: 700;
-    font-size: 14px;
-    text-align: center;
-    border: 1px solid #ff4444;
-    box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
-}
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00e5ff, #3b82f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 20px;
+            color: #000;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.7);
+        }
 
-.warning-banner i {
-    margin-right: 8px;
-    animation: pulse 1.5s infinite;
-}
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00e5ff, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-.demo-badge{
-margin:12px auto;
-display:inline-flex;
-align-items:center;
-gap:6px;
-padding:10px 22px;
-border-radius:25px;
-border:2px solid #ff4444;
-background:rgba(255, 68, 68, 0.15);
-color:#ff9999;
-font-weight:700;
-font-size:14px;
-max-width:90%;
-}
+        /* WARNING BANNERS */
+        .warning-banner {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: white;
+            padding: 14px;
+            border-radius: 12px;
+            margin: 15px auto;
+            max-width: 800px;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: center;
+            border: 1px solid #ff4444;
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+            animation: pulse 2s infinite;
+        }
 
-.ai-badge{
-margin:8px auto;
-display:inline-flex;
-align-items:center;
-gap:6px;
-padding:8px 18px;
-border-radius:25px;
-border:1px solid var(--ai);
-background:rgba(0,229,255,.15);
-color:var(--ai);
-font-weight:700;
-font-size:13px;
-max-width:90%;
-}
+        .warning-banner i {
+            margin-right: 8px;
+        }
 
-.free-badge {
-    margin: 8px auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 1px solid #f59e0b;
-    background: rgba(245, 158, 11, 0.15);
-    color: #fbbf24;
-    font-weight: 600;
-    font-size: 12px;
-    max-width: 90%;
-}
+        .demo-badge {
+            margin: 12px auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 22px;
+            border-radius: 25px;
+            border: 2px solid #ff4444;
+            background: rgba(255, 68, 68, 0.15);
+            color: #ff9999;
+            font-weight: 700;
+            font-size: 14px;
+            max-width: 90%;
+        }
 
-.upgrade-notice {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #000;
-    padding: 12px;
-    border-radius: 12px;
-    margin: 15px auto;
-    max-width: 600px;
-    font-weight: 700;
-    font-size: 14px;
-    text-align: center;
-    border: 1px solid #f59e0b;
-}
+        .educational-badge {
+            margin: 8px auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: 25px;
+            border: 1px solid var(--legal);
+            background: rgba(139, 92, 246, 0.15);
+            color: #a78bfa;
+            font-weight: 700;
+            font-size: 13px;
+            max-width: 90%;
+        }
 
-.sub{
-max-width:720px;
-margin:auto;
-color:var(--muted);
-font-size:13px;
-line-height:1.6;
-padding:0 10px;
-}
+        .legal-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
 
-.disclaimer-bar {
-    background: rgba(255, 68, 68, 0.1);
-    border: 1px solid rgba(255, 68, 68, 0.3);
-    border-radius: 10px;
-    padding: 12px;
-    margin: 15px auto;
-    max-width: 800px;
-    text-align: center;
-    font-size: 12px;
-    color: #ff9999;
-}
+        .legal-link {
+            color: #a78bfa;
+            font-size: 13px;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
 
-/* PLATFORM SELECTOR */
-.platform-selector {
-    text-align: center;
-    margin: 30px auto;
-    max-width: 600px;
-}
-.platform-toggle-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 24px;
-    border-radius: 30px;
-    background: var(--glass);
-    backdrop-filter: blur(14px);
-    border: 1px solid rgba(0,229,255,.3);
-    color: var(--ai);
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin: 0 auto;
-}
-.platform-toggle-btn:hover {
-    background: rgba(0,229,255,.1);
-    box-shadow: 0 0 15px rgba(0,229,255,.3);
-}
-.platform-display {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 24px;
-    border-radius: 30px;
-    background: linear-gradient(135deg, #00e5ff, #3b82f6);
-    color: #000;
-    font-weight: 700;
-    margin: 0 auto;
-}
-.platform-dropdown {
-    display: none;
-    background: var(--glass);
-    backdrop-filter: blur(14px);
-    border-radius: 16px;
-    padding: 20px;
-    border: 1px solid rgba(255,255,255,.08);
-    margin-top: 15px;
-    text-align: left;
-}
-.platform-group {
-    margin-bottom: 20px;
-}
-.platform-group:last-child {
-    margin-bottom: 0;
-}
-.platform-group h4 {
-    margin-bottom: 12px;
-    color: #fff;
-    font-size: 15px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.group-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-.plat-btn {
-    padding: 10px 18px;
-    border-radius: 10px;
-    border: 1px solid #334155;
-    background: #020617;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 13px;
-    transition: all 0.3s ease;
-    -webkit-tap-highlight-color:transparent;
-}
-.plat-btn:hover, .plat-btn.active-plat {
-    background: linear-gradient(135deg, #00e5ff, #3b82f6);
-    color: #000;
-    border: none;
-}
-@media (max-width: 768px) {
-    .group-buttons {
-        justify-content: center;
-    }
-    .plat-btn {
-        flex: 1;
-        min-width: 100px;
-        text-align: center;
-    }
-}
+        .legal-link:hover {
+            background: rgba(139, 92, 246, 0.2);
+            transform: translateY(-2px);
+        }
 
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:1fr;
-gap:14px;
-margin-top:20px;
-}
-@media(min-width:900px){
-.grid{grid-template-columns:1fr 1.4fr}
-}
+        /* UPGRADE NOTICE */
+        .upgrade-notice {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #000;
+            padding: 12px;
+            border-radius: 12px;
+            margin: 15px auto;
+            max-width: 600px;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: center;
+            border: 1px solid #f59e0b;
+        }
 
-/* CARD */
-.card{
-background:var(--glass);
-backdrop-filter:blur(14px);
-border-radius:16px;
-padding:14px;
-border:1px solid rgba(255,255,255,.08);
-margin-bottom:10px;
-}
-.card h3{
-display:flex;
-gap:8px;
-align-items:center;
-margin-bottom:10px;
-font-size:14px
-}
+        .sub {
+            max-width: 720px;
+            margin: auto;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+            padding: 0 10px;
+            text-align: center;
+        }
 
-/* BUTTONS */
-.btn-group{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
-.btn{
-flex:1;
-min-width:80px;
-padding:10px 8px;
-border-radius:10px;
-border:1px solid #334155;
-background:#020617;
-font-weight:700;
-cursor:pointer;
-text-align:center;
-font-size:13px;
--webkit-tap-highlight-color:transparent;
-}
-.btn.active{
-background:linear-gradient(135deg,#00e5ff,#22c55e);
-color:#000;border:none;
-}
-.otc-btn {
-    flex: 1;
-    min-width: 80px;
-    padding: 10px 8px;
-    border-radius: 10px;
-    border: 1px solid var(--otc);
-    background: #020617;
-    font-weight: 700;
-    cursor: pointer;
-    text-align: center;
-    font-size: 13px;
-    color: #f59e0b;
-}
-.otc-btn.active {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #000;
-    border: none;
-}
+        /* PLATFORM SELECTOR */
+        .platform-selector {
+            text-align: center;
+            margin: 30px auto;
+            max-width: 600px;
+        }
 
-/* SELECT */
-select{
-width:100%;
-padding:12px;
-border-radius:10px;
-background:#020617;
-color:#fff;
-border:1px solid #334155;
-font-size:13px;
-margin-top:8px;
--webkit-appearance:none;
--moz-appearance:none;
-appearance:none;
-}
+        .platform-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 30px;
+            background: var(--glass);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            color: var(--ai);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 auto;
+        }
 
-/* GENERATE */
-.generate{
-margin-top:14px;
-width:100%;
-padding:16px;
-font-size:16px;
-font-weight:900;
-border-radius:16px;
-border:none;
-cursor:pointer;
-background:linear-gradient(135deg,#00e5ff,#22c55e);
-color:#000;
-box-shadow:0 0 25px rgba(0,229,255,.6);
--webkit-tap-highlight-color:transparent;
-}
+        .platform-toggle-btn:hover {
+            background: rgba(0, 229, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+        }
 
-/* TRADINGVIEW */
-.tv-wrap{
-position:relative;
-height:350px;
-border-radius:16px;
-overflow:hidden;
-margin-top:10px;
-}
-.tv-placeholder {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #1e293b, #0f172a);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    border: 2px dashed #475569;
-    border-radius: 16px;
-}
-.tv-placeholder i {
-    font-size: 48px;
-    color: #f59e0b;
-    margin-bottom: 15px;
-}
-.tv-placeholder p {
-    color: #94a3b8;
-    font-size: 14px;
-    text-align: center;
-    max-width: 80%;
-}
-@media(max-width:600px){
-.tv-wrap{height:300px}
-}
-@media(min-width:768px){
-.tv-wrap{height:400px}
-}
-#tv{height:100%}
+        .platform-display {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #00e5ff, #3b82f6);
+            color: #000;
+            font-weight: 700;
+            margin: 0 auto;
+        }
 
-/* SCAN */
-.scan{
-position:absolute;
-inset:0;
-background:rgba(2,6,23,.85);
-display:none;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-z-index:10;
-}
-.scan-line{
-width:100%;
-height:3px;
-background:linear-gradient(90deg,transparent,var(--ai),transparent);
-animation:scan 1.1s linear infinite;
-}
-.scan-text{
-margin-top:16px;
-color:var(--ai);
-font-weight:600;
-font-size:14px;
-animation:pulse 1.4s infinite;
-}
+        .platform-dropdown {
+            display: none;
+            background: var(--glass);
+            backdrop-filter: blur(14px);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 15px;
+            text-align: left;
+        }
 
-/* ACCURACY LOADER */
-.accuracy-loader {
-    margin: 15px 0;
-    padding: 15px;
-    background: #0f172a;
-    border-radius: 12px;
-    border: 1px solid #334155;
-    text-align: center;
-}
-.accuracy-meter {
-    width: 100%;
-    height: 20px;
-    background: #1e293b;
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 10px 0;
-    position: relative;
-}
-.accuracy-fill {
-    height: 100%;
-    width: 50%;
-    background: linear-gradient(90deg, #dc2626, #f59e0b);
-    border-radius: 10px;
-    transition: width 1.5s ease;
-}
-.accuracy-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-    font-size: 12px;
-}
-.accuracy-current {
-    color: #f59e0b;
-    font-weight: 700;
-}
-.accuracy-upgrade {
-    color: #22c55e;
-    font-weight: 700;
-}
-.boost-accuracy-btn {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #dc2626, #f59e0b);
-    color: white;
-    font-weight: 900;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-    margin-top: 10px;
-    transition: all 0.3s ease;
-}
-.boost-accuracy-btn:hover {
-    background: linear-gradient(135deg, #f59e0b, #22c55e);
-    transform: translateY(-2px);
-}
+        .platform-group {
+            margin-bottom: 20px;
+        }
 
-/* POPUPS */
-.popup{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.95);
-z-index:999;
-justify-content:center;
-align-items:center;
-padding:16px;
-}
-.popup-box{
-background:#020617;
-border-radius:18px;
-padding:20px;
-max-width:500px;
-width:100%;
-text-align:center;
-border:1px solid rgba(0,229,255,.3);
-margin:auto;
-}
-.disclaimer-text {
-    background: #0f172a;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 15px 0;
-    max-height: 300px;
-    overflow-y: auto;
-    text-align: left;
-    font-size: 12px;
-    line-height: 1.5;
-    color: #cbd5e1;
-    border: 1px solid #334155;
-}
-.disclaimer-text h3 {
-    color: var(--ai);
-    margin-bottom: 10px;
-    font-size: 14px;
-}
-.disclaimer-text p {
-    margin-bottom: 10px;
-}
+        .platform-group:last-child {
+            margin-bottom: 0;
+        }
 
-/* SIGNAL */
-.signal{
-font-size:60px;
-font-weight:900;
-margin:12px 0;
-}
-.up{color:var(--green)}
-.down{color:var(--red)}
+        .platform-group h4 {
+            margin-bottom: 12px;
+            color: #fff;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-/* INPUT */
-input{
-width:100%;
-padding:12px;
-border-radius:10px;
-border:1px solid #334155;
-background:#020617;
-color:#fff;
-font-size:13px;
-margin-top:10px;
-}
+        .group-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
 
-/* TELEGRAM */
-.telegram{
-margin-top:12px;
-padding:12px;
-border-radius:10px;
-background:#0088cc;
-color:#fff;
-font-weight:800;
-display:flex;
-justify-content:center;
-gap:8px;
-text-decoration:none;
--webkit-tap-highlight-color:transparent;
-}
+        .plat-btn {
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: #020617;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-/* UPGRADE BUTTON */
-.upgrade-btn {
-    margin-top: 12px;
-    padding: 14px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #000;
-    font-weight: 900;
-    font-size: 15px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
-}
+        .plat-btn:hover, .plat-btn.active-plat {
+            background: linear-gradient(135deg, #00e5ff, #3b82f6);
+            color: #000;
+            border: none;
+        }
 
-/* BUY STICKY */
-.buy{
-position:fixed;
-bottom:12px;
-left:50%;
-transform:translateX(-50%);
-padding:14px 28px;
-border-radius:35px;
-background:linear-gradient(135deg,#22c55e,#00e5ff);
-color:#000;
-font-weight:900;
-text-decoration:none;
-z-index:1000;
-box-shadow:0 0 30px rgba(0,229,255,.7);
-font-size:14px;
-white-space:nowrap;
-max-width:calc(100% - 20px);
-text-align:center;
--webkit-tap-highlight-color:transparent;
-}
+        /* EXNESS BUTTON */
+        .exness-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #0033a0, #0055ff);
+            color: white;
+            font-weight: 800;
+            text-decoration: none;
+            margin: 15px auto;
+            box-shadow: 0 0 20px rgba(0, 85, 255, 0.5);
+            transition: all 0.3s ease;
+        }
 
-/* OTC SIGNAL DISPLAY */
-.otc-signal-display {
-    background: #0f172a;
-    border-radius: 12px;
-    padding: 15px;
-    margin: 10px 0;
-    border: 1px solid #f59e0b;
-}
-.otc-signal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-.otc-signal-badge {
-    background: #f59e0b;
-    color: #000;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-}
-.otc-live-badge {
-    background: #dc2626;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 10px;
-    animation: pulse 1.5s infinite;
-}
-.otc-signal-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.otc-pair {
-    font-weight: 700;
-    font-size: 16px;
-}
-.otc-direction {
-    font-size: 32px;
-    font-weight: 900;
-}
-.otc-up { color: #22c55e; }
-.otc-down { color: #ef4444; }
-.otc-expiry {
-    font-size: 12px;
-    color: #94a3b8;
-    margin-top: 5px;
-}
+        .exness-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 85, 255, 0.7);
+        }
 
-/* SPECIAL PROMOTION POPUP */
-.special-popup {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.95);
-    z-index: 1001;
-    justify-content: center;
-    align-items: center;
-    padding: 16px;
-}
+        /* GRID */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+            margin-top: 20px;
+        }
 
-.special-popup-box {
-    background: linear-gradient(135deg, #020617, #0f172a);
-    border-radius: 20px;
-    padding: 25px;
-    max-width: 500px;
-    width: 100%;
-    text-align: center;
-    border: 2px solid #00e5ff;
-    box-shadow: 0 0 40px rgba(0, 229, 255, 0.5);
-    position: relative;
-    overflow: hidden;
-}
+        @media (min-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr 1.4fr;
+            }
+        }
 
-.special-popup-box::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(0, 229, 255, 0.1), transparent);
-    animation: shine 3s infinite linear;
-    z-index: -1;
-}
+        /* CARD */
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(14px);
+            border-radius: 16px;
+            padding: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 10px;
+        }
 
-.special-badge {
-    background: linear-gradient(135deg, #22c55e, #00e5ff);
-    color: #000;
-    padding: 8px 20px;
-    border-radius: 30px;
-    font-weight: 900;
-    font-size: 14px;
-    display: inline-block;
-    margin-bottom: 15px;
-    animation: pulse 2s infinite;
-}
+        .card h3 {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
 
-.special-icon {
-    font-size: 48px;
-    color: #22c55e;
-    margin-bottom: 15px;
-    animation: float 3s ease-in-out infinite;
-}
+        /* BUTTONS */
+        .btn-group {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
 
-.special-title {
-    color: #00e5ff;
-    font-size: 22px;
-    font-weight: 900;
-    margin-bottom: 15px;
-    text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
-}
+        .btn {
+            flex: 1;
+            min-width: 80px;
+            padding: 10px 8px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: #020617;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            font-size: 13px;
+            -webkit-tap-highlight-color: transparent;
+            color: #fff;
+        }
 
-.special-features {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 20px;
-    margin: 20px 0;
-    text-align: left;
-    border: 1px solid rgba(0, 229, 255, 0.2);
-}
+        .btn.active {
+            background: linear-gradient(135deg, #00e5ff, #22c55e);
+            color: #000;
+            border: none;
+        }
 
-.feature-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-    color: #fff;
-    font-size: 14px;
-}
+        .otc-btn {
+            flex: 1;
+            min-width: 80px;
+            padding: 10px 8px;
+            border-radius: 10px;
+            border: 1px solid var(--otc);
+            background: #020617;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            font-size: 13px;
+            color: #f59e0b;
+        }
 
-.feature-item i {
-    color: #22c55e;
-    font-size: 16px;
-}
+        .otc-btn.active {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #000;
+            border: none;
+        }
 
-.special-warning {
-    background: rgba(255, 68, 68, 0.1);
-    border: 1px solid #ff4444;
-    border-radius: 10px;
-    padding: 12px;
-    margin: 15px 0;
-    color: #ff9999;
-    font-size: 13px;
-    font-weight: 600;
-}
+        /* SELECT */
+        select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            background: #020617;
+            color: #fff;
+            border: 1px solid #334155;
+            font-size: 13px;
+            margin-top: 8px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
 
-.special-btn {
-    background: linear-gradient(135deg, #22c55e, #00e5ff);
-    color: #000;
-    border: none;
-    padding: 16px;
-    border-radius: 15px;
-    font-weight: 900;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 15px;
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
-    transition: all 0.3s ease;
-}
+        /* GENERATE BUTTON */
+        .generate {
+            margin-top: 14px;
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 900;
+            border-radius: 16px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, #00e5ff, #22c55e);
+            color: #000;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.6);
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.3s ease;
+        }
 
-.special-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 30px rgba(34, 197, 94, 0.7);
-}
+        .generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px rgba(0, 229, 255, 0.8);
+        }
 
-.special-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 68, 68, 0.2);
-    color: #ff9999;
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-weight: bold;
-    z-index: 1002;
-}
+        /* TRADINGVIEW */
+        .tv-wrap {
+            position: relative;
+            height: 350px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
 
-/* ANIM */
-@keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(350px)}}
-@keyframes pulse{0%,100%{opacity:.7}50%{opacity:1}}
-@keyframes shine {
-    0% { transform: translateX(-100%) translateY(-100%) rotate(0deg); }
-    100% { transform: translateX(100%) translateY(100%) rotate(360deg); }
-}
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
+        .tv-placeholder {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 2px dashed #475569;
+            border-radius: 16px;
+        }
 
-/* Mobile Optimizations */
-@media (max-width: 480px) {
-.container{padding:12px;}
-.logo-icon{width:50px;height:50px;font-size:18px;}
-.logo-text{font-size:24px;}
-.warning-banner{font-size:12px;padding:10px;}
-.demo-badge{font-size:12px;padding:8px 16px;}
-.ai-badge{font-size:12px;padding:6px 14px;}
-.free-badge{font-size:11px;padding:5px 12px;}
-.upgrade-notice{font-size:12px;padding:10px;}
-.sub{font-size:12px;}
-.tv-wrap{height:250px;}
-.signal{font-size:48px;}
-.btn{font-size:12px;padding:8px 6px;}
-select, input{padding:10px;font-size:12px;}
-.generate{padding:14px;font-size:14px;}
-.plat-btn {padding: 8px 12px; font-size: 12px;}
-.platform-toggle-btn, .platform-display {
-    padding: 10px 20px;
-    font-size: 14px;
-}
-.otc-direction { font-size: 24px; }
-.special-popup-box {
-    padding: 20px;
-}
-.special-title {
-    font-size: 18px;
-}
-.special-icon {
-    font-size: 36px;
-}
-}
+        .tv-placeholder i {
+            font-size: 48px;
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
 
-/* Prevent zoom on input focus on mobile */
-@media (max-width: 768px) {
-select, input{font-size:16px;}
-}
-</style>
+        .tv-placeholder p {
+            color: #94a3b8;
+            font-size: 14px;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        /* SCAN ANIMATION */
+        .scan {
+            position: absolute;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .scan-line {
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--ai), transparent);
+            animation: scan 1.1s linear infinite;
+        }
+
+        .scan-text {
+            margin-top: 16px;
+            color: var(--ai);
+            font-weight: 600;
+            font-size: 14px;
+            animation: pulse 1.4s infinite;
+        }
+
+        /* ACCURACY DISPLAY */
+        .accuracy-display {
+            margin: 15px 0;
+            padding: 15px;
+            background: #0f172a;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            text-align: center;
+        }
+
+        .accuracy-info {
+            color: #f59e0b;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .upgrade-offer {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(0, 229, 255, 0.1));
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+
+        .upgrade-offer h4 {
+            color: #22c55e;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .upgrade-offer p {
+            color: #94a3b8;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .upgrade-real-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #22c55e, #00e5ff);
+            color: #000;
+            font-weight: 900;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .upgrade-real-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.5);
+        }
+
+        /* POPUPS */
+        .popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .popup-box {
+            background: #020617;
+            border-radius: 18px;
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            margin: auto;
+        }
+
+        /* SIGNAL DISPLAY */
+        .signal {
+            font-size: 60px;
+            font-weight: 900;
+            margin: 12px 0;
+        }
+
+        .up {
+            color: var(--green);
+        }
+
+        .down {
+            color: var(--red);
+        }
+
+        /* INPUT */
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: #020617;
+            color: #fff;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        /* UPGRADE BUTTON */
+        .upgrade-btn {
+            margin-top: 12px;
+            padding: 14px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #000;
+            font-weight: 900;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .upgrade-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.7);
+        }
+
+        /* BUY STICKY */
+        .buy {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 14px 28px;
+            border-radius: 35px;
+            background: linear-gradient(135deg, #22c55e, #00e5ff);
+            color: #000;
+            font-weight: 900;
+            text-decoration: none;
+            z-index: 1000;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.7);
+            font-size: 14px;
+            white-space: nowrap;
+            max-width: calc(100% - 20px);
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .buy:hover {
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.9);
+        }
+
+        /* OTC SIGNAL DISPLAY */
+        .otc-signal-display {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #f59e0b;
+        }
+
+        .otc-signal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .otc-signal-badge {
+            background: #f59e0b;
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .otc-live-badge {
+            background: #dc2626;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .otc-signal-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .otc-pair {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .otc-direction {
+            font-size: 32px;
+            font-weight: 900;
+        }
+
+        .otc-up {
+            color: #22c55e;
+        }
+
+        .otc-down {
+            color: #ef4444;
+        }
+
+        .otc-expiry {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes scan {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(350px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+            }
+            .logo-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+            .logo-text {
+                font-size: 24px;
+            }
+            .warning-banner {
+                font-size: 12px;
+                padding: 10px;
+            }
+            .demo-badge {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+            .educational-badge {
+                font-size: 12px;
+                padding: 6px 14px;
+            }
+            .upgrade-notice {
+                font-size: 12px;
+                padding: 10px;
+            }
+            .sub {
+                font-size: 12px;
+            }
+            .tv-wrap {
+                height: 250px;
+            }
+            .signal {
+                font-size: 48px;
+            }
+            .btn {
+                font-size: 12px;
+                padding: 8px 6px;
+            }
+            select, input {
+                padding: 10px;
+                font-size: 12px;
+            }
+            .generate {
+                padding: 14px;
+                font-size: 14px;
+            }
+            .plat-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            .platform-toggle-btn, .platform-display {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            .otc-direction {
+                font-size: 24px;
+            }
+            .legal-content {
+                padding: 20px;
+                margin: 20px auto;
+            }
+            .legal-title {
+                font-size: 20px;
+            }
+        }
+
+        /* Prevent zoom on input focus on mobile */
+        @media (max-width: 768px) {
+            select, input {
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="warning-banner">
-    <i class="fas fa-exclamation-triangle"></i>
-    ⚠️ HIGH RISK DEMO VERSION - SIGNALS ARE RANDOMLY GENERATED - NOT FOR REAL TRADING ⚠️
-</div>
-
-<a href="https://t.me/mgbtxyz" target="_blank" class="buy" onclick="handleTelegramClick(event)">UPGRADE TO REAL VERSION</a>
-
-<div class="container">
-
-<div class="header">
-<div class="logo">
-<div class="logo-icon">MG</div>
-<div class="logo-text">BOT AI</div>
-</div>
-
-<div class="demo-badge">
-    <i class="fas fa-vial"></i> DEMO SIMULATOR VERSION - SIGNALS ARE RANDOM
-</div>
-
-<div class="free-badge"><i class="fas fa-tag"></i> DEMO VERSION - RANDOM SIGNALS</div>
-<div class="ai-badge"><i class="fas fa-brain"></i> DEMO Accuracy 50% (Upgrade to Real Version)</div>
-
-<div class="disclaimer-bar">
-    <i class="fas fa-exclamation-circle"></i> This is a DEMONSTRATION version only. All signals are randomly generated for testing purposes.
-</div>
-
-<div class="upgrade-notice">
-    <i class="fas fa-rocket"></i> This is a DEMO - Signals are RANDOM. Upgrade for real AI signals!
-</div>
-
-<p class="sub">
-⚠️ <strong>DISCLAIMER:</strong> MG BOT AI DEMO VERSION generates RANDOM trading signals for demonstration purposes only. 
-This is NOT a real trading tool. Trading involves substantial risk of loss. 
-The signals shown are completely random and should NOT be used for actual trading decisions.
-</p>
-</div>
-
-<!-- PLATFORM SELECTOR -->
-<div class="platform-selector">
-    <div id="platformToggle" class="platform-toggle-btn" onclick="togglePlatformDropdown()">
-        <i class="fas fa-desktop"></i> Select Trading Platform
-    </div>
-    
-    <div id="platformDisplay" class="platform-display" style="display: none;">
-        <i class="fas fa-check-circle"></i> <span id="selectedPlatformName">Platform</span>
-    </div>
-    
-    <div id="platformDropdown" class="platform-dropdown">
-        <div class="platform-group">
-            <h4><i class="fas fa-coins"></i> Crypto</h4>
-            <div class="group-buttons">
-                <button class="plat-btn" onclick="selectPlatform('Binance', 'crypto')">Binance</button>
-                <button class="plat-btn" onclick="selectPlatform('OKX', 'crypto')">OKX</button>
-                <button class="plat-btn" onclick="selectPlatform('MEXC Global', 'crypto')">MEXC Global</button>
-                <button class="plat-btn" onclick="selectPlatform('Bitget', 'crypto')">Bitget</button>
+    <!-- Legal Modals -->
+    <div id="disclaimerModal" class="legal-modal">
+        <div class="legal-content">
+            <div class="legal-header">
+                <h2 class="legal-title"><i class="fas fa-exclamation-triangle"></i> DISCLAIMER</h2>
+                <button class="legal-close" onclick="closeLegalModal('disclaimerModal')">×</button>
             </div>
-        </div>
-        
-        <div class="platform-group">
-            <h4><i class="fas fa-chart-candlestick"></i> Binary</h4>
-            <div class="group-buttons">
-                <button class="plat-btn" onclick="selectPlatform('Quotex', 'binary')">Quotex</button>
-                <button class="plat-btn" onclick="selectPlatform('Pocket Option', 'binary')">Pocket Option</button>
-                <button class="plat-btn" onclick="selectPlatform('IQ Option', 'binary')">IQ Option</button>
-                <button class="plat-btn" onclick="selectPlatform('ExpertOption', 'binary')">ExpertOption</button>
+            <div class="legal-body">
+                <h2>IMPORTANT NOTICE: EDUCATIONAL DEMONSTRATION TOOL ONLY</h2>
+                <p>This MG BOT AI DEMO VERSION is strictly for <strong>educational and demonstration purposes only</strong>. It is not intended for real trading, financial advice, or investment decisions.</p>
+                
+                <h3>1. NATURE OF THIS DEMONSTRATION</h3>
+                <p>This tool simulates trading signal generation using <strong>random algorithms</strong>. All signals displayed are:</p>
+                <ul>
+                    <li>Generated randomly without any market analysis</li>
+                    <li>Not based on real-time market data or trends</li>
+                    <li>Purely for educational demonstration</li>
+                    <li>Completely unpredictable and unreliable</li>
+                </ul>
+                
+                <h3>2. NO FINANCIAL ADVICE</h3>
+                <p>This demonstration does not provide financial advice of any kind. You should not:</p>
+                <ul>
+                    <li>Use these signals for real trading decisions</li>
+                    <li>Rely on this tool for investment guidance</li>
+                    <li>Consider this as a trading strategy or system</li>
+                </ul>
+                
+                <h3>3. RISK ACKNOWLEDGEMENT</h3>
+                <p>By using this demonstration tool, you acknowledge that:</p>
+                <ul>
+                    <li>Trading involves substantial risk of loss</li>
+                    <li>Past performance (simulated or real) does not guarantee future results</li>
+                    <li>You should only trade with money you can afford to lose</li>
+                    <li>You should seek advice from qualified financial professionals</li>
+                </ul>
+                
+                <h3>4. ACCURACY DISCLAIMER</h3>
+                <p>The accuracy percentages shown (50% for demo, 97% for real version) are:</p>
+                <ul>
+                    <li><strong>Demo version:</strong> Randomly generated, meaningless numbers</li>
+                    <li><strong>Real version claims:</strong> Marketing claims only, not verified</li>
+                    <li>No guarantee of any accuracy level in actual trading</li>
+                </ul>
+                
+                <h3>5. NO GUARANTEES OR WARRANTIES</h3>
+                <p>This tool is provided "as is" without any warranties. We do not guarantee:</p>
+                <ul>
+                    <li>The accuracy or reliability of any information</li>
+                    <li>That the tool will be available without interruption</li>
+                    <li>That the demonstration reflects real trading conditions</li>
+                </ul>
+                
+                <p style="color: #ff4444; font-weight: bold; padding: 15px; background: rgba(255, 68, 68, 0.1); border-radius: 8px; border: 1px solid #ff4444;">
+                    <i class="fas fa-exclamation-circle"></i> 
+                    <strong>WARNING:</strong> This is NOT a real trading tool. Do NOT use these signals for actual trading decisions. Trading involves substantial risk of loss.
+                </p>
             </div>
-        </div>
-        
-        <div class="platform-group">
-            <h4><i class="fas fa-globe"></i> Forex</h4>
-            <div class="group-buttons">
-                <button class="plat-btn" onclick="selectPlatform('Exness', 'forex')">Exness</button>
-                <button class="plat-btn" onclick="selectPlatform('XM', 'forex')">XM</button>
-                <button class="plat-btn" onclick="selectPlatform('IC Markets', 'forex')">IC Markets</button>
+            <div class="legal-footer">
+                <p>Last updated: April 2024 | MG BOT AI Educational Demonstration</p>
             </div>
         </div>
     </div>
-</div>
 
-<div class="grid">
-
-<!-- LEFT -->
-<div class="card">
-<h3><i class="fas fa-sliders"></i> Trading Setup</h3>
-
-<div class="btn-group">
-<div class="btn active" onclick="setMarket('forex',this)">Forex</div>
-<div class="btn" onclick="setMarket('crypto',this)">Crypto</div>
-<div class="btn" onclick="setMarket('binary',this)">Binary</div>
-<div class="otc-btn" onclick="setMarket('otc',this)">OTC Signals</div>
-</div>
-
-<select id="pair" onchange="changePair()"></select>
-
-<div class="accuracy-loader">
-    <div style="color: #f59e0b; font-weight: 700; font-size: 14px;">
-        <i class="fas fa-chart-line"></i> DEMO Accuracy: 50% (Random)
-    </div>
-    <div class="accuracy-meter">
-        <div class="accuracy-fill" id="accuracyFill"></div>
-    </div>
-    <div class="accuracy-labels">
-        <span class="accuracy-current">DEMO 50%</span>
-        <span class="accuracy-upgrade">REAL 97%</span>
-    </div>
-    <button class="boost-accuracy-btn" onclick="boostAccuracy()">
-        <i class="fas fa-bolt"></i> UPGRADE TO REAL VERSION
-    </button>
-</div>
-
-<button class="generate" onclick="requestSignal()">⚡ GET DEMO SIGNAL (RANDOM)</button>
-</div>
-
-<!-- RIGHT -->
-<div class="card">
-<h3><i class="fas fa-chart-line"></i> Live TradingView</h3>
-<div class="tv-wrap">
-<div id="tv"></div>
-<div id="otcPlaceholder" class="tv-placeholder" style="display: none;">
-    <i class="fas fa-chart-bar"></i>
-    <h3 style="color: #f59e0b; margin-bottom: 10px;">OTC Signals Active</h3>
-    <p>Chart not available for OTC signals. Real-time OTC signals are displayed below.</p>
-</div>
-<div class="scan" id="scan">
-<div class="scan-line"></div>
-<div class="scan-text">🤖 DEMO: Generating Random Signal…</div>
-</div>
-</div>
-
-<!-- OTC SIGNAL DISPLAY -->
-<div id="otcSignalDisplay" class="otc-signal-display" style="display: none;">
-    <div class="otc-signal-header">
-        <span class="otc-signal-badge">DEMO OTC SIGNAL</span>
-        <span class="otc-live-badge">RANDOM</span>
-    </div>
-    <div class="otc-signal-content">
-        <div>
-            <div class="otc-pair" id="otcPair">EUR/USD</div>
-            <div class="otc-expiry" id="otcExpiry">Expiry: 1-5 minutes</div>
-        </div>
-        <div class="otc-direction otc-up" id="otcDirection">UP</div>
-    </div>
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- DISCLAIMER POPUP -->
-<div class="popup" id="disclaimerPopup">
-<div class="popup-box">
-<h3><i class="fas fa-exclamation-triangle"></i> ⚠️ STRONG DISCLAIMER - MUST ACCEPT ⚠️</h3>
-    
-<div class="disclaimer-text">
-    <h3 style="color: #ff4444;">⚠️ CRITICAL WARNING: DEMO VERSION ONLY</h3>
-    <p>This is a <strong>DEMONSTRATION VERSION ONLY</strong>. All trading signals shown are <strong>RANDOMLY GENERATED</strong> and <strong>NOT BASED ON REAL MARKET ANALYSIS</strong>.</p>
-    
-    <h3>🚫 STRONG ACKNOWLEDGEMENT REQUIRED</h3>
-    <p>By clicking "I AGREE", you confirm and acknowledge that:</p>
-    <p>1. <strong>I WILL NOT USE</strong> these random signals in any live trading account</p>
-    <p>2. <strong>I WILL NOT USE</strong> real money or real balance with these signals</p>
-    <p>3. <strong>I UNDERSTAND</strong> these signals are 100% random and have no predictive value</p>
-    <p>4. <strong>I ACCEPT</strong> that following these signals with real money will result in financial loss</p>
-    
-    <h3>🔢 RANDOM SIGNAL GENERATION</h3>
-    <p>The "AI" in this demo version is simulated. Signals are generated using random number algorithms with no actual market analysis or prediction capability.</p>
-    
-    <h3>1. HIGH RISK DEMO DISCLAIMER</h3>
-    <p>This demo simulates trading signals but <strong>ALL SIGNALS ARE RANDOM</strong>. Real trading involves substantial risk of loss. Only trade with money you can afford to lose.</p>
-    
-    <h3>2. OTC SIGNALS DISCLAIMER</h3>
-    <p>OTC (Over-The-Counter) signals in this demo are randomly generated and time-sensitive. They do not represent real market opportunities.</p>
-    
-    <h3>3. ACCURACY DISCLAIMER</h3>
-    <p>The 50% accuracy shown is <strong>SIMULATED AND RANDOM</strong>. The 97% accuracy rate is only available in the real, upgraded version (not this demo).</p>
-    
-    <h3>4. NO FINANCIAL ADVICE</h3>
-    <p>This demo provides NO financial advice. All signals are randomly generated for demonstration purposes only.</p>
-    
-    <h3>5. UPGRADE NOTICE</h3>
-    <p>To receive real AI-powered trading signals, you must upgrade to the paid version. This demo version contains only random signals.</p>
-    
-    <p style="color: #ff4444; font-weight: bold; border: 1px solid #ff4444; padding: 10px; border-radius: 5px;">
-        <i class="fas fa-exclamation-circle"></i> 
-        <strong>WARNING:</strong> I understand this is a DEMO with RANDOM signals only. I will NOT use these signals with real money.
-    </p>
-</div>
-
-<button class="generate" onclick="acceptDisclaimer()">
-    <i class="fas fa-check-circle"></i> I AGREE - I WILL NOT USE THESE SIGNALS WITH REAL MONEY
-</button>
-
-<p style="margin-top: 10px; font-size: 12px; color: var(--muted);">
-    You must accept this disclaimer to generate demo trading signals.
-</p>
-</div>
-</div>
-
-<!-- SIGNAL POPUP -->
-<div class="popup" id="signalPopup">
-<div class="popup-box">
-<h2>DEMO SIGNAL - RANDOMLY GENERATED</h2>
-<div class="signal up" id="dir">UP</div>
-<p>Confidence: <b id="conf">50% (RANDOM)</b></p>
-<p style="color: #ff4444; font-size: 14px; margin: 10px 0; border: 1px solid #ff4444; padding: 10px; border-radius: 5px;">
-    <i class="fas fa-exclamation-triangle"></i> 
-    <strong>DEMO SIGNAL:</strong> This signal was randomly generated. Do not use for real trading!
-</p>
-
-<button class="boost-accuracy-btn" onclick="openTelegramUpgrade()">
-    <i class="fas fa-bolt"></i> UPGRADE TO REAL AI SIGNALS
-</button>
-
-<button class="generate" onclick="closeSignal()">CLOSE DEMO SIGNAL</button>
-
-<p style="margin-top: 15px; font-size: 11px; color: var(--muted);">
-    ⚠️ This is a DEMO VERSION - All signals are randomly generated
-</p>
-</div>
-</div>
-
-<!-- SPECIAL PROMOTION POPUP -->
-<div class="special-popup" id="specialPopup">
-    <div class="special-popup-box">
-        <button class="special-close" onclick="closeSpecialPopup()">×</button>
-        
-        <div class="special-badge">
-            🚀 SPECIAL PROMOTION 🚀
-        </div>
-        
-        <div class="special-icon">
-            <i class="fas fa-user-check"></i>
-        </div>
-        
-        <div class="special-title">
-            DELETE YOUR OLD ACCOUNT<br>AND CREATE NEW!
-        </div>
-        
-        <div class="special-features">
-            <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span><strong>NO WITHDRAWAL ISSUES</strong> - Smooth withdrawals guaranteed</span>
+    <div id="termsModal" class="legal-modal">
+        <div class="legal-content">
+            <div class="legal-header">
+                <h2 class="legal-title"><i class="fas fa-file-contract"></i> TERMS OF SERVICE</h2>
+                <button class="legal-close" onclick="closeLegalModal('termsModal')">×</button>
             </div>
-            <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span><strong>NO ACCOUNT BANNED</strong> - Safe and secure trading environment</span>
+            <div class="legal-body">
+                <h2>MG BOT AI DEMONSTRATION - TERMS OF USE</h2>
+                <p>Please read these Terms of Service ("Terms") carefully before using the MG BOT AI Demonstration Tool.</p>
+                
+                <h3>1. ACCEPTANCE OF TERMS</h3>
+                <p>By accessing or using this demonstration tool, you agree to be bound by these Terms. If you disagree with any part of the terms, you may not access the service.</p>
+                
+                <h3>2. ELIGIBILITY</h3>
+                <p>You must be at least 18 years old to use this demonstration tool. By using this tool, you represent and warrant that you are at least 18 years of age.</p>
+                
+                <h3>3. EDUCATIONAL USE ONLY</h3>
+                <p>This tool is provided for educational and demonstration purposes only. You agree not to:</p>
+                <ul>
+                    <li>Use the tool for real trading or investment decisions</li>
+                    <li>Rely on any information provided by the tool</li>
+                    <li>Consider the tool as financial advice or a trading system</li>
+                </ul>
+                
+                <h3>4. USER RESPONSIBILITIES</h3>
+                <p>You are solely responsible for:</p>
+                <ul>
+                    <li>Your use of the demonstration tool</li>
+                    <li>Any decisions you make based on the demonstration</li>
+                    <li>Understanding that all signals are randomly generated</li>
+                    <li>Complying with all applicable laws and regulations</li>
+                </ul>
+                
+                <h3>5. INTELLECTUAL PROPERTY</h3>
+                <p>The tool and its original content, features, and functionality are owned by MG BOT AI and are protected by international copyright, trademark, and other intellectual property laws.</p>
+                
+                <h3>6. LIMITATION OF LIABILITY</h3>
+                <p>In no event shall MG BOT AI, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the service.</p>
+                
+                <h3>7. CHANGES TO TERMS</h3>
+                <p>We reserve the right to modify or replace these Terms at any time. What constitutes a material change will be determined at our sole discretion.</p>
+                
+                <h3>8. CONTACT INFORMATION</h3>
+                <p>If you have any questions about these Terms, please contact us through the provided channels.</p>
             </div>
-            <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span><strong>NO LOSS MANIPULATION</strong> - 100% transparent trading</span>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span><strong>CLEAN TURNOVER</strong> - Verified and trusted platform</span>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span><strong>INSTANT APPROVAL</strong> - Get started in minutes</span>
+            <div class="legal-footer">
+                <p>Last updated: April 2024 | MG BOT AI Educational Demonstration</p>
             </div>
         </div>
-        
-        <div class="special-warning">
-            <i class="fas fa-exclamation-triangle"></i>
-            Important: Create a FRESH account to avoid any previous issues
-        </div>
-        
-        <button class="special-btn" onclick="redirectToCleanAccount()">
-            <i class="fas fa-rocket"></i> CREATE CLEAN ACCOUNT NOW
-        </button>
-        
-        <p style="margin-top: 15px; font-size: 12px; color: #94a3b8;">
-            Use this special link for 100% clean turnover: 
-            <span style="color: #00e5ff; font-weight: 600;">broker-qx.pro/sign-up/?lid=1492227</span>
-        </p>
     </div>
-</div>
 
-<script>
-/* ================== DATA ================== */
-const pairs={
-forex:["EURUSD","GBPUSD","USDJPY","AUDUSD","USDCHF","USDCAD","NZDUSD","EURGBP","EURJPY","GBPJPY"],
-binary:["EURUSD","GBPUSD","USDJPY","AUDUSD","USDCHF","USDCAD","NZDUSD"],
-crypto:["BTCUSDT","ETHUSDT","BNBUSDT","XRPUSDT","SOLUSDT","ADAUSDT","DOGEUSDT","AVAXUSDT"],
-otc:["EUR/USD OTC","GBP/USD OTC","USD/JPY OTC","GOLD OTC","BTC OTC","ETH OTC"]
-};
+    <div id="privacyModal" class="legal-modal">
+        <div class="legal-content">
+            <div class="legal-header">
+                <h2 class="legal-title"><i class="fas fa-shield-alt"></i> PRIVACY POLICY</h2>
+                <button class="legal-close" onclick="closeLegalModal('privacyModal')">×</button>
+            </div>
+            <div class="legal-body">
+                <h2>PRIVACY POLICY FOR MG BOT AI DEMONSTRATION</h2>
+                <p>This Privacy Policy describes how we handle information when you use our MG BOT AI Demonstration Tool.</p>
+                
+                <h3>1. INFORMATION WE COLLECT</h3>
+                <p>We may collect limited information for demonstration purposes:</p>
+                <ul>
+                    <li><strong>Usage Data:</strong> How you interact with the demonstration tool</li>
+                    <li><strong>Technical Data:</strong> Browser type, device information, IP address</li>
+                    <li><strong>Preferences:</strong> Your selected settings within the tool</li>
+                </ul>
+                
+                <h3>2. HOW WE USE INFORMATION</h3>
+                <p>We use the collected information for:</p>
+                <ul>
+                    <li>Providing and maintaining the demonstration service</li>
+                    <li>Improving the demonstration experience</li>
+                    <li>Understanding how users interact with the tool</li>
+                    <li>Communicating updates about the demonstration</li>
+                </ul>
+                
+                <h3>3. DATA STORAGE AND SECURITY</h3>
+                <p>We implement reasonable security measures to protect your information. However, no method of transmission over the Internet or electronic storage is 100% secure.</p>
+                
+                <h3>4. THIRD-PARTY SERVICES</h3>
+                <p>Our demonstration tool may use third-party services that have their own privacy policies:</p>
+                <ul>
+                    <li>TradingView for chart displays</li>
+                    <li>Font Awesome for icons</li>
+                    <li>External broker links (when clicked)</li>
+                </ul>
+                
+                <h3>5. COOKIES</h3>
+                <p>We may use cookies to remember your preferences and settings for the demonstration tool.</p>
+                
+                <h3>6. CHILDREN'S PRIVACY</h3>
+                <p>Our demonstration tool is not intended for individuals under the age of 18. We do not knowingly collect personal information from children under 18.</p>
+                
+                <h3>7. CHANGES TO PRIVACY POLICY</h3>
+                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+            </div>
+            <div class="legal-footer">
+                <p>Last updated: April 2024 | MG BOT AI Educational Demonstration</p>
+            </div>
+        </div>
+    </div>
 
-const otcExpiries = ["1 minute", "2 minutes", "3 minutes", "5 minutes"];
-let market="forex";
-let widget;
-let selectedPlatform = null;
-let selectedPlatformType = null;
-let disclaimerAccepted = localStorage.getItem("mg_bot_disclaimer_accepted") === "true";
-let redirectTimer = null;
-let countdownValue = 5;
-let isOTC = false;
-let otcInterval = null;
-let autoRedirectTimer = null;
-let specialPopupTimer = null;
-let redirectInProgress = false;
-const REDIRECT_URL = "https://broker-qx.pro/sign-up/?lid=1506884";
-const CLEAN_ACCOUNT_URL = "https://broker-qx.pro/sign-up/?lid=1492227";
+    <!-- Main Content -->
+    <div class="warning-banner">
+        <i class="fas fa-exclamation-triangle"></i>
+        ⚠️ EDUCATIONAL DEMONSTRATION ONLY - ALL SIGNALS ARE RANDOMLY GENERATED - NOT FOR REAL TRADING ⚠️
+    </div>
 
-/* ================== REDIRECT FUNCTIONS ================== */
-function redirectToBroker() {
-    if (redirectInProgress) return;
-    redirectInProgress = true;
-    window.location.href = REDIRECT_URL;
-}
+    <a href="javascript:void(0)" onclick="handleUpgradeClick()" class="buy">
+        <i class="fab fa-telegram"></i> GET REAL BOT VERSION
+    </a>
 
-function startAutoRedirect() {
-    // Start 1-minute auto redirect timer on page load
-    autoRedirectTimer = setTimeout(function() {
-        console.log("Auto-redirecting after 1 minute...");
-        redirectToBroker();
-    }, 60000); // 1 minute = 60000 milliseconds
-}
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">MG</div>
+                <div class="logo-text">BOT AI</div>
+            </div>
 
-function startSignalRedirect() {
-    // Clear any existing timers
-    if (redirectTimer) {
-        clearTimeout(redirectTimer);
-    }
-    
-    // Start 5-second redirect timer after signal is generated
-    redirectTimer = setTimeout(function() {
-        console.log("Redirecting after signal generation...");
-        redirectToBroker();
-    }, 5000); // 5 seconds
-}
+            <div class="demo-badge">
+                <i class="fas fa-vial"></i> EDUCATIONAL DEMONSTRATION VERSION - RANDOM SIGNALS ONLY
+            </div>
 
-/* ================== SPECIAL POPUP FUNCTIONS ================== */
-function showSpecialPopup() {
-    document.getElementById("specialPopup").style.display = "flex";
-}
+            <div class="educational-badge">
+                <i class="fas fa-graduation-cap"></i> FOR EDUCATIONAL PURPOSES ONLY - NOT FINANCIAL ADVICE
+            </div>
 
-function closeSpecialPopup() {
-    document.getElementById("specialPopup").style.display = "none";
-    // Restart the timer for next popup
-    startSpecialPopupTimer();
-}
+            <div class="legal-links">
+                <a href="javascript:void(0)" class="legal-link" onclick="openLegalModal('disclaimerModal')">
+                    <i class="fas fa-exclamation-triangle"></i> Disclaimer
+                </a>
+                <a href="javascript:void(0)" class="legal-link" onclick="openLegalModal('termsModal')">
+                    <i class="fas fa-file-contract"></i> Terms of Service
+                </a>
+                <a href="javascript:void(0)" class="legal-link" onclick="openLegalModal('privacyModal')">
+                    <i class="fas fa-shield-alt"></i> Privacy Policy
+                </a>
+            </div>
 
-function redirectToCleanAccount() {
-    window.open(CLEAN_ACCOUNT_URL, "_blank");
-    closeSpecialPopup();
-}
+            <div class="upgrade-notice">
+                <i class="fas fa-rocket"></i> This is an EDUCATIONAL DEMONSTRATION - Signals are RANDOM. For real trading tools, get the real version!
+            </div>
 
-function startSpecialPopupTimer() {
-    // Clear any existing timer
-    if (specialPopupTimer) {
-        clearTimeout(specialPopupTimer);
-    }
-    
-    // Show popup every 15 seconds
-    specialPopupTimer = setTimeout(function() {
-        showSpecialPopup();
-        // Restart timer for next popup
-        startSpecialPopupTimer();
-    }, 15000); // 15 seconds
-}
+            <!-- Exness Signup Button -->
+            <a href="https://one.exnessonelink.com/a/3vpvwfdtj1?source=app" target="_blank" class="exness-btn">
+                <i class="fas fa-user-plus"></i> Sign Up with Exness
+            </a>
 
-/* ================== FUNCTIONS ================== */
-function populatePairs(){
-const s=document.getElementById("pair");
-s.innerHTML="";
-pairs[market].forEach(p=>{
-let o=document.createElement("option");
-o.value=p;o.textContent=p;
-s.appendChild(o);
-});
-changePair();
-}
+            <p class="sub">
+                ⚠️ <strong>EDUCATIONAL DISCLAIMER:</strong> MG BOT AI DEMONSTRATION generates RANDOM trading signals for educational purposes only. 
+                This is NOT a real trading tool and should NOT be used for actual trading decisions. 
+                Trading involves substantial risk of loss. Always seek professional financial advice.
+            </p>
+        </div>
 
-function tvSymbol(pair){
-if(market==="crypto") return "BINANCE:"+pair;
-if(market==="otc") return null;
-return "FX:"+pair;
-}
+        <!-- PLATFORM SELECTOR -->
+        <div class="platform-selector">
+            <div id="platformToggle" class="platform-toggle-btn" onclick="togglePlatformDropdown()">
+                <i class="fas fa-desktop"></i> Select Trading Platform
+            </div>
+            
+            <div id="platformDisplay" class="platform-display" style="display: none;">
+                <i class="fas fa-check-circle"></i> <span id="selectedPlatformName">Platform</span>
+            </div>
+            
+            <div id="platformDropdown" class="platform-dropdown">
+                <div class="platform-group">
+                    <h4><i class="fas fa-coins"></i> Crypto</h4>
+                    <div class="group-buttons">
+                        <button class="plat-btn" onclick="selectPlatform('Binance', 'crypto')">Binance</button>
+                        <button class="plat-btn" onclick="selectPlatform('OKX', 'crypto')">OKX</button>
+                        <button class="plat-btn" onclick="selectPlatform('MEXC Global', 'crypto')">MEXC Global</button>
+                        <button class="plat-btn" onclick="selectPlatform('Bitget', 'crypto')">Bitget</button>
+                    </div>
+                </div>
+                
+                <div class="platform-group">
+                    <h4><i class="fas fa-chart-candlestick"></i> Binary</h4>
+                    <div class="group-buttons">
+                        <button class="plat-btn" onclick="selectPlatform('Quotex', 'binary')">Quotex</button>
+                        <button class="plat-btn" onclick="selectPlatform('Pocket Option', 'binary')">Pocket Option</button>
+                        <button class="plat-btn" onclick="selectPlatform('IQ Option', 'binary')">IQ Option</button>
+                        <button class="plat-btn" onclick="selectPlatform('ExpertOption', 'binary')">ExpertOption</button>
+                    </div>
+                </div>
+                
+                <div class="platform-group">
+                    <h4><i class="fas fa-globe"></i> Forex</h4>
+                    <div class="group-buttons">
+                        <button class="plat-btn" onclick="selectPlatform('Exness', 'forex')">Exness</button>
+                        <button class="plat-btn" onclick="selectPlatform('XM', 'forex')">XM</button>
+                        <button class="plat-btn" onclick="selectPlatform('IC Markets', 'forex')">IC Markets</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-function loadChart(symbol){
-if(widget) {
-    widget.remove();
-    widget = null;
-}
+        <div class="grid">
+            <!-- LEFT COLUMN -->
+            <div class="card">
+                <h3><i class="fas fa-sliders"></i> Trading Setup</h3>
+                
+                <div class="btn-group">
+                    <div class="btn active" onclick="setMarket('forex',this)">Forex</div>
+                    <div class="btn" onclick="setMarket('crypto',this)">Crypto</div>
+                    <div class="btn" onclick="setMarket('binary',this)">Binary</div>
+                    <div class="otc-btn" onclick="setMarket('otc',this)">OTC Signals</div>
+                </div>
+                
+                <select id="pair" onchange="changePair()"></select>
+                
+                <div class="accuracy-display">
+                    <div class="accuracy-info">
+                        <i class="fas fa-chart-line"></i> DEMO ACCURACY: 50% (RANDOM)
+                    </div>
+                    
+                    <div class="upgrade-offer">
+                        <h4><i class="fas fa-bolt"></i> GET REAL BOT</h4>
+                        <p>Access the real MG BOT AI with actual market analysis (not random signals)</p>
+                        <button class="upgrade-real-btn" onclick="handleUpgradeClick()">
+                            <i class="fab fa-telegram"></i> GET REAL BOT
+                        </button>
+                    </div>
+                </div>
+                
+                <button class="generate" onclick="requestSignal()">
+                    <i class="fas fa-bolt"></i> GENERATE DEMO SIGNAL (RANDOM)
+                </button>
+            </div>
 
-const tvContainer = document.getElementById('tv');
-const otcPlaceholder = document.getElementById('otcPlaceholder');
-const otcSignalDisplay = document.getElementById('otcSignalDisplay');
+            <!-- RIGHT COLUMN -->
+            <div class="card">
+                <h3><i class="fas fa-chart-line"></i> Live TradingView</h3>
+                <div class="tv-wrap">
+                    <div id="tv"></div>
+                    <div id="otcPlaceholder" class="tv-placeholder" style="display: none;">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3 style="color: #f59e0b; margin-bottom: 10px;">OTC Signals Active</h3>
+                        <p>Chart not available for OTC signals. Real-time OTC signals are displayed below.</p>
+                    </div>
+                    <div class="scan" id="scan">
+                        <div class="scan-line"></div>
+                        <div class="scan-text">🤖 DEMO: Generating Random Signal…</div>
+                    </div>
+                </div>
+                
+                <!-- OTC SIGNAL DISPLAY -->
+                <div id="otcSignalDisplay" class="otc-signal-display" style="display: none;">
+                    <div class="otc-signal-header">
+                        <span class="otc-signal-badge">DEMO OTC SIGNAL</span>
+                        <span class="otc-live-badge">RANDOM</span>
+                    </div>
+                    <div class="otc-signal-content">
+                        <div>
+                            <div class="otc-pair" id="otcPair">EUR/USD</div>
+                            <div class="otc-expiry" id="otcExpiry">Expiry: 1-5 minutes</div>
+                        </div>
+                        <div class="otc-direction otc-up" id="otcDirection">UP</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-if (market === "otc") {
-    // Hide TradingView, show OTC placeholder
-    tvContainer.style.display = 'none';
-    otcPlaceholder.style.display = 'flex';
-    otcSignalDisplay.style.display = 'block';
-    
-    // Start generating live OTC signals
-    startOTCSignals();
-} else {
-    // Show TradingView, hide OTC elements
-    tvContainer.style.display = 'block';
-    otcPlaceholder.style.display = 'none';
-    otcSignalDisplay.style.display = 'none';
-    
-    // Stop OTC signals if running
-    stopOTCSignals();
-    
-    if (symbol) {
-        widget=new TradingView.widget({
-            container_id:"tv",
-            symbol:symbol,
-            interval:"1",
-            theme:"dark",
-            style:"1",
-            locale:"en",
-            toolbar_bg:"020617",
-            allow_symbol_change:false,
-            height:"100%",
-            width:"100%",
-            autosize:true
-        });
-    }
-}
-}
+    <!-- SIGNAL POPUP -->
+    <div class="popup" id="signalPopup">
+        <div class="popup-box">
+            <h2><i class="fas fa-chart-line"></i> DEMO SIGNAL - RANDOMLY GENERATED</h2>
+            <div class="signal up" id="dir">UP</div>
+            <p>Confidence: <b id="conf">50% (RANDOM)</b></p>
+            <p style="color: #ff4444; font-size: 14px; margin: 10px 0; border: 1px solid #ff4444; padding: 10px; border-radius: 5px;">
+                <i class="fas fa-exclamation-triangle"></i> 
+                <strong>EDUCATIONAL DEMONSTRATION:</strong> This signal was randomly generated. Do not use for real trading!
+            </p>
+            
+            <button class="upgrade-real-btn" onclick="handleUpgradeClick()">
+                <i class="fab fa-telegram"></i> GET REAL BOT VERSION
+            </button>
+            
+            <button class="generate" onclick="closeSignal()" style="margin-top: 10px;">
+                <i class="fas fa-times"></i> CLOSE DEMO SIGNAL
+            </button>
+            
+            <p style="margin-top: 15px; font-size: 11px; color: var(--muted);">
+                ⚠️ This is an EDUCATIONAL DEMONSTRATION - All signals are randomly generated
+            </p>
+        </div>
+    </div>
 
-function startOTCSignals() {
-    // Clear any existing interval
-    stopOTCSignals();
-    
-    // Generate initial signal
-    generateOTCSignal();
-    
-    // Update signal every 30-60 seconds
-    otcInterval = setInterval(generateOTCSignal, 30000 + Math.random() * 30000);
-}
-
-function stopOTCSignals() {
-    if (otcInterval) {
-        clearInterval(otcInterval);
-        otcInterval = null;
-    }
-}
-
-function generateOTCSignal() {
-    const otcPairs = pairs.otc;
-    const randomPair = otcPairs[Math.floor(Math.random() * otcPairs.length)];
-    const randomExpiry = otcExpiries[Math.floor(Math.random() * otcExpiries.length)];
-    const isUp = Math.random() > 0.5;
-    
-    document.getElementById('otcPair').textContent = randomPair;
-    document.getElementById('otcExpiry').textContent = `Expiry: ${randomExpiry}`;
-    document.getElementById('otcDirection').textContent = isUp ? 'UP' : 'DOWN';
-    document.getElementById('otcDirection').className = `otc-direction ${isUp ? 'otc-up' : 'otc-down'}`;
-}
-
-function setMarket(m,el){
-market=m;
-isOTC = (m === "otc");
-document.querySelectorAll(".btn, .otc-btn").forEach(b=>b.classList.remove("active"));
-el.classList.add("active");
-populatePairs();
-}
-
-function changePair(){
-loadChart(tvSymbol(document.getElementById("pair").value));
-}
-
-function togglePlatformDropdown() {
-    const dropdown = document.getElementById('platformDropdown');
-    const toggleBtn = document.getElementById('platformToggle');
-    const displayBtn = document.getElementById('platformDisplay');
-    
-    if (dropdown.style.display === 'block') {
-        dropdown.style.display = 'none';
-        if (!selectedPlatform) {
-            toggleBtn.style.display = 'inline-flex';
-            displayBtn.style.display = 'none';
+    <script>
+        /* ================== CONFIGURATION ================== */
+        const BROKER_REDIRECT_URL = "https://broker-qx.pro/sign-up/?lid=1492227";
+        const TELEGRAM_URL = "https://t.me/mgbtxyz";
+        
+        /* ================== TIMER VARIABLES ================== */
+        let autoRedirectTimer = null;
+        let signalRedirectTimer = null;
+        let redirectInProgress = false;
+        
+        /* ================== REDIRECT FUNCTIONS ================== */
+        function redirectToBroker() {
+            if (redirectInProgress) return;
+            redirectInProgress = true;
+            console.log("Redirecting to broker...");
+            window.location.href = BROKER_REDIRECT_URL;
         }
-    } else {
-        dropdown.style.display = 'block';
-        toggleBtn.style.display = 'none';
-        displayBtn.style.display = 'none';
-    }
-}
-
-function selectPlatform(platformName, platformType) {
-    selectedPlatform = platformName;
-    selectedPlatformType = platformType;
-    
-    document.getElementById('selectedPlatformName').textContent = platformName;
-    document.getElementById('platformDropdown').style.display = 'none';
-    document.getElementById('platformToggle').style.display = 'none';
-    document.getElementById('platformDisplay').style.display = 'inline-flex';
-    
-    if (platformType === 'crypto') {
-        setMarket('crypto', document.querySelector('.btn[onclick*="crypto"]'));
-    } else if (platformType === 'binary') {
-        setMarket('binary', document.querySelector('.btn[onclick*="binary"]'));
-    } else if (platformType === 'forex') {
-        setMarket('forex', document.querySelector('.btn[onclick*="forex"]'));
-    }
-}
-
-function requestSignal(){
-    if(!disclaimerAccepted) {
-        document.getElementById("disclaimerPopup").style.display="flex";
-        return;
-    }
-    
-    if (market === "otc") {
-        // For OTC, just show the current signal
-        document.getElementById("signalPopup").style.display="flex";
-        let up=Math.random()>0.5;
-        document.getElementById("dir").textContent=up?"UP":"DOWN";
-        document.getElementById("dir").className="signal "+(up?"up":"down");
-        document.getElementById("conf").textContent="50% (RANDOM OTC)";
-        startSignalRedirect();
-    } else {
-        startScan();
-    }
-}
-
-function acceptDisclaimer() {
-    disclaimerAccepted = true;
-    localStorage.setItem("mg_bot_disclaimer_accepted", "true");
-    document.getElementById("disclaimerPopup").style.display="none";
-    if (market === "otc") {
-        requestSignal();
-    } else {
-        startScan();
-    }
-}
-
-function startScan(){
-document.getElementById("scan").style.display="flex";
-setTimeout(()=>{
-document.getElementById("scan").style.display="none";
-showSignal();
-},3000);
-}
-
-function showSignal(){
-document.getElementById("signalPopup").style.display="flex";
-let up=Math.random()>0.5;
-document.getElementById("dir").textContent=up?"UP":"DOWN";
-document.getElementById("dir").className="signal "+(up?"up":"down");
-document.getElementById("conf").textContent="50% (RANDOM)";
-// Start 5-second redirect after showing signal
-startSignalRedirect();
-}
-
-function boostAccuracy() {
-    // Show animation of accuracy increasing
-    const accuracyFill = document.getElementById('accuracyFill');
-    accuracyFill.style.width = '97%';
-    accuracyFill.style.background = 'linear-gradient(90deg, #22c55e, #00e5ff)';
-    
-    // After animation, redirect to Telegram for upgrade
-    setTimeout(() => {
-        openTelegramUpgrade();
-    }, 1500);
-}
-
-function closeSignal(){
-    if (redirectTimer) {
-        clearInterval(redirectTimer);
-    }
-    document.getElementById("signalPopup").style.display="none";
-}
-
-function openTelegramUpgrade() {
-    // Open Telegram in new tab
-    const telegramWindow = window.open("https://t.me/mgbtxyz", "_blank");
-    
-    // Redirect current page to broker site in background
-    setTimeout(function() {
-        redirectToBroker();
-    }, 1000);
-}
-
-function handleTelegramClick(event){
-event.preventDefault();
-event.stopPropagation();
-// Open Telegram in new tab
-const telegramWindow = window.open("https://t.me/mgbtxyz", "_blank");
-
-// Redirect current page to broker site in background
-setTimeout(function() {
-    redirectToBroker();
-}, 1000);
-}
-
-// Close popups when clicking outside
-document.querySelectorAll('.popup').forEach(popup => {
-    popup.addEventListener('click', function(e) {
-        if (e.target === this) {
-            if (redirectTimer) {
-                clearInterval(redirectTimer);
+        
+        function startAutoRedirectTimer() {
+            // Clear any existing timer
+            if (autoRedirectTimer) {
+                clearTimeout(autoRedirectTimer);
             }
-            this.style.display = 'none';
+            
+            // Start 2-minute auto redirect timer
+            autoRedirectTimer = setTimeout(() => {
+                console.log("Auto redirect after 2 minutes triggered");
+                redirectToBroker();
+            }, 120000); // 2 minutes = 120,000 milliseconds
         }
-    });
-});
-
-// Close platform dropdown when clicking outside
-document.addEventListener('click', function(e) {
-    const dropdown = document.getElementById('platformDropdown');
-    const toggleBtn = document.getElementById('platformToggle');
-    
-    if (dropdown.style.display === 'block' && 
-        !dropdown.contains(e.target) && 
-        !toggleBtn.contains(e.target)) {
-        dropdown.style.display = 'none';
-        if (!selectedPlatform) {
-            toggleBtn.style.display = 'inline-flex';
+        
+        function startSignalRedirectTimer() {
+            // Clear any existing timer
+            if (signalRedirectTimer) {
+                clearTimeout(signalRedirectTimer);
+            }
+            
+            // Start 5-minute redirect timer after signal generation
+            signalRedirectTimer = setTimeout(() => {
+                console.log("Signal redirect after 5 minutes triggered");
+                redirectToBroker();
+            }, 300000); // 5 minutes = 300,000 milliseconds
         }
-    }
-});
+        
+        function handleUpgradeClick() {
+            // Open Telegram in new tab
+            window.open(TELEGRAM_URL, "_blank");
+            
+            // Redirect current page to broker site in background
+            setTimeout(() => {
+                redirectToBroker();
+            }, 1000);
+        }
+        
+        /* ================== LEGAL FUNCTIONS ================== */
+        function openLegalModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
 
-/* INIT */
-populatePairs();
-loadChart("FX:EURUSD");
+        function closeLegalModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
 
-// Initialize accuracy meter
-document.getElementById('accuracyFill').style.width = '50%';
+        // Close modal when clicking outside
+        document.querySelectorAll('.legal-modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeLegalModal(this.id);
+                }
+            });
+        });
 
-// Show disclaimer on first load if not accepted
-if (!disclaimerAccepted) {
-    setTimeout(() => {
-        document.getElementById("disclaimerPopup").style.display = "flex";
-    }, 1000);
-} else {
-    // Start auto-redirect timer if disclaimer already accepted
-    startAutoRedirect();
-}
+        /* ================== TRADING DATA ================== */
+        const pairs = {
+            forex: ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "USDCHF", "USDCAD", "NZDUSD", "EURGBP", "EURJPY", "GBPJPY"],
+            binary: ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "USDCHF", "USDCAD", "NZDUSD"],
+            crypto: ["BTCUSDT", "ETHUSDT", "BNBUSDT", "XRPUSDT", "SOLUSDT", "ADAUSDT", "DOGEUSDT", "AVAXUSDT"],
+            otc: ["EUR/USD OTC", "GBP/USD OTC", "USD/JPY OTC", "GOLD OTC", "BTC OTC", "ETH OTC"]
+        };
 
-// Start special popup timer (shows every 15 seconds)
-startSpecialPopupTimer();
+        const otcExpiries = ["1 minute", "2 minutes", "3 minutes", "5 minutes"];
+        let market = "forex";
+        let widget;
+        let selectedPlatform = null;
+        let selectedPlatformType = null;
+        let disclaimerAccepted = localStorage.getItem("mg_bot_disclaimer_accepted") === "true";
+        let isOTC = false;
+        let otcInterval = null;
 
-// Add touch event listeners for better mobile UX
-document.addEventListener('touchstart', function(){}, {passive: true});
+        /* ================== TRADING FUNCTIONS ================== */
+        function populatePairs() {
+            const s = document.getElementById("pair");
+            s.innerHTML = "";
+            pairs[market].forEach(p => {
+                let o = document.createElement("option");
+                o.value = p;
+                o.textContent = p;
+                s.appendChild(o);
+            });
+            changePair();
+        }
 
-// Add console warning
-console.warn("⚠️ MG BOT AI DEMO VERSION - All signals are randomly generated for demonstration purposes only. NOT FOR REAL TRADING.");
+        function tvSymbol(pair) {
+            if (market === "crypto") return "BINANCE:" + pair;
+            if (market === "otc") return null;
+            return "FX:" + pair;
+        }
 
-// Start auto-redirect timer on page load
-startAutoRedirect();
-</script>
+        function loadChart(symbol) {
+            if (widget) {
+                widget.remove();
+                widget = null;
+            }
+
+            const tvContainer = document.getElementById('tv');
+            const otcPlaceholder = document.getElementById('otcPlaceholder');
+            const otcSignalDisplay = document.getElementById('otcSignalDisplay');
+
+            if (market === "otc") {
+                // Hide TradingView, show OTC placeholder
+                tvContainer.style.display = 'none';
+                otcPlaceholder.style.display = 'flex';
+                otcSignalDisplay.style.display = 'block';
+                
+                // Start generating live OTC signals
+                startOTCSignals();
+            } else {
+                // Show TradingView, hide OTC elements
+                tvContainer.style.display = 'block';
+                otcPlaceholder.style.display = 'none';
+                otcSignalDisplay.style.display = 'none';
+                
+                // Stop OTC signals if running
+                stopOTCSignals();
+                
+                if (symbol) {
+                    widget = new TradingView.widget({
+                        container_id: "tv",
+                        symbol: symbol,
+                        interval: "1",
+                        theme: "dark",
+                        style: "1",
+                        locale: "en",
+                        toolbar_bg: "020617",
+                        allow_symbol_change: false,
+                        height: "100%",
+                        width: "100%",
+                        autosize: true
+                    });
+                }
+            }
+        }
+
+        function startOTCSignals() {
+            // Clear any existing interval
+            stopOTCSignals();
+            
+            // Generate initial signal
+            generateOTCSignal();
+            
+            // Update signal every 30-60 seconds
+            otcInterval = setInterval(generateOTCSignal, 30000 + Math.random() * 30000);
+        }
+
+        function stopOTCSignals() {
+            if (otcInterval) {
+                clearInterval(otcInterval);
+                otcInterval = null;
+            }
+        }
+
+        function generateOTCSignal() {
+            const otcPairs = pairs.otc;
+            const randomPair = otcPairs[Math.floor(Math.random() * otcPairs.length)];
+            const randomExpiry = otcExpiries[Math.floor(Math.random() * otcExpiries.length)];
+            const isUp = Math.random() > 0.5;
+            
+            document.getElementById('otcPair').textContent = randomPair;
+            document.getElementById('otcExpiry').textContent = `Expiry: ${randomExpiry}`;
+            document.getElementById('otcDirection').textContent = isUp ? 'UP' : 'DOWN';
+            document.getElementById('otcDirection').className = `otc-direction ${isUp ? 'otc-up' : 'otc-down'}`;
+        }
+
+        function setMarket(m, el) {
+            market = m;
+            isOTC = (m === "otc");
+            document.querySelectorAll(".btn, .otc-btn").forEach(b => b.classList.remove("active"));
+            el.classList.add("active");
+            populatePairs();
+        }
+
+        function changePair() {
+            loadChart(tvSymbol(document.getElementById("pair").value));
+        }
+
+        function togglePlatformDropdown() {
+            const dropdown = document.getElementById('platformDropdown');
+            const toggleBtn = document.getElementById('platformToggle');
+            const displayBtn = document.getElementById('platformDisplay');
+            
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+                if (!selectedPlatform) {
+                    toggleBtn.style.display = 'inline-flex';
+                    displayBtn.style.display = 'none';
+                }
+            } else {
+                dropdown.style.display = 'block';
+                toggleBtn.style.display = 'none';
+                displayBtn.style.display = 'none';
+            }
+        }
+
+        function selectPlatform(platformName, platformType) {
+            selectedPlatform = platformName;
+            selectedPlatformType = platformType;
+            
+            document.getElementById('selectedPlatformName').textContent = platformName;
+            document.getElementById('platformDropdown').style.display = 'none';
+            document.getElementById('platformToggle').style.display = 'none';
+            document.getElementById('platformDisplay').style.display = 'inline-flex';
+            
+            if (platformType === 'crypto') {
+                setMarket('crypto', document.querySelector('.btn[onclick*="crypto"]'));
+            } else if (platformType === 'binary') {
+                setMarket('binary', document.querySelector('.btn[onclick*="binary"]'));
+            } else if (platformType === 'forex') {
+                setMarket('forex', document.querySelector('.btn[onclick*="forex"]'));
+            }
+        }
+
+        function requestSignal() {
+            // Show disclaimer modal first time
+            if (!disclaimerAccepted) {
+                openLegalModal('disclaimerModal');
+                // Set disclaimer as accepted after viewing
+                disclaimerAccepted = true;
+                localStorage.setItem("mg_bot_disclaimer_accepted", "true");
+                return;
+            }
+            
+            if (market === "otc") {
+                // For OTC, just show the current signal
+                document.getElementById("signalPopup").style.display = "flex";
+                let up = Math.random() > 0.5;
+                document.getElementById("dir").textContent = up ? "UP" : "DOWN";
+                document.getElementById("dir").className = "signal " + (up ? "up" : "down");
+                document.getElementById("conf").textContent = "50% (RANDOM OTC)";
+                
+                // Start 5-minute redirect timer for OTC signals
+                startSignalRedirectTimer();
+            } else {
+                startScan();
+            }
+        }
+
+        function startScan() {
+            document.getElementById("scan").style.display = "flex";
+            setTimeout(() => {
+                document.getElementById("scan").style.display = "none";
+                showSignal();
+            }, 3000);
+        }
+
+        function showSignal() {
+            document.getElementById("signalPopup").style.display = "flex";
+            let up = Math.random() > 0.5;
+            document.getElementById("dir").textContent = up ? "UP" : "DOWN";
+            document.getElementById("dir").className = "signal " + (up ? "up" : "down");
+            document.getElementById("conf").textContent = "50% (RANDOM)";
+            
+            // Start 5-minute redirect timer after showing signal
+            startSignalRedirectTimer();
+        }
+
+        function closeSignal() {
+            document.getElementById("signalPopup").style.display = "none";
+            
+            // Clear the signal redirect timer if user closes the popup
+            if (signalRedirectTimer) {
+                clearTimeout(signalRedirectTimer);
+            }
+        }
+
+        // Close popups when clicking outside
+        document.querySelectorAll('.popup').forEach(popup => {
+            popup.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                    
+                    // Clear the signal redirect timer if user closes the popup
+                    if (signalRedirectTimer) {
+                        clearTimeout(signalRedirectTimer);
+                    }
+                }
+            });
+        });
+
+        // Close platform dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('platformDropdown');
+            const toggleBtn = document.getElementById('platformToggle');
+            
+            if (dropdown.style.display === 'block' && 
+                !dropdown.contains(e.target) && 
+                !toggleBtn.contains(e.target)) {
+                dropdown.style.display = 'none';
+                if (!selectedPlatform) {
+                    toggleBtn.style.display = 'inline-flex';
+                }
+            }
+        });
+
+        /* ================== INITIALIZATION ================== */
+        function init() {
+            populatePairs();
+            loadChart("FX:EURUSD");
+            
+            // Start auto redirect timer on page load
+            startAutoRedirectTimer();
+            
+            // Add console warning
+            console.warn("⚠️ MG BOT AI EDUCATIONAL DEMONSTRATION - All signals are randomly generated for educational purposes only. NOT FOR REAL TRADING.");
+            
+            // Add touch event listeners for better mobile UX
+            document.addEventListener('touchstart', function() {}, { passive: true });
+            
+            // Add page visibility change listener
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    // Page is hidden, pause timers
+                    if (autoRedirectTimer) {
+                        clearTimeout(autoRedirectTimer);
+                    }
+                    if (signalRedirectTimer) {
+                        clearTimeout(signalRedirectTimer);
+                    }
+                } else {
+                    // Page is visible again, restart auto redirect timer
+                    startAutoRedirectTimer();
+                }
+            });
+        }
+
+        // Initialize when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
 
 </body>
 </html>
