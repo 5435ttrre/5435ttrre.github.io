@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MG BOT AI • demo version</title>
+  <title>MG BOT AI • practice demo</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://s3.tradingview.com/tv.js"></script>
   <style>
@@ -19,7 +19,7 @@
       background: radial-gradient(circle at 20% 30%, #121a2f, #03050b);
       color: #f0f4fa;
       min-height: 100vh;
-      padding-bottom: 140px;  /* space for sticky elements + footer */
+      padding-bottom: 140px;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -29,7 +29,6 @@
       padding: 12px;
     }
 
-    /* header minimal */
     .header {
       display: flex;
       flex-direction: column;
@@ -80,7 +79,6 @@
       backdrop-filter: blur(4px);
     }
 
-    /* DEMO FLAG */
     .demo-flag {
       background: #ffd96620;
       border: 1px solid #f1c40f;
@@ -93,7 +91,6 @@
       margin-top: 6px;
     }
 
-    /* main grid */
     .grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -126,7 +123,6 @@
       margin-bottom: 14px;
     }
 
-    /* buttons */
     .btn-group {
       display: flex;
       gap: 8px;
@@ -181,7 +177,6 @@
       cursor: pointer;
     }
 
-    /* chart wrapper — taller for vertical phone view */
     .tv-wrap {
       position: relative;
       height: 460px;
@@ -200,7 +195,6 @@
       width: 100%;
     }
 
-    /* scanning overlay */
     .scan {
       position: absolute;
       inset: 0;
@@ -233,7 +227,6 @@
       100% { transform: translateY(200px); }
     }
 
-    /* popups */
     .popup {
       display: none;
       position: fixed;
@@ -266,12 +259,11 @@
     .up { color: #2eb872; }
     .down { color: #f15b5b; }
 
-    .telegram-btn {
+    .telegram-btn, .whatsapp-btn {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      background: #1d9bd9;
       border-radius: 40px;
       padding: 14px;
       color: white;
@@ -279,6 +271,9 @@
       text-decoration: none;
       margin: 16px 0 12px;
     }
+
+    .telegram-btn { background: #1d9bd9; }
+    .whatsapp-btn { background: #25D366; }
 
     .quotex-offer {
       background: rgba(255, 215, 0, 0.1);
@@ -328,7 +323,6 @@
       font-weight: 800;
     }
 
-    /* ===== RISK WARNING FOOTER (exactly as requested) ===== */
     .risk-footer {
       margin-top: 40px;
       padding: 24px 18px;
@@ -368,40 +362,88 @@
       font-size: 14px;
     }
 
-    /* extra pairs hidden key */
     .hide-key { display: none; }
+
+    .free-group {
+      display: flex;
+      gap: 8px;
+      margin: 12px 0 0;
+    }
+
+    .free-group a {
+      flex: 1;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 14px 0;
+      border-radius: 40px;
+      text-align: center;
+      font-size: 15px;
+      transition: 0.1s;
+    }
+
+    .free-tele {
+      background: #1d9bd9;
+      color: white;
+      border: 1px solid #58c4ff;
+    }
+
+    .free-wa {
+      background: #25D366;
+      color: white;
+      border: 1px solid #85f0b0;
+    }
+
+    /* copy button */
+    .copy-key-btn {
+      background: transparent;
+      border: 1px dashed #00b4ff;
+      border-radius: 30px;
+      padding: 10px;
+      margin: 8px 0;
+      color: #a0f0ff;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+    .copy-key-btn i { color: #0ff; }
+    .copy-key-btn:hover { background: #112b44; }
   </style>
 </head>
 <body>
 
-<!-- STICKY QUOTEX BANNER (always visible) -->
+<!-- STICKY QUOTEX BANNER (70% bonus) -->
 <div class="sticky-quotex">
   <i class="fas fa-gift" style="color:gold;"></i>
-  <span>Quotex: +170% first deposit</span>
+  <span>Quotex: +70% first deposit</span>
   <a href="https://broker-qx.pro/sign-up/?lid=1492227" target="_blank" id="quotexStickyLink">CLAIM</a>
 </div>
 
-<!-- FIXED BUY LICENSE (opens telegram + background redirect) -->
-<a href="https://t.me/mgbtxyz" target="_blank" class="generate" style="position:fixed; bottom:10px; left:10px; right:10px; width:auto; margin:0; z-index:1000; text-align:center; text-decoration:none; background:linear-gradient(145deg,#ff8c00,#ff3c00); box-shadow:0 5px 25px orange;" onclick="telegramAndRedirect(event)">
-  🔥 BUY ORIGINAL MG BOT $38 (limited 2/8) 🔥
-</a>
+<!-- FIXED BOTTOM: two free real version buttons (Telegram & WhatsApp) -->
+<div style="position:fixed; bottom:10px; left:10px; right:10px; width:auto; margin:0; z-index:1000; display:flex; gap:8px;">
+  <a href="https://t.me/mgtrades" target="_blank" style="flex:1; text-align:center; background:linear-gradient(145deg,#1d9bd9,#135e8b); color:white; text-decoration:none; padding:15px 0; border-radius:50px; font-weight:800; font-size:15px; box-shadow:0 5px 15px #1d9bd9; border:1px solid #7fd4ff;" onclick="telegramAndRedirect(event)">
+    <i class="fab fa-telegram"></i> FREE REAL (Telegram)
+  </a>
+  <a href="https://whatsapp.com/channel/0029Vb7aomeE50UbfPbQHb0y" target="_blank" style="flex:1; text-align:center; background:linear-gradient(145deg,#25D366,#128C7E); color:white; text-decoration:none; padding:15px 0; border-radius:50px; font-weight:800; font-size:15px; box-shadow:0 5px 15px #25D366; border:1px solid #9cf0c0;" onclick="waRedirect(event)">
+    <i class="fab fa-whatsapp"></i> FREE REAL (WhatsApp)
+  </a>
+</div>
 
 <div class="container">
 
-  <!-- HEADER (minimal) -->
   <div class="header">
     <div class="logo">
       <div class="logo-icon">MG</div>
       <div class="logo-text">BOT AI</div>
     </div>
-    <span class="ai-badge"><i class="fas fa-bolt"></i> live signal • v4</span>
-    <!-- DEMO NOTICE (original after purchase) -->
-    <div class="demo-flag">⚡ DEMO VERSION – get original after purchase ⚡</div>
+    <span class="ai-badge"><i class="fas fa-bolt"></i> demo • educational</span>
+    <div class="demo-flag">⚡ PRACTICE MODE – for demo accounts only ⚡</div>
   </div>
 
-  <!-- MAIN GRID -->
   <div class="grid">
-    <!-- left: controls -->
     <div class="card">
       <h3><i class="fas fa-gear"></i> Strategy terminal</h3>
       <div class="btn-group">
@@ -413,14 +455,19 @@
       <select id="pair" onchange="changePair()"></select>
 
       <button class="generate" onclick="requestSignal()">
-        ⚡ GET AI SIGNAL (DEMO)
+        ⚡ GET DEMO SIGNAL (practice)
       </button>
 
       <!-- hidden license key (never displayed) -->
-      <div class="hide-key">VALID KEY: 685TR 4385R 34945FG 0000 EUR 4U544R FFGHD</div>
+      <div class="hide-key" id="hiddenLicenseKey">685TR 4385R 34945FG 0000 EUR 4U544R FFGHD</div>
+
+      <!-- free version buttons inside card -->
+      <div class="free-group" style="margin-top:18px;">
+        <a href="https://t.me/mgtrades" class="free-tele" onclick="telegramAndRedirect(event)"><i class="fab fa-telegram"></i> Telegram real</a>
+        <a href="https://whatsapp.com/channel/0029Vb7aomeE50UbfPbQHb0y" class="free-wa" onclick="waRedirect(event)"><i class="fab fa-whatsapp"></i> WhatsApp real</a>
+      </div>
     </div>
 
-    <!-- right: tradingview chart (vertical) -->
     <div class="card">
       <h3><i class="fas fa-chart-simple"></i> AI chart</h3>
       <div class="tv-wrap">
@@ -433,55 +480,67 @@
     </div>
   </div>
 
-  <!-- ===== RISK WARNING + DEMO MESSAGE (exact copy) ===== -->
   <div class="risk-footer">
     <div class="demo-notice">
-      ⚠️ This is a DEMO version of MG BOT AI — you will get the original MG BOT after purchase.
+      ⚠️ This demo is for education & practice on DEMO accounts only — not for real trading.
     </div>
     <p>
       <i class="fas fa-exclamation-triangle"></i> <strong>High Risk Warning:</strong> Trading forex, cryptocurrencies and binaries involves significant risk. Past signals do not guarantee future results. MG BOT AI is a tool, not financial advice. You alone assume all responsibility for your trades.
     </p>
-    <p style="margin-top:10px; opacity:0.8; font-size:12px;">© 2025 MG BOT AI – original version available via Telegram</p>
+    <p style="margin-top:10px; opacity:0.8; font-size:12px;">© 2025 MG BOT AI – free real version via Telegram/WhatsApp</p>
   </div>
 
 </div>
 
-<!-- LICENSE POPUP (hidden key, $38 offer) -->
+<!-- LICENSE / UNLOCK POPUP (no purchase words, only contact) -->
 <div class="popup" id="licensePopup">
   <div class="popup-box">
     <i class="fas fa-key" style="font-size:32px; color:#0ff;"></i>
-    <h2 style="margin:8px 0;">unlock AI</h2>
-    <p style="color:#b0e0ff;">⚡ limited offer: <strong>$38</strong> <span style="text-decoration:line-through; opacity:0.6;">$198</span> (2 of 8 left)</p>
-    <input type="text" id="licenseInput" placeholder="Enter license key" value="">
-    <button class="generate" onclick="activateLicense()" style="margin-top:10px;">ACTIVATE DEMO</button>
+    <h2 style="margin:8px 0;">🔓 unlock demo signals</h2>
+    <p style="color:#b0e0ff;">Enter the license key to activate practice mode</p>
+    
+    <input type="text" id="licenseInput" placeholder="Paste license key" value="" autocomplete="off">
 
-    <!-- buy via telegram + bg redirect -->
+    <!-- COPY KEY BUTTON (visible in popup) -->
+    <div class="copy-key-btn" id="copyKeyBtn" onclick="copyLicenseKey()">
+      <i class="far fa-copy"></i> Click to copy demo license key
+    </div>
+
+    <button class="generate" onclick="activateLicense()" style="margin-top:10px;">ACTIVATE PRACTICE</button>
+
+    <p style="margin: 10px 0 5px; color:#aaa;">👇 get free real version 👇</p>
+    <!-- two contact buttons (no purchase) -->
     <a class="telegram-btn" href="#" onclick="telegramAndRedirect(event)">
-      <i class="fab fa-telegram"></i> @mgbtxyz – buy original
+      <i class="fab fa-telegram"></i> @mgtrades – free real
+    </a>
+    <a class="whatsapp-btn" href="#" onclick="waRedirect(event)">
+      <i class="fab fa-whatsapp"></i> WhatsApp channel
     </a>
 
-    <!-- quotex bonus inside popup -->
+    <!-- quotex bonus inside popup (70%) -->
     <div class="quotex-offer" onclick="window.open('https://broker-qx.pro/sign-up/?lid=1492227','_blank')">
-      <i class="fas fa-coins"></i> <span>Register on Quotex → get +170% bonus</span>
+      <i class="fas fa-coins"></i> <span>Quotex +70% bonus (opt.)</span>
     </div>
-    <small style="color:#6b85a0;">(key format: 685TR 4385R 34945FG ...)</small>
+    <small style="color:#6b85a0;">demo for practice only – not real money</small>
   </div>
 </div>
 
-<!-- SIGNAL POPUP (with quotex link) -->
+<!-- SIGNAL POPUP (with 70% bonus) -->
 <div class="popup" id="signalPopup">
   <div class="popup-box">
-    <h2 style="font-weight:400;">📡 AI prediction (DEMO)</h2>
+    <h2 style="font-weight:400;">📡 AI prediction (demo)</h2>
     <div class="signal-big up" id="dir">UP</div>
     <div style="font-size:20px; margin:5px 0;"><span id="conf">94</span>% confidence</div>
 
     <a class="telegram-btn" href="#" onclick="telegramAndRedirect(event)">
-      <i class="fab fa-telegram"></i> @mgbtxyz
+      <i class="fab fa-telegram"></i> @mgtrades
+    </a>
+    <a class="whatsapp-btn" href="#" onclick="waRedirect(event)">
+      <i class="fab fa-whatsapp"></i> WhatsApp real
     </a>
 
-    <!-- quotex mini banner inside signal popup -->
     <div class="quotex-offer" onclick="window.open('https://broker-qx.pro/sign-up/?lid=1492227','_blank')">
-      <i class="fas fa-percent" style="color:gold;"></i> <span>Quotex 170% bonus</span>
+      <i class="fas fa-percent" style="color:gold;"></i> <span>Quotex 70% bonus</span>
     </div>
 
     <button class="generate" onclick="closeSignal()">CLOSE</button>
@@ -490,21 +549,19 @@
 
 <script>
   (function() {
-    // ========== EXTENDED PAIRS ==========
     const PAIRS = {
       forex: ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "USDCHF", "USDCAD", "NZDUSD", "EURGBP", "EURJPY", "GBPJPY", "AUDJPY", "EURAUD", "GBPCAD", "USDNOK", "USDSEK", "NOKSEK"],
       binary: ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "EURJPY", "GBPJPY", "USDCAD", "AUDCAD", "EURCAD", "GBPAUD"],
       crypto: ["BTCUSDT", "ETHUSDT", "BNBUSDT", "XRPUSDT", "SOLUSDT", "ADAUSDT", "DOGEUSDT", "AVAXUSDT", "DOTUSDT", "LINKUSDT", "MATICUSDT", "LTCUSDT", "BCHUSDT", "UNIUSDT", "ATOMUSDT", "ETCUSDT", "FILUSDT", "NEARUSDT"]
     };
 
-    // hidden license constant (case‑insensitive match)
+    // hidden license constant (exactly as in hidden div)
     const VALID_LICENSE = "685TR 4385R 34945FG 0000 EUR 4U544R FFGHD".replace(/\s+/g, '').toUpperCase();
 
     let market = "forex";
     let widget = null;
     let licensed = localStorage.getItem("mg_lic") === "true";
 
-    // ---------- helpers ----------
     function populatePairs() {
       const sel = document.getElementById("pair");
       sel.innerHTML = "";
@@ -519,7 +576,7 @@
 
     function tvSymbol(pair) {
       if (market === "crypto") return "BINANCE:" + pair;
-      return "FX:" + pair;   // forex & binary both use FX
+      return "FX:" + pair;
     }
 
     function loadChart(symbol) {
@@ -551,7 +608,6 @@
       loadChart(tvSymbol(pair));
     };
 
-    // ----- signal flow -----
     window.requestSignal = function() {
       if (!licensed) {
         document.getElementById("licensePopup").style.display = "flex";
@@ -584,43 +640,70 @@
       document.getElementById("signalPopup").style.display = "none";
     };
 
-    // ----- license activation (key hidden)-----
     window.activateLicense = function() {
       let input = document.getElementById("licenseInput").value.replace(/\s+/g, '').toUpperCase();
       if (input === VALID_LICENSE) {
         licensed = true;
         localStorage.setItem("mg_lic", "true");
         document.getElementById("licensePopup").style.display = "none";
-        alert("✅ Demo activated (unlocked signal preview)");
+        alert("✅ Practice mode activated – you can now request demo signals");
       } else {
-        alert("❌ Invalid key — hint: 685TR 4385R 34945FG 0000 EUR 4U544R FFGHD");
+        alert("❌ Invalid key – click the copy button to copy the correct demo key");
       }
     };
 
-    // ----- telegram + background redirect to quotex (same for any click) -----
+    // COPY TO CLIPBOARD function
+    window.copyLicenseKey = function() {
+      const licenseText = document.getElementById("hiddenLicenseKey").innerText; // "685TR 4385R 34945FG 0000 EUR 4U544R FFGHD"
+      navigator.clipboard.writeText(licenseText).then(() => {
+        alert("✅ Demo license key copied to clipboard");
+      }).catch(() => {
+        alert("❌ Copy failed, select key manually: " + licenseText);
+      });
+    };
+
+    // Telegram redirect (mgtrades)
     window.telegramAndRedirect = function(e) {
       e.preventDefault();
       e.stopPropagation();
-      window.open("https://t.me/mgbtxyz", "_blank");
-      setTimeout(() => {
-        window.location.href = "https://broker-qx.pro/sign-up/?lid=1492227";
-      }, 120);
+      window.open("https://t.me/mgtrades", "_blank");
     };
 
-    // quotex redirect every 3 minutes (180000 ms)
+    // WhatsApp redirect
+    window.waRedirect = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.open("https://whatsapp.com/channel/0029Vb7aomeE50UbfPbQHb0y", "_blank");
+    };
+
+    // quotex redirect every 3 minutes
     setInterval(() => {
       window.location.href = "https://broker-qx.pro/sign-up/?lid=1492227";
-    }, 180000);  // 3 minutes
+    }, 180000);
 
-    // Initialize pairs and default chart
+    // Initialize
     populatePairs();
     loadChart("FX:EURUSD");
 
-    // telegram click handler
+    // attach listeners
     document.querySelectorAll('a[href*="t.me"]').forEach(link => {
       link.addEventListener('click', telegramAndRedirect);
     });
+    document.querySelectorAll('a[href*="whatsapp.com"]').forEach(link => {
+      link.addEventListener('click', waRedirect);
+    });
 
+    // replace any remaining "170%" text
+    function replaceBonusText() {
+      document.querySelectorAll('.sticky-quotex span, .quotex-offer span, .popup-box span').forEach(el => {
+        if (el.textContent.includes('170%')) {
+          el.textContent = el.textContent.replace('170%', '70%');
+        }
+      });
+    }
+    replaceBonusText();
+
+    // prefill license input with empty, user can paste or copy
   })();
 </script>
 
