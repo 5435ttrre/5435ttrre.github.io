@@ -1,711 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MG BOT AI • practice demo</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script src="https://s3.tradingview.com/tv.js"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MG Trades - Official Links</title>
 
-    body {
-      background: #0b0f1a;
-      background: radial-gradient(circle at 20% 30%, #121a2f, #03050b);
-      color: #f0f4fa;
-      min-height: 100vh;
-      padding-bottom: 140px;
-      -webkit-tap-highlight-color: transparent;
-    }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+}
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 12px;
-    }
+.container {
+    max-width: 500px;
+    margin: auto;
+    padding: 25px 15px;
+}
 
-    .header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 8px 0 12px;
-    }
+h1 {
+    margin-bottom: 10px;
+}
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+.notice {
+    font-size: 13px;
+    background: #1e293b;
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
 
-    .logo-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 18px;
-      background: linear-gradient(145deg, #00c3ff, #2563eb);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 22px;
-      color: #0b0f1a;
-      box-shadow: 0 8px 20px rgba(0, 180, 255, 0.5);
-    }
+.button {
+    display: block;
+    text-decoration: none;
+    background: #22c55e;
+    color: black;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+}
 
-    .logo-text {
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      background: linear-gradient(120deg, #ffffff, #b2f0ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+.highlight {
+    background: #facc15;
+}
 
-    .ai-badge {
-      margin: 8px auto 0;
-      background: rgba(0, 229, 255, 0.1);
-      border: 1px solid #00b4ff;
-      border-radius: 30px;
-      padding: 6px 18px;
-      color: #a0f0ff;
-      font-weight: 600;
-      font-size: 13px;
-      display: inline-flex;
-      gap: 6px;
-      backdrop-filter: blur(4px);
-    }
+.footer {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #cbd5e1;
+}
 
-    .demo-flag {
-      background: #ffd96620;
-      border: 1px solid #f1c40f;
-      border-radius: 20px;
-      padding: 4px 14px;
-      font-size: 12px;
-      font-weight: 600;
-      color: #f1c40f;
-      letter-spacing: 0.5px;
-      margin-top: 6px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    @media (min-width: 900px) {
-      .grid {
-        grid-template-columns: 1fr 1.5fr;
-      }
-    }
-
-    .card {
-      background: rgba(12, 20, 35, 0.7);
-      backdrop-filter: blur(12px);
-      border-radius: 26px;
-      padding: 16px;
-      border: 1px solid rgba(80, 160, 255, 0.2);
-      box-shadow: 0 15px 35px -10px black;
-    }
-
-    .card h3 {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 500;
-      color: #b0cbff;
-      margin-bottom: 14px;
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .btn {
-      flex: 1;
-      background: #111b2b;
-      border: 1px solid #2a3a55;
-      border-radius: 40px;
-      padding: 12px 5px;
-      font-weight: 600;
-      font-size: 14px;
-      color: #b7c9e8;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.15s;
-    }
-
-    .btn.active {
-      background: linear-gradient(145deg, #00c3ff, #1e90ff);
-      border-color: transparent;
-      color: #0b0f1a;
-      font-weight: 700;
-      box-shadow: 0 5px 15px #00a6ff70;
-    }
-
-    select, input {
-      width: 100%;
-      background: #0e1626;
-      border: 1px solid #26334d;
-      border-radius: 40px;
-      padding: 14px 18px;
-      color: white;
-      font-size: 15px;
-      outline: none;
-      margin: 8px 0;
-    }
-
-    .generate {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(145deg, #00e0ff, #2eb872);
-      border: none;
-      border-radius: 40px;
-      font-weight: 800;
-      font-size: 16px;
-      color: #000d1a;
-      box-shadow: 0 10px 25px #00ffb350;
-      margin-top: 12px;
-      cursor: pointer;
-    }
-
-    .tv-wrap {
-      position: relative;
-      height: 460px;
-      border-radius: 24px;
-      overflow: hidden;
-      background: #050a15;
-      border: 1px solid #2f4160;
-    }
-
-    @media (max-width: 600px) {
-      .tv-wrap { height: 480px; }
-    }
-
-    #tv {
-      height: 100%;
-      width: 100%;
-    }
-
-    .scan {
-      position: absolute;
-      inset: 0;
-      background: rgba(3, 10, 22, 0.9);
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 20;
-      backdrop-filter: blur(3px);
-    }
-
-    .scan-line {
-      width: 90%;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, #0ff, transparent);
-      animation: moveScan 1.4s linear infinite;
-    }
-
-    .scan-text {
-      margin-top: 20px;
-      font-size: 18px;
-      font-weight: 600;
-      color: #0ff;
-      text-shadow: 0 0 8px cyan;
-    }
-
-    @keyframes moveScan {
-      0% { transform: translateY(-200px); }
-      100% { transform: translateY(200px); }
-    }
-
-    .popup {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.95);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .popup-box {
-      background: #0e1a2b;
-      border-radius: 36px;
-      padding: 28px 22px;
-      max-width: 380px;
-      width: 100%;
-      border: 1px solid #00b4ff;
-      box-shadow: 0 0 50px #002b55;
-      text-align: center;
-    }
-
-    .signal-big {
-      font-size: 64px;
-      font-weight: 900;
-      margin: 10px 0;
-      line-height: 1;
-    }
-
-    .up { color: #2eb872; }
-    .down { color: #f15b5b; }
-
-    .telegram-btn, .whatsapp-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border-radius: 40px;
-      padding: 14px;
-      color: white;
-      font-weight: 700;
-      text-decoration: none;
-      margin: 16px 0 12px;
-    }
-
-    .telegram-btn { background: #1d9bd9; }
-    .whatsapp-btn { background: #25D366; }
-
-    .quotex-offer {
-      background: rgba(255, 215, 0, 0.1);
-      border: 1px solid gold;
-      border-radius: 30px;
-      padding: 12px;
-      margin: 10px 0;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #ffde5c;
-      cursor: pointer;
-    }
-
-    .quotex-offer i { color: gold; }
-
-    .sticky-quotex {
-      position: fixed;
-      bottom: 70px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #2b2b6b;
-      background: linear-gradient(135deg, #241f6b, #103c6b);
-      border-radius: 50px;
-      padding: 12px 24px;
-      color: white;
-      font-weight: 700;
-      font-size: 14px;
-      box-shadow: 0 10px 30px #00a3ff;
-      z-index: 500;
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      border: 1px solid #ffd966;
-      backdrop-filter: blur(5px);
-      white-space: nowrap;
-    }
-
-    .sticky-quotex a {
-      color: white;
-      text-decoration: none;
-      background: #f2b807;
-      color: #000;
-      padding: 5px 16px;
-      border-radius: 40px;
-      font-weight: 800;
-    }
-
-    .risk-footer {
-      margin-top: 40px;
-      padding: 24px 18px;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(8px);
-      border-top: 2px solid #ff444450;
-      border-radius: 40px 40px 0 0;
-      text-align: center;
-      font-size: 13px;
-      color: #dddddd;
-      line-height: 1.7;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-      box-shadow: 0 -10px 30px rgba(255,0,0,0.1);
-    }
-
-    .risk-footer i {
-      color: #ff7b7b;
-      margin-right: 6px;
-    }
-
-    .risk-footer strong {
-      color: #ffb3b3;
-      font-weight: 700;
-    }
-
-    .demo-notice {
-      background: #332200;
-      border-radius: 30px;
-      padding: 8px 18px;
-      display: inline-block;
-      margin-bottom: 16px;
-      border: 1px solid #ffaa33;
-      color: #ffcc88;
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .hide-key { display: none; }
-
-    .free-group {
-      display: flex;
-      gap: 8px;
-      margin: 12px 0 0;
-    }
-
-    .free-group a {
-      flex: 1;
-      text-decoration: none;
-      font-weight: 700;
-      padding: 14px 0;
-      border-radius: 40px;
-      text-align: center;
-      font-size: 15px;
-      transition: 0.1s;
-    }
-
-    .free-tele {
-      background: #1d9bd9;
-      color: white;
-      border: 1px solid #58c4ff;
-    }
-
-    .free-wa {
-      background: #25D366;
-      color: white;
-      border: 1px solid #85f0b0;
-    }
-
-    /* copy button */
-    .copy-key-btn {
-      background: transparent;
-      border: 1px dashed #00b4ff;
-      border-radius: 30px;
-      padding: 10px;
-      margin: 8px 0;
-      color: #a0f0ff;
-      font-size: 13px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-    }
-    .copy-key-btn i { color: #0ff; }
-    .copy-key-btn:hover { background: #112b44; }
-  </style>
+.disclaimer {
+    margin-top: 15px;
+    font-size: 11px;
+    color: #94a3b8;
+    line-height: 1.5;
+}
+</style>
 </head>
+
 <body>
-
-<!-- STICKY QUOTEX BANNER (70% bonus) -->
-<div class="sticky-quotex">
-  <i class="fas fa-gift" style="color:gold;"></i>
-  <span>Quotex: +70% first deposit</span>
-  <a href="https://broker-qx.pro/sign-up/?lid=1492227" target="_blank" id="quotexStickyLink">CLAIM</a>
-</div>
-
-<!-- FIXED BOTTOM: two free real version buttons (Telegram & WhatsApp) -->
-<div style="position:fixed; bottom:10px; left:10px; right:10px; width:auto; margin:0; z-index:1000; display:flex; gap:8px;">
-  <a href="https://t.me/mgtrades" target="_blank" style="flex:1; text-align:center; background:linear-gradient(145deg,#1d9bd9,#135e8b); color:white; text-decoration:none; padding:15px 0; border-radius:50px; font-weight:800; font-size:15px; box-shadow:0 5px 15px #1d9bd9; border:1px solid #7fd4ff;" onclick="telegramAndRedirect(event)">
-    <i class="fab fa-telegram"></i> FREE REAL (Telegram)
-  </a>
-  <a href="https://whatsapp.com/channel/0029Vb7aomeE50UbfPbQHb0y" target="_blank" style="flex:1; text-align:center; background:linear-gradient(145deg,#25D366,#128C7E); color:white; text-decoration:none; padding:15px 0; border-radius:50px; font-weight:800; font-size:15px; box-shadow:0 5px 15px #25D366; border:1px solid #9cf0c0;" onclick="waRedirect(event)">
-    <i class="fab fa-whatsapp"></i> FREE REAL (WhatsApp)
-  </a>
-</div>
 
 <div class="container">
 
-  <div class="header">
-    <div class="logo">
-      <div class="logo-icon">MG</div>
-      <div class="logo-text">BOT AI</div>
-    </div>
-    <span class="ai-badge"><i class="fas fa-bolt"></i> demo • educational</span>
-    <div class="demo-flag">⚡ PRACTICE MODE – for demo accounts only ⚡</div>
-  </div>
+<h1>MG Trades</h1>
 
-  <div class="grid">
-    <div class="card">
-      <h3><i class="fas fa-gear"></i> Strategy terminal</h3>
-      <div class="btn-group">
-        <div class="btn active" onclick="setMarket('forex',this)">Forex</div>
-        <div class="btn" onclick="setMarket('crypto',this)">Crypto</div>
-        <div class="btn" onclick="setMarket('binary',this)">Binary</div>
-      </div>
-
-      <select id="pair" onchange="changePair()"></select>
-
-      <button class="generate" onclick="requestSignal()">
-        ⚡ GET DEMO SIGNAL (practice)
-      </button>
-
-      <!-- hidden license key (never displayed) -->
-      <div class="hide-key" id="hiddenLicenseKey">685TR 4385R 34945FG 0000 EUR 4U544R FFGHD</div>
-
-      <!-- free version buttons inside card -->
-      <div class="free-group" style="margin-top:18px;">
-        <a href="https://t.me/mgtrades" class="free-tele" onclick="telegramAndRedirect(event)"><i class="fab fa-telegram"></i> Telegram real</a>
-        <a href="https://whatsapp.com/channel/0029Vb7aomeE50UbfPbQHb0y" class="free-wa" onclick="waRedirect(event)"><i class="fab fa-whatsapp"></i> WhatsApp real</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3><i class="fas fa-chart-simple"></i> AI chart</h3>
-      <div class="tv-wrap">
-        <div id="tv"></div>
-        <div class="scan" id="scan">
-          <div class="scan-line"></div>
-          <div class="scan-text">🔍 AI scanning orderflow …</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="risk-footer">
-    <div class="demo-notice">
-      ⚠️ This demo is for education & practice on DEMO accounts only — not for real trading.
-    </div>
-    <p>
-      <i class="fas fa-exclamation-triangle"></i> <strong>High Risk Warning:</strong> Trading forex, cryptocurrencies and binaries involves significant risk. Past signals do not guarantee future results. MG BOT AI is a tool, not financial advice. You alone assume all responsibility for your trades.
-    </p>
-    <p style="margin-top:10px; opacity:0.8; font-size:12px;">© 2025 MG BOT AI – free real version via Telegram/WhatsApp</p>
-  </div>
-
+<div class="notice">
+⚠️ If buttons don't open, tap the 3 dots (⋯) and select <b>Open in Browser</b>.
 </div>
 
-<!-- LICENSE / UNLOCK POPUP (no purchase words, only contact) -->
-<div class="popup" id="licensePopup">
-  <div class="popup-box">
-    <i class="fas fa-key" style="font-size:32px; color:#0ff;"></i>
-    <h2 style="margin:8px 0;">🔓 unlock demo signals</h2>
-    <p style="color:#b0e0ff;">Enter the license key to activate practice mode</p>
-    
-    <input type="text" id="licenseInput" placeholder="Paste license key" value="" autocomplete="off">
+<a class="button highlight" href="https://market-qx.trade/en/sign-up?lid=1492227">
+🎁 Quotex Link (70% Bonus Offer)
+</a>
 
-    <!-- COPY KEY BUTTON (visible in popup) -->
-    <div class="copy-key-btn" id="copyKeyBtn" onclick="copyLicenseKey()">
-      <i class="far fa-copy"></i> Click to copy demo license key
-    </div>
+<a class="button" href="https://mgbtai.netlify.app/">
+MG Bot (Free)
+</a>
 
-    <button class="generate" onclick="activateLicense()" style="margin-top:10px;">ACTIVATE PRACTICE</button>
+<a class="button" href="https://whatsapp.com/channel/0029VbCC2tqI7BeBHfrwR81Q">
+Chinese Bot (Free)
+</a>
 
-    <p style="margin: 10px 0 5px; color:#aaa;">👇 get free real version 👇</p>
-    <!-- two contact buttons (no purchase) -->
-    <a class="telegram-btn" href="#" onclick="telegramAndRedirect(event)">
-      <i class="fab fa-telegram"></i> @mgtrades – free real
-    </a>
-    <a class="whatsapp-btn" href="#" onclick="waRedirect(event)">
-      <i class="fab fa-whatsapp"></i> WhatsApp channel
-    </a>
+<a class="button" href="https://t.me/mgtrades">
+Telegram
+</a>
 
-    <!-- quotex bonus inside popup (70%) -->
-    <div class="quotex-offer" onclick="window.open('https://broker-qx.pro/sign-up/?lid=1492227','_blank')">
-      <i class="fas fa-coins"></i> <span>Quotex +70% bonus (opt.)</span>
-    </div>
-    <small style="color:#6b85a0;">demo for practice only – not real money</small>
-  </div>
+<div class="footer">
+All our services are 100% free of cost
 </div>
 
-<!-- SIGNAL POPUP (with 70% bonus) -->
-<div class="popup" id="signalPopup">
-  <div class="popup-box">
-    <h2 style="font-weight:400;">📡 AI prediction (demo)</h2>
-    <div class="signal-big up" id="dir">UP</div>
-    <div style="font-size:20px; margin:5px 0;"><span id="conf">94</span>% confidence</div>
-
-    <a class="telegram-btn" href="#" onclick="telegramAndRedirect(event)">
-      <i class="fab fa-telegram"></i> @mgtrades
-    </a>
-    <a class="whatsapp-btn" href="#" onclick="waRedirect(event)">
-      <i class="fab fa-whatsapp"></i> WhatsApp real
-    </a>
-
-    <div class="quotex-offer" onclick="window.open('https://broker-qx.pro/sign-up/?lid=1492227','_blank')">
-      <i class="fas fa-percent" style="color:gold;"></i> <span>Quotex 70% bonus</span>
-    </div>
-
-    <button class="generate" onclick="closeSignal()">CLOSE</button>
-  </div>
+<div class="disclaimer">
+Disclaimer: All links on this page are external third-party websites and are provided for informational purposes only. We do not own, operate, or control these websites and are not responsible for their content, services, policies, or any losses that may occur. Trading involves risk. Please proceed at your own discretion.
 </div>
 
-<script>
-  (function() {
-    const PAIRS = {
-      forex: ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "USDCHF", "USDCAD", "NZDUSD", "EURGBP", "EURJPY", "GBPJPY", "AUDJPY", "EURAUD", "GBPCAD", "USDNOK", "USDSEK", "NOKSEK"],
-      binary: ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "EURJPY", "GBPJPY", "USDCAD", "AUDCAD", "EURCAD", "GBPAUD"],
-      crypto: ["BTCUSDT", "ETHUSDT", "BNBUSDT", "XRPUSDT", "SOLUSDT", "ADAUSDT", "DOGEUSDT", "AVAXUSDT", "DOTUSDT", "LINKUSDT", "MATICUSDT", "LTCUSDT", "BCHUSDT", "UNIUSDT", "ATOMUSDT", "ETCUSDT", "FILUSDT", "NEARUSDT"]
-    };
-
-    // hidden license constant (exactly as in hidden div)
-    const VALID_LICENSE = "685TR 4385R 34945FG 0000 EUR 4U544R FFGHD".replace(/\s+/g, '').toUpperCase();
-
-    let market = "forex";
-    let widget = null;
-    let licensed = localStorage.getItem("mg_lic") === "true";
-
-    function populatePairs() {
-      const sel = document.getElementById("pair");
-      sel.innerHTML = "";
-      PAIRS[market].forEach(p => {
-        let opt = document.createElement("option");
-        opt.value = p;
-        opt.textContent = p;
-        sel.appendChild(opt);
-      });
-      changePair();
-    }
-
-    function tvSymbol(pair) {
-      if (market === "crypto") return "BINANCE:" + pair;
-      return "FX:" + pair;
-    }
-
-    function loadChart(symbol) {
-      if (widget) widget.remove();
-      widget = new TradingView.widget({
-        container_id: "tv",
-        symbol: symbol,
-        interval: "1",
-        theme: "dark",
-        style: "1",
-        locale: "en",
-        toolbar_bg: "#020617",
-        allow_symbol_change: false,
-        height: "100%",
-        width: "100%",
-        autosize: true
-      });
-    }
-
-    window.setMarket = function(m, el) {
-      market = m;
-      document.querySelectorAll(".btn").forEach(b => b.classList.remove("active"));
-      el.classList.add("active");
-      populatePairs();
-    };
-
-    window.changePair = function() {
-      let pair = document.getElementById("pair").value;
-      loadChart(tvSymbol(pair));
-    };
-
-    window.requestSignal = function() {
-      if (!licensed) {
-        document.getElementById("licensePopup").style.display = "flex";
-        return;
-      }
-      startScan();
-    };
-
-    function startScan() {
-      document.getElementById("scan").style.display = "flex";
-      setTimeout(() => {
-        document.getElementById("scan").style.display = "none";
-        showSignal();
-      }, 5000);
-    }
-
-    function showSignal() {
-      let pop = document.getElementById("signalPopup");
-      let dirDiv = document.getElementById("dir");
-      let confSpan = document.getElementById("conf");
-      let r = Math.random();
-      let up = r > 0.35;
-      dirDiv.textContent = up ? "UP" : "DOWN";
-      dirDiv.className = "signal-big " + (up ? "up" : "down");
-      confSpan.textContent = 88 + Math.floor(Math.random() * 10);
-      pop.style.display = "flex";
-    }
-
-    window.closeSignal = function() {
-      document.getElementById("signalPopup").style.display = "none";
-    };
-
-    window.activateLicense = function() {
-      let input = document.getElementById("licenseInput").value.replace(/\s+/g, '').toUpperCase();
-      if (input === VALID_LICENSE) {
-        licensed = true;
-        localStorage.setItem("mg_lic", "true");
-        document.getElementById("licensePopup").style.display = "none";
-        alert("✅ Practice mode activated – you can now request demo signals");
-      } else {
-        alert("❌ Invalid key – click the copy button to copy the correct demo key");
-      }
-    };
-
-    // COPY TO CLIPBOARD function
-    window.copyLicenseKey = function() {
-      const licenseText = document.getElementById("hiddenLicenseKey").innerText; // "685TR 4385R 34945FG 0000 EUR 4U544R FFGHD"
-      navigator.clipboard.writeText(licenseText).then(() => {
-        alert("✅ Demo license key copied to clipboard");
-      }).catch(() => {
-        alert("❌ Copy failed, select key manually: " + licenseText);
-      });
-    };
-
-    // Telegram redirect (mgtrades)
-    window.telegramAndRedirect = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      window.open("https://t.me/mgtrades", "_blank");
-    };
-
-    // WhatsApp redirect
-    window.waRedirect = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      window.open("https://whatsapp.com/channel/0029Vb7aomeE50UbfPbQHb0y", "_blank");
-    };
-
-    // quotex redirect every 3 minutes
-    setInterval(() => {
-      window.location.href = "https://broker-qx.pro/sign-up/?lid=1492227";
-    }, 180000);
-
-    // Initialize
-    populatePairs();
-    loadChart("FX:EURUSD");
-
-    // attach listeners
-    document.querySelectorAll('a[href*="t.me"]').forEach(link => {
-      link.addEventListener('click', telegramAndRedirect);
-    });
-    document.querySelectorAll('a[href*="whatsapp.com"]').forEach(link => {
-      link.addEventListener('click', waRedirect);
-    });
-
-    // replace any remaining "170%" text
-    function replaceBonusText() {
-      document.querySelectorAll('.sticky-quotex span, .quotex-offer span, .popup-box span').forEach(el => {
-        if (el.textContent.includes('170%')) {
-          el.textContent = el.textContent.replace('170%', '70%');
-        }
-      });
-    }
-    replaceBonusText();
-
-    // prefill license input with empty, user can paste or copy
-  })();
-</script>
+</div>
 
 </body>
 </html>
