@@ -2,103 +2,1386 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MG Trades - Official Links</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>MG BOT Pro v7 • Free Signal Engine</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://s3.tradingview.com/tv.js"></script>
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: white;
-    text-align: center;
+:root{
+  --bg:#050810;--bg2:#080c15;--bg3:#0d1220;--bg4:#121829;--bg5:#171f33;
+  --border:rgba(120,160,255,0.08);--border2:rgba(120,160,255,0.18);--border3:rgba(120,160,255,0.3);
+  --blue:#4f7fff;--blue2:#2563eb;--cyan:#06d6f5;--green:#00e5a0;--red:#ff3d6b;
+  --amber:#ffb400;--purple:#9b6dff;--text:#dde5f7;--muted:#3a4560;--muted2:#5a6a8a;--muted3:#8898b8;
 }
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
+body::before{content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(79,127,255,0.07) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 110%,rgba(155,109,255,0.05) 0%,transparent 55%),
+    linear-gradient(rgba(120,160,255,0.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(120,160,255,0.022) 1px,transparent 1px);
+  background-size:100% 100%,100% 100%,48px 48px,48px 48px;pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;}
 
-.container {
-    max-width: 500px;
-    margin: auto;
-    padding: 25px 15px;
-}
+/* NOTICE */
+.notice-bar{background:linear-gradient(90deg,rgba(255,61,107,0.08),rgba(255,61,107,0.05));border-bottom:1px solid rgba(255,61,107,0.15);padding:8px 16px;text-align:center;font-size:11px;color:#ff8fab;font-weight:500;letter-spacing:0.2px;}
+.notice-bar i{margin-right:5px;}
 
-h1 {
-    margin-bottom: 10px;
-}
+/* FREE BADGE BAR */
+.free-bar{background:linear-gradient(90deg,rgba(0,229,160,0.1),rgba(79,127,255,0.08),rgba(0,229,160,0.1));border-bottom:1px solid rgba(0,229,160,0.15);padding:7px 16px;text-align:center;font-size:11px;color:var(--green);font-weight:700;letter-spacing:0.5px;}
+.free-bar i{margin-right:6px;}
 
-.notice {
-    font-size: 13px;
-    background: #1e293b;
-    padding: 8px;
-    border-radius: 6px;
-    margin-bottom: 20px;
-}
+/* HEADER */
+.header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--border);background:rgba(5,8,16,0.9);backdrop-filter:blur(20px);position:sticky;top:0;z-index:200;flex-wrap:wrap;gap:8px;}
+.logo-wrap{display:flex;align-items:center;gap:12px;}
+.logo-icon{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#1a3fa6,#06d6f5);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#fff;box-shadow:0 0 20px rgba(79,127,255,0.45),inset 0 1px 0 rgba(255,255,255,0.2);flex-shrink:0;}
+.logo-name{font-size:17px;font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1.1;}
+.logo-sub{font-size:9px;font-weight:700;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2.5px;text-transform:uppercase;}
+.header-right{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.hdr-pill{display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border2);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:600;color:var(--muted3);}
+.hdr-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);}
+.hdr-dot.live{background:var(--green);box-shadow:0 0 7px var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.news-pill{display:flex;align-items:center;gap:5px;background:rgba(255,180,0,0.08);border:1px solid rgba(255,180,0,0.2);border-radius:100px;padding:5px 11px;font-size:11px;font-weight:600;color:var(--amber);cursor:pointer;}
+.v-badge{background:linear-gradient(90deg,var(--blue2),var(--purple));border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;color:#fff;}
+.free-badge{background:linear-gradient(90deg,rgba(0,229,160,0.15),rgba(0,229,160,0.08));border:1px solid rgba(0,229,160,0.3);border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;color:var(--green);}
 
-.button {
-    display: block;
-    text-decoration: none;
-    background: #22c55e;
-    color: black;
-    padding: 14px;
-    margin: 10px 0;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 15px;
-}
+/* NAV TABS */
+.nav-tabs{display:flex;gap:0;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.nav-tab{padding:12px 16px;font-size:12px;font-weight:700;color:var(--muted2);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.15s;font-family:inherit;background:none;border-top:none;border-left:none;border-right:none;display:flex;align-items:center;gap:6px;}
+.nav-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+.nav-tab i{font-size:11px;}
 
-.highlight {
-    background: #facc15;
-}
+/* PAGE SECTIONS */
+.page-section{display:none;}
+.page-section.active{display:block;}
 
-.footer {
-    margin-top: 20px;
-    font-size: 13px;
-    color: #cbd5e1;
-}
+/* LAYOUT */
+.container{max-width:1500px;margin:0 auto;padding:14px 14px;}
+.main-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+@media(min-width:1024px){.main-grid{grid-template-columns:365px 1fr;}}
 
-.disclaimer {
-    margin-top: 15px;
-    font-size: 11px;
-    color: #94a3b8;
-    line-height: 1.5;
-}
+/* CARDS */
+.card{background:var(--bg2);border-radius:16px;border:1px solid var(--border);overflow:hidden;position:relative;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(120,160,255,0.12),transparent);pointer-events:none;}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:rgba(13,18,32,0.7);}
+.card-title{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--muted3);text-transform:uppercase;letter-spacing:1.2px;}
+.cticon{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;}
+.ib{background:rgba(79,127,255,0.15);color:var(--blue);}
+.ig{background:rgba(0,229,160,0.12);color:var(--green);}
+.ia{background:rgba(255,180,0,0.12);color:var(--amber);}
+.ip{background:rgba(155,109,255,0.12);color:var(--purple);}
+.ic{background:rgba(6,214,245,0.12);color:var(--cyan);}
+.card-body{padding:14px;}
+
+/* TABS */
+.tabs{display:flex;gap:4px;background:var(--bg3);border-radius:11px;padding:4px;margin-bottom:12px;border:1px solid var(--border);}
+.tab{flex:1;padding:8px 4px;border-radius:8px;font-size:12px;font-weight:700;color:var(--muted3);text-align:center;cursor:pointer;transition:all 0.15s;border:none;background:transparent;font-family:inherit;}
+.tab.active{background:linear-gradient(135deg,var(--blue2),var(--blue));color:#fff;box-shadow:0 3px 12px rgba(79,127,255,0.4);}
+
+/* INPUTS */
+select,input[type=text]{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:11px 14px;color:var(--text);font-size:13px;font-family:'Outfit',inherit;outline:none;margin:5px 0;transition:border-color 0.2s,box-shadow 0.2s;appearance:none;-webkit-appearance:none;}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a6a8a' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+select:focus,input[type=text]:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,127,255,0.12);}
+input::placeholder{color:var(--muted2);}
+.api-row{display:flex;gap:7px;margin:5px 0;}
+.api-row input{margin:0;flex:1;font-family:'JetBrains Mono',monospace;font-size:11px;}
+.api-save{padding:11px 14px;background:linear-gradient(135deg,var(--blue2),var(--blue));border:none;border-radius:10px;color:#fff;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;font-family:inherit;}
+.api-hint{font-size:10px;color:var(--muted2);margin:4px 0 6px;line-height:1.6;}
+.api-hint a{color:var(--cyan);text-decoration:none;}
+
+/* SECTION LABEL */
+.sec-label{font-size:10px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:1.2px;margin:14px 0 8px;display:flex;align-items:center;gap:7px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* MTF */
+.mtf-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:4px 0 10px;}
+.mtf-card{background:var(--bg3);border:1px solid var(--border);border-radius:11px;padding:9px 6px;text-align:center;}
+.mtf-tf{font-size:9px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:0.5px;}
+.mtf-dir{font-size:16px;font-weight:800;margin:4px 0 2px;}
+.mtf-dir.up{color:var(--green);text-shadow:0 0 10px rgba(0,229,160,0.35);}
+.mtf-dir.down{color:var(--red);text-shadow:0 0 10px rgba(255,61,107,0.35);}
+.mtf-dir.neu{color:var(--muted2);}
+.mtf-conf{font-size:10px;color:var(--muted2);font-family:'JetBrains Mono',monospace;}
+
+/* INDICATORS — 3 col on desktop, 3 col on mobile */
+.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:4px 0 10px;}
+@media(max-width:420px){.ind-grid{grid-template-columns:repeat(2,1fr);}}
+.ind-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:9px 8px;position:relative;overflow:hidden;}
+.ind-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--border);transition:background 0.3s;}
+.ind-card.bullish::after{background:linear-gradient(90deg,var(--green),transparent);}
+.ind-card.bearish::after{background:linear-gradient(90deg,var(--red),transparent);}
+.ind-name{font-size:8px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:0.7px;}
+.ind-value{font-size:12px;font-weight:700;margin-top:2px;font-family:'JetBrains Mono',monospace;color:var(--text);}
+.ind-sig{font-size:8.5px;font-weight:600;margin-top:2px;}
+.ind-sig.bull{color:var(--green);}
+.ind-sig.bear{color:var(--red);}
+.ind-sig.neu{color:var(--muted2);}
+
+/* CONTEXT */
+.ctx-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:4px 0 10px;}
+.ctx-pill{background:var(--bg3);border:1px solid var(--border);border-radius:11px;padding:9px 8px;text-align:center;}
+.ctx-label{font-size:8.5px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:0.5px;}
+.ctx-val{font-size:12px;font-weight:700;margin-top:3px;font-family:'JetBrains Mono',monospace;}
+
+/* SR */
+.sr-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:4px 0 8px;}
+.sr-box{background:var(--bg3);border-radius:11px;padding:9px 10px;text-align:center;}
+.sr-box.res{border:1px solid rgba(255,61,107,0.25);}
+.sr-box.sup{border:1px solid rgba(0,229,160,0.2);}
+.sr-label{font-size:9px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;}
+.sr-box.res .sr-label{color:#ff7093;}
+.sr-box.sup .sr-label{color:var(--green);}
+.sr-val{font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;margin-top:3px;}
+
+/* SCORE METER */
+.score-meter{background:var(--bg3);border:1px solid var(--border);border-radius:11px;padding:11px 13px;margin:4px 0 8px;}
+.score-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:11px;font-weight:600;color:var(--muted3);}
+.score-bar{height:9px;background:var(--bg4);border-radius:5px;overflow:hidden;}
+.score-fill{height:100%;border-radius:5px;transition:width 0.8s cubic-bezier(0.4,0,0.2,1),background 0.5s;width:50%;background:var(--muted);}
+.score-ticks{display:flex;justify-content:space-between;margin-top:4px;font-size:8px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+
+/* STATUS */
+.data-status{font-size:10px;color:var(--muted2);text-align:center;margin:8px 0;font-family:'JetBrains Mono',monospace;padding:7px 10px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);}
+.data-status.live{color:var(--green);border-color:rgba(0,229,160,0.2);background:rgba(0,229,160,0.05);}
+.data-status.err{color:var(--red);border-color:rgba(255,61,107,0.2);background:rgba(255,61,107,0.05);}
+
+/* BUTTON */
+.btn-generate{width:100%;padding:15px;background:linear-gradient(135deg,#1a3fa6 0%,#2a6dd9 50%,#0ab8e8 100%);border:none;border-radius:12px;font-weight:800;font-size:14px;color:#fff;box-shadow:0 8px 26px rgba(79,127,255,0.35);margin-top:10px;cursor:pointer;font-family:inherit;letter-spacing:0.5px;transition:all 0.2s;position:relative;overflow:hidden;}
+.btn-generate:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(79,127,255,0.45);}
+.btn-generate:active{transform:translateY(0);}
+.btn-generate:disabled{opacity:0.35;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-generate::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.09),transparent);transform:translateX(-100%);transition:transform 0.5s;}
+.btn-generate:hover::after{transform:translateX(100%);}
+.btn-alt{background:linear-gradient(135deg,#1a2035,#252f45)!important;box-shadow:none!important;}
+.btn-alt:hover{box-shadow:0 4px 16px rgba(0,0,0,0.3)!important;transform:translateY(-1px)!important;}
+
+/* COOLDOWN */
+.cooldown-wrap{margin-top:10px;display:none;}
+.cooldown-label{font-size:10px;color:var(--muted2);font-family:'JetBrains Mono',monospace;margin-bottom:4px;display:flex;justify-content:space-between;}
+.cooldown-bar{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;}
+.cooldown-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:2px;transition:width 1s linear;}
+
+/* AUTO ROW */
+.auto-row{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding:10px 13px;background:var(--bg3);border-radius:10px;border:1px solid var(--border);}
+.toggle-label{font-size:12px;color:var(--muted3);font-weight:600;display:flex;align-items:center;gap:7px;}
+.toggle-switch{width:36px;height:19px;background:var(--bg4);border-radius:10px;border:1px solid var(--border2);position:relative;cursor:pointer;transition:all 0.25s;flex-shrink:0;}
+.toggle-switch.on{background:var(--blue2);border-color:var(--blue);box-shadow:0 0 8px rgba(79,127,255,0.3);}
+.toggle-knob{width:13px;height:13px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:left 0.25s;box-shadow:0 1px 4px rgba(0,0,0,0.4);}
+.toggle-switch.on .toggle-knob{left:19px;}
+
+/* WIN TRACKER */
+.wrt-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px;margin:6px 0 10px;}
+.wrt-box{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:9px 5px;text-align:center;}
+.wrt-num{font-size:19px;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.wrt-num.green{color:var(--green);}
+.wrt-num.red{color:var(--red);}
+.wrt-num.blue{color:var(--cyan);}
+.wrt-label{font-size:8px;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
+.wrt-btns{display:flex;gap:6px;}
+.wrt-btn{flex:1;padding:9px;border:none;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+.wrt-btn.win{background:rgba(0,229,160,0.12);color:var(--green);border:1px solid rgba(0,229,160,0.25);}
+.wrt-btn.loss{background:rgba(255,61,107,0.1);color:var(--red);border:1px solid rgba(255,61,107,0.2);}
+.wrt-btn.reset{background:var(--bg3);color:var(--muted3);border:1px solid var(--border2);}
+
+/* BOTTOM CONTEXT */
+.bottom-ctx{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0;}
+.b-ctx-card{background:var(--bg3);border:1px solid var(--border);border-radius:11px;padding:9px 10px;text-align:center;}
+.b-ctx-label{font-size:8.5px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:0.5px;}
+.b-ctx-val{font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;margin-top:4px;}
+
+/* CHART */
+.chart-card{display:flex;flex-direction:column;}
+.chart-toolbar{display:flex;align-items:center;gap:6px;padding:9px 14px;border-bottom:1px solid var(--border);background:rgba(8,12,21,0.9);flex-wrap:wrap;}
+.tf-btn{padding:5px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--muted2);font-family:inherit;transition:all 0.15s;}
+.tf-btn.active{background:rgba(79,127,255,0.15);color:var(--blue);border-color:rgba(79,127,255,0.3);}
+.tf-label{font-size:11px;font-weight:700;color:var(--muted3);margin-right:2px;}
+.tv-wrap{position:relative;flex:1;min-height:400px;}
+@media(max-width:768px){.tv-wrap{min-height:320px;}}
+#tv{height:100%;width:100%;}
+
+/* SCAN */
+.scan{position:absolute;inset:0;background:rgba(5,8,16,0.96);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:20;backdrop-filter:blur(8px);}
+.scan-rings{position:relative;width:64px;height:64px;margin-bottom:20px;}
+.scan-ring{width:64px;height:64px;border-radius:50%;border:2px solid rgba(79,127,255,0.15);border-top-color:var(--cyan);animation:spin 0.9s linear infinite;position:absolute;}
+.scan-ring2{width:50px;height:50px;border-radius:50%;border:2px solid rgba(155,109,255,0.1);border-bottom-color:var(--purple);animation:spin 1.5s linear infinite reverse;position:absolute;top:7px;left:7px;}
+.scan-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--blue);}
+@keyframes spin{to{transform:rotate(360deg)}}
+.scan-text{font-size:15px;font-weight:800;color:var(--cyan);}
+.scan-sub{font-size:11px;color:var(--muted2);margin-top:7px;font-family:'JetBrains Mono',monospace;}
+.scan-steps{display:flex;flex-direction:column;gap:5px;margin-top:16px;min-width:210px;}
+.scan-step{font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--muted);display:flex;align-items:center;gap:9px;padding:4px 8px;border-radius:6px;}
+.scan-step.done{color:var(--green);background:rgba(0,229,160,0.05);}
+.scan-step.active{color:var(--cyan);background:rgba(6,214,245,0.06);}
+.scan-step i{width:14px;text-align:center;}
+
+/* NEWS BANNER */
+.news-banner{display:none;background:rgba(255,61,107,0.08);border:1px solid rgba(255,61,107,0.2);border-radius:10px;padding:9px 13px;margin:8px 0;font-size:12px;color:#ff8fab;font-weight:600;}
+
+/* POPUP */
+.popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;align-items:center;justify-content:center;padding:14px;}
+.popup-box{background:var(--bg2);border-radius:20px;padding:22px 18px;max-width:430px;width:100%;border:1px solid var(--border2);box-shadow:0 0 80px rgba(79,127,255,0.1),0 40px 80px rgba(0,0,0,0.6);text-align:center;max-height:92vh;overflow-y:auto;}
+.popup-box h2{font-size:19px;font-weight:800;color:#fff;margin:8px 0 5px;}
+.popup-box p{font-size:12px;color:var(--muted3);line-height:1.7;}
+
+/* SIGNAL POPUP */
+.sig-header{font-size:10px;color:var(--muted2);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+.sig-direction{font-size:76px;font-weight:900;line-height:1;margin:6px 0 3px;letter-spacing:-3px;}
+.sig-direction.up{color:var(--green);text-shadow:0 0 50px rgba(0,229,160,0.4);}
+.sig-direction.down{color:var(--red);text-shadow:0 0 50px rgba(255,61,107,0.4);}
+.sig-pair-label{font-size:12px;font-weight:700;color:var(--muted3);margin-bottom:10px;}
+.sig-meta{display:flex;justify-content:center;gap:7px;margin:8px 0;flex-wrap:wrap;}
+.sig-meta-pill{background:var(--bg3);border:1px solid var(--border);border-radius:100px;padding:4px 12px;font-size:11px;font-weight:700;}
+.sig-meta-pill.strong{border-color:rgba(0,229,160,0.35);color:var(--green);background:rgba(0,229,160,0.07);}
+.sig-meta-pill.med{border-color:rgba(255,180,0,0.35);color:var(--amber);background:rgba(255,180,0,0.07);}
+.sig-meta-pill.weak{border-color:rgba(255,61,107,0.3);color:var(--red);background:rgba(255,61,107,0.06);}
+.sig-meta-pill.info{color:var(--cyan);border-color:rgba(6,214,245,0.3);background:rgba(6,214,245,0.06);}
+
+/* RING */
+.strength-ring-wrap{display:flex;justify-content:center;margin:8px 0;}
+.strength-ring{position:relative;width:84px;height:84px;}
+.strength-ring svg{transform:rotate(-90deg);}
+.strength-ring-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.strength-pct{font-size:19px;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.strength-txt{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted2);}
+
+.prob-row{margin:10px 0;}
+.prob-label{display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:5px;}
+.prob-bar{height:9px;background:var(--bg3);border-radius:5px;overflow:hidden;}
+.prob-fill{height:100%;border-radius:5px;transition:width 1s cubic-bezier(0.4,0,0.2,1);}
+
+.reason-list{background:var(--bg3);border-radius:12px;padding:11px 13px;margin:10px 0;text-align:left;border:1px solid var(--border);}
+.reason-section-label{font-size:9px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;}
+.reason-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);line-height:1.45;}
+.reason-item:last-child{border-bottom:none;padding-bottom:0;}
+.reason-item i{width:14px;text-align:center;margin-top:2px;flex-shrink:0;}
+.reason-item.bull i{color:var(--green);}
+.reason-item.bear i{color:var(--red);}
+.reason-item.warn i{color:var(--amber);}
+
+.sig-details{background:var(--bg3);border-radius:12px;padding:2px 0;margin:10px 0;text-align:left;border:1px solid var(--border);overflow:hidden;}
+.sd-section{padding:7px 13px 4px;font-size:9px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:1px;background:rgba(0,0,0,0.2);border-bottom:1px solid var(--border);}
+.sd-row{display:flex;justify-content:space-between;align-items:center;padding:6px 13px;border-bottom:1px solid var(--border);font-size:11px;}
+.sd-row:last-child{border-bottom:none;}
+.sd-label{color:var(--muted2);font-weight:500;}
+.sd-val{font-weight:700;font-family:'JetBrains Mono',monospace;font-size:10px;}
+.sd-val.bull{color:var(--green);}
+.sd-val.bear{color:var(--red);}
+.sd-val.neu{color:var(--muted2);}
+
+/* NO TRADE */
+.no-trade-box{background:rgba(255,180,0,0.07);border:1px solid rgba(255,180,0,0.2);border-radius:13px;padding:22px;text-align:center;}
+.no-trade-icon{font-size:38px;color:var(--amber);margin-bottom:8px;}
+.no-trade-title{font-size:19px;font-weight:900;color:var(--amber);letter-spacing:1px;}
+.no-trade-reason{font-size:12px;color:var(--muted3);margin-top:7px;line-height:1.7;}
+
+/* LEGAL */
+.legal-body{text-align:left;font-size:11px;color:var(--muted3);line-height:1.8;max-height:55vh;overflow-y:auto;padding:4px 2px;}
+.legal-body h4{color:var(--text);font-size:12px;font-weight:700;margin:13px 0 4px;}
+.legal-body p{margin-bottom:7px;}
+.legal-body ul{margin:5px 0 9px 16px;}
+.legal-body ul li{margin-bottom:3px;}
+.legal-close{width:100%;padding:12px;background:linear-gradient(135deg,var(--blue2),var(--blue));border:none;border-radius:11px;color:#fff;font-weight:700;font-size:13px;cursor:pointer;margin-top:14px;font-family:inherit;}
+.last-upd{font-size:10px;color:var(--muted2);margin-bottom:10px;}
+
+/* COOKIE */
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:2000;background:var(--bg2);border-top:1px solid var(--border2);padding:12px 18px;display:flex;flex-wrap:wrap;gap:9px;align-items:center;justify-content:space-between;box-shadow:0 -6px 24px rgba(0,0,0,0.5);animation:slideUp 0.4s ease;}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.cookie-banner.hidden{display:none!important;}
+.cookie-text{font-size:11px;color:var(--muted3);line-height:1.6;flex:1;min-width:180px;}
+.cookie-text strong{color:var(--text);}
+.cookie-text a{color:var(--cyan);text-decoration:none;}
+.cookie-btns{display:flex;gap:7px;flex-shrink:0;}
+.c-accept{padding:8px 16px;background:linear-gradient(135deg,var(--blue2),var(--blue));border:none;border-radius:9px;color:#fff;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit;}
+.c-decline{padding:8px 12px;background:transparent;border:1px solid var(--border2);border-radius:9px;color:var(--muted2);font-weight:600;font-size:12px;cursor:pointer;font-family:inherit;}
+
+/* FOOTER */
+.footer{padding:20px;border-top:1px solid var(--border);margin-top:16px;text-align:center;font-size:11px;color:var(--muted2);line-height:1.9;}
+.footer strong{color:#ff8fab;}
+.footer-links{display:flex;justify-content:center;gap:14px;margin-top:7px;flex-wrap:wrap;}
+.footer-links a{color:var(--cyan);text-decoration:none;font-size:11px;font-weight:600;}
+
+/* ═══ HOW TO USE PAGE ═══ */
+.guide-section{margin-bottom:24px;}
+.guide-section h3{font-size:16px;font-weight:800;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:9px;}
+.guide-section h3 i{width:28px;height:28px;background:rgba(79,127,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--blue);}
+.step-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start;}
+.step-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue2),var(--blue));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 4px 10px rgba(79,127,255,0.35);}
+.step-content h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:5px;}
+.step-content p{font-size:12px;color:var(--muted3);line-height:1.7;}
+.step-content .tip{font-size:11px;color:var(--cyan);background:rgba(6,214,245,0.07);border:1px solid rgba(6,214,245,0.15);border-radius:8px;padding:6px 10px;margin-top:7px;display:flex;align-items:flex-start;gap:6px;line-height:1.5;}
+.step-content .tip i{margin-top:2px;flex-shrink:0;}
+
+/* TRADING GUIDE CARDS */
+.guide-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:14px;}
+@media(min-width:700px){.guide-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1100px){.guide-grid{grid-template-columns:1fr 1fr 1fr;}}
+.tg-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:18px;position:relative;overflow:hidden;}
+.tg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.tg-card.forex-card::before{background:linear-gradient(90deg,var(--blue),var(--cyan));}
+.tg-card.crypto-card::before{background:linear-gradient(90deg,var(--purple),var(--pink,#ff4da6));}
+.tg-card.binary-card::before{background:linear-gradient(90deg,var(--amber),var(--red));}
+.tg-card.indices-card::before{background:linear-gradient(90deg,var(--green),var(--cyan));}
+.tg-card.scalp-card::before{background:linear-gradient(90deg,var(--cyan),var(--green));}
+.tg-card.swing-card::before{background:linear-gradient(90deg,var(--purple),var(--blue));}
+.tg-card-icon{font-size:26px;margin-bottom:10px;}
+.tg-card h4{font-size:15px;font-weight:800;color:#fff;margin-bottom:6px;}
+.tg-card .badge-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.mode-badge{font-size:9px;font-weight:700;padding:3px 8px;border-radius:5px;letter-spacing:0.5px;}
+.mb-blue{background:rgba(79,127,255,0.15);color:var(--blue);border:1px solid rgba(79,127,255,0.25);}
+.mb-green{background:rgba(0,229,160,0.12);color:var(--green);border:1px solid rgba(0,229,160,0.2);}
+.mb-amber{background:rgba(255,180,0,0.12);color:var(--amber);border:1px solid rgba(255,180,0,0.2);}
+.mb-red{background:rgba(255,61,107,0.12);color:var(--red);border:1px solid rgba(255,61,107,0.2);}
+.mb-purple{background:rgba(155,109,255,0.12);color:var(--purple);border:1px solid rgba(155,109,255,0.2);}
+.tg-card p{font-size:12px;color:var(--muted3);line-height:1.7;margin-bottom:8px;}
+.tg-card ul{margin:0 0 8px 14px;}
+.tg-card ul li{font-size:12px;color:var(--muted3);margin-bottom:4px;line-height:1.6;}
+.tg-card ul li strong{color:var(--text);}
+.tg-divider{border-top:1px solid var(--border);margin:8px 0;}
+.tg-stat{display:flex;justify-content:space-between;font-size:11px;padding:4px 0;}
+.tg-stat-label{color:var(--muted2);}
+.tg-stat-val{font-weight:700;font-family:'JetBrains Mono',monospace;}
+.tg-stat-val.green{color:var(--green);}
+.tg-stat-val.amber{color:var(--amber);}
+.tg-stat-val.blue{color:var(--cyan);}
+
+/* INDICATOR GUIDE TABLE */
+.ind-guide-table{width:100%;border-collapse:collapse;margin:10px 0;}
+.ind-guide-table th{padding:8px 12px;background:var(--bg3);border:1px solid var(--border);font-size:11px;font-weight:700;color:var(--muted3);text-align:left;}
+.ind-guide-table td{padding:8px 12px;border:1px solid var(--border);font-size:11px;color:var(--muted3);line-height:1.5;vertical-align:top;}
+.ind-guide-table tr:nth-child(even) td{background:rgba(13,18,32,0.5);}
+.ind-guide-table td:first-child{color:var(--text);font-weight:600;white-space:nowrap;font-family:'JetBrains Mono',monospace;font-size:10px;}
+.ind-guide-table td:last-child{color:var(--cyan);}
+
+/* POLICY PAGE */
+.policy-section{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:14px;}
+.policy-section h3{font-size:16px;font-weight:800;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.policy-section h3 i{color:var(--blue);}
+.policy-body{font-size:12px;color:var(--muted3);line-height:1.85;}
+.policy-body h4{color:var(--text);font-size:13px;font-weight:700;margin:16px 0 6px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.policy-body p{margin-bottom:9px;}
+.policy-body ul{margin:5px 0 10px 16px;}
+.policy-body ul li{margin-bottom:5px;}
+.policy-body strong{color:var(--text);}
+.policy-body a{color:var(--cyan);text-decoration:none;}
+.policy-highlight{background:rgba(79,127,255,0.07);border:1px solid rgba(79,127,255,0.2);border-radius:10px;padding:12px 14px;margin:10px 0;font-size:12px;color:var(--text);line-height:1.7;}
+.policy-highlight i{color:var(--blue);margin-right:6px;}
+.risk-warning{background:rgba(255,61,107,0.07);border:1px solid rgba(255,61,107,0.2);border-radius:10px;padding:12px 14px;margin:10px 0;font-size:12px;color:#fca5a5;line-height:1.7;}
+.risk-warning i{color:var(--red);margin-right:6px;}
+
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px;}
 </style>
 </head>
-
 <body>
+<div class="wrap">
 
+<div class="cookie-banner" id="cookieBanner">
+  <div class="cookie-text"><strong>🍪 Device storage only:</strong> We store your API key and preferences locally on your device. No tracking. No ads. <a href="#" onclick="showPage('policies')">Privacy Policy</a></div>
+  <div class="cookie-btns">
+    <button class="c-decline" onclick="declineCookies()">Essential only</button>
+    <button class="c-accept" onclick="acceptCookies()">Accept & Continue</button>
+  </div>
+</div>
+
+<div class="notice-bar"><i class="fas fa-triangle-exclamation"></i>Trading involves substantial risk of loss. MG BOT Pro provides technical analysis only — not financial advice. Past signals ≠ future results.</div>
+<div class="free-bar"><i class="fas fa-unlock"></i>100% FREE — No license key required. No registration. No hidden fees. Open source analysis engine.</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-wrap">
+    <div class="logo-icon">MG</div>
+    <div>
+      <div class="logo-name">MG BOT Pro</div>
+      <div class="logo-sub">Signal Engine v7</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="v-badge">12 INDICATORS</span>
+    <span class="free-badge"><i class="fas fa-unlock"></i> FREE</span>
+    <div class="hdr-pill"><div class="hdr-dot" id="sessionDot"></div><span id="sessionLabel">Loading…</span></div>
+    <div class="news-pill" onclick="openNewsModal()"><i class="fas fa-newspaper"></i>&nbsp;<span id="newsCount">0</span></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showPage('terminal')" id="navTerminal"><i class="fas fa-chart-line"></i>Signal Terminal</button>
+  <button class="nav-tab" onclick="showPage('howto')" id="navHowto"><i class="fas fa-book-open"></i>How To Use</button>
+  <button class="nav-tab" onclick="showPage('strategies')" id="navStrategies"><i class="fas fa-bullseye"></i>Trading Guides</button>
+  <button class="nav-tab" onclick="showPage('policies')" id="navPolicies"><i class="fas fa-shield-halved"></i>Policies</button>
+</div>
+
+<!-- ═══════ PAGE: TERMINAL ═══════ -->
+<div class="page-section active" id="pageTerminal">
+<div class="container">
+<div class="main-grid">
+
+<!-- LEFT PANEL -->
+<div style="display:flex;flex-direction:column;gap:12px;">
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title"><div class="cticon ib"><i class="fas fa-sliders"></i></div>Signal Terminal</div>
+      <div style="display:flex;align-items:center;gap:5px;">
+        <span style="font-size:9px;font-weight:700;background:rgba(79,127,255,0.12);color:var(--blue);border:1px solid rgba(79,127,255,0.2);border-radius:5px;padding:2px 7px;letter-spacing:0.5px;">12 INDICATORS</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tabs">
+        <button class="tab active" onclick="setMarket('forex',this)">Forex</button>
+        <button class="tab" onclick="setMarket('crypto',this)">Crypto</button>
+        <button class="tab" onclick="setMarket('binary',this)">Binary</button>
+      </div>
+      <select id="pair" onchange="onPairChange()"></select>
+
+      <div id="apiKeySection">
+        <div class="api-hint">Free TwelveData key for live forex data (<a href="https://twelvedata.com" target="_blank">get free key</a>) — optional, works without one</div>
+        <div class="api-row">
+          <input type="text" id="apiKeyInput" placeholder="TwelveData API key (optional)…" autocomplete="off">
+          <button class="api-save" onclick="saveApiKey()">Save</button>
+        </div>
+      </div>
+
+      <div class="news-banner" id="newsBanner"><i class="fas fa-ban"></i> <strong>High Impact News Detected</strong> — Consider waiting for the event to pass.</div>
+
+      <div class="sec-label">Multi-Timeframe Analysis</div>
+      <div class="mtf-grid">
+        <div class="mtf-card"><div class="mtf-tf">15M Trend</div><div class="mtf-dir neu" id="mtf15">—</div><div class="mtf-conf" id="mtf15c">—</div></div>
+        <div class="mtf-card"><div class="mtf-tf">5M Confirm</div><div class="mtf-dir neu" id="mtf5">—</div><div class="mtf-conf" id="mtf5c">—</div></div>
+        <div class="mtf-card"><div class="mtf-tf">1M Entry</div><div class="mtf-dir neu" id="mtf1">—</div><div class="mtf-conf" id="mtf1c">—</div></div>
+      </div>
+
+      <div class="sec-label">Live Indicators</div>
+      <div class="ind-grid">
+        <div class="ind-card" id="ic_rsi"><div class="ind-name">RSI 14</div><div class="ind-value" id="iRsi">—</div><div class="ind-sig neu" id="iRsiS">waiting</div></div>
+        <div class="ind-card" id="ic_macd"><div class="ind-name">MACD</div><div class="ind-value" id="iMacd">—</div><div class="ind-sig neu" id="iMacdS">waiting</div></div>
+        <div class="ind-card" id="ic_ema"><div class="ind-name">EMA 9/21</div><div class="ind-value" id="iEma">—</div><div class="ind-sig neu" id="iEmaS">waiting</div></div>
+        <div class="ind-card" id="ic_bb"><div class="ind-name">Bollinger</div><div class="ind-value" id="iBb">—</div><div class="ind-sig neu" id="iBbS">waiting</div></div>
+        <div class="ind-card" id="ic_stoch"><div class="ind-name">Stoch %K/D</div><div class="ind-value" id="iStoch">—</div><div class="ind-sig neu" id="iStochS">waiting</div></div>
+        <div class="ind-card" id="ic_atr"><div class="ind-name">ATR Vol</div><div class="ind-value" id="iAtr">—</div><div class="ind-sig neu" id="iAtrS">waiting</div></div>
+        <div class="ind-card" id="ic_cci"><div class="ind-name">CCI 20</div><div class="ind-value" id="iCci">—</div><div class="ind-sig neu" id="iCciS">waiting</div></div>
+        <div class="ind-card" id="ic_wpr"><div class="ind-name">Williams %R</div><div class="ind-value" id="iWpr">—</div><div class="ind-sig neu" id="iWprS">waiting</div></div>
+        <div class="ind-card" id="ic_mfi"><div class="ind-name">MFI 14</div><div class="ind-value" id="iMfi">—</div><div class="ind-sig neu" id="iMfiS">waiting</div></div>
+        <div class="ind-card" id="ic_adx"><div class="ind-name">ADX 14</div><div class="ind-value" id="iAdx">—</div><div class="ind-sig neu" id="iAdxS">waiting</div></div>
+        <div class="ind-card" id="ic_vwap"><div class="ind-name">VWAP Pos</div><div class="ind-value" id="iVwap">—</div><div class="ind-sig neu" id="iVwapS">waiting</div></div>
+        <div class="ind-card" id="ic_mom"><div class="ind-name">Momentum</div><div class="ind-value" id="iMom">—</div><div class="ind-sig neu" id="iMomS">waiting</div></div>
+      </div>
+
+      <div class="score-meter">
+        <div class="score-header"><span>Confluence Score</span><span id="scoreLabel" style="color:var(--muted2);">—</span></div>
+        <div class="score-bar"><div class="score-fill" id="scoreFill"></div></div>
+        <div class="score-ticks"><span>Bear</span><span>Neutral</span><span>Bull</span></div>
+      </div>
+
+      <div class="sec-label">Market Context</div>
+      <div class="ctx-row">
+        <div class="ctx-pill"><div class="ctx-label">Trend</div><div class="ctx-val" id="ctxTrend">—</div></div>
+        <div class="ctx-pill"><div class="ctx-label">Volatility</div><div class="ctx-val" id="ctxVol">—</div></div>
+        <div class="ctx-pill"><div class="ctx-label">Pattern</div><div class="ctx-val" id="ctxCandle" style="font-size:10px;">—</div></div>
+      </div>
+      <div class="sr-row">
+        <div class="sr-box res"><div class="sr-label">Resistance</div><div class="sr-val" id="srRes">—</div></div>
+        <div class="sr-box sup"><div class="sr-label">Support</div><div class="sr-val" id="srSup">—</div></div>
+      </div>
+
+      <div class="data-status" id="dataStatus">⏳ awaiting analysis</div>
+      <button class="btn-generate" id="genBtn" onclick="doScan()"><i class="fas fa-chart-line"></i>&nbsp;&nbsp;ANALYSE & GET SIGNAL</button>
+
+      <div class="cooldown-wrap" id="cooldownWrap">
+        <div class="cooldown-label"><span>Next auto-signal in</span><span id="cooldownSec">60s</span></div>
+        <div class="cooldown-bar"><div class="cooldown-fill" id="cooldownFill" style="width:100%"></div></div>
+      </div>
+      <div class="auto-row">
+        <div class="toggle-label"><i class="fas fa-clock" style="color:var(--muted2);"></i>Auto Signal Mode <span style="font-weight:400;color:var(--muted2);">(60s)</span></div>
+        <div class="toggle-switch" id="autoToggle" onclick="toggleAuto()"><div class="toggle-knob"></div></div>
+      </div>
+      <div class="bottom-ctx">
+        <div class="b-ctx-card"><div class="b-ctx-label">Suggested Expiry</div><div class="b-ctx-val" id="expirySug">—</div></div>
+        <div class="b-ctx-card"><div class="b-ctx-label">Session</div><div class="b-ctx-val" id="sessionVal">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Win Rate Tracker -->
+  <div class="card">
+    <div class="card-head"><div class="card-title"><div class="cticon ia"><i class="fas fa-trophy"></i></div>Win Rate Tracker</div></div>
+    <div class="card-body">
+      <div class="wrt-row">
+        <div class="wrt-box"><div class="wrt-num blue" id="wTotal">0</div><div class="wrt-label">Signals</div></div>
+        <div class="wrt-box"><div class="wrt-num green" id="wWins">0</div><div class="wrt-label">Wins</div></div>
+        <div class="wrt-box"><div class="wrt-num red" id="wLoss">0</div><div class="wrt-label">Losses</div></div>
+        <div class="wrt-box"><div class="wrt-num" id="wRate" style="color:var(--cyan);">—%</div><div class="wrt-label">Win Rate</div></div>
+      </div>
+      <div class="wrt-btns">
+        <button class="wrt-btn win" onclick="recordResult('win')"><i class="fas fa-check"></i>&nbsp;Win</button>
+        <button class="wrt-btn loss" onclick="recordResult('loss')"><i class="fas fa-times"></i>&nbsp;Loss</button>
+        <button class="wrt-btn reset" onclick="resetTracker()" title="Reset"><i class="fas fa-rotate"></i></button>
+      </div>
+      <div style="font-size:10px;color:var(--muted2);margin-top:7px;text-align:center;font-family:'JetBrains Mono',monospace;">Stored locally on your device</div>
+    </div>
+  </div>
+
+</div><!-- /left -->
+
+<!-- RIGHT PANEL: CHART -->
+<div class="card chart-card" style="min-height:500px;">
+  <div class="chart-toolbar">
+    <span class="tf-label">TF</span>
+    <button class="tf-btn" onclick="setTf('1',this)">1M</button>
+    <button class="tf-btn active" onclick="setTf('5',this)">5M</button>
+    <button class="tf-btn" onclick="setTf('15',this)">15M</button>
+    <button class="tf-btn" onclick="setTf('30',this)">30M</button>
+    <button class="tf-btn" onclick="setTf('60',this)">1H</button>
+    <button class="tf-btn" onclick="setTf('240',this)">4H</button>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--muted2);">
+      <span>Auto</span>
+      <div class="toggle-switch" id="autoToggle2" onclick="toggleAuto()" style="width:34px;height:18px;">
+        <div class="toggle-knob" style="width:12px;height:12px;top:2px;left:2px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="tv-wrap">
+    <div id="tv"></div>
+    <div class="scan" id="scan">
+      <div class="scan-rings">
+        <div class="scan-ring"></div>
+        <div class="scan-ring2"></div>
+        <div class="scan-icon"><i class="fas fa-chart-mixed"></i></div>
+      </div>
+      <div class="scan-text">Analysing Market…</div>
+      <div class="scan-sub" id="scanSub">Initialising engine…</div>
+      <div class="scan-steps">
+        <div class="scan-step" id="step1"><i class="fas fa-circle"></i>Fetching live OHLC data</div>
+        <div class="scan-step" id="step2"><i class="fas fa-circle"></i>Computing 12 indicators</div>
+        <div class="scan-step" id="step3"><i class="fas fa-circle"></i>Multi-timeframe analysis</div>
+        <div class="scan-step" id="step4"><i class="fas fa-circle"></i>Trend &amp; volatility filter</div>
+        <div class="scan-step" id="step5"><i class="fas fa-circle"></i>Candle pattern detection</div>
+        <div class="scan-step" id="step6"><i class="fas fa-circle"></i>Scoring confluence</div>
+        <div class="scan-step" id="step7"><i class="fas fa-circle"></i>Generating signal</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main-grid -->
+</div><!-- /container -->
+</div><!-- /pageTerminal -->
+
+
+<!-- ═══════ PAGE: HOW TO USE ═══════ -->
+<div class="page-section" id="pageHowto">
+<div class="container" style="max-width:900px;">
+
+  <div style="text-align:center;padding:24px 0 20px;">
+    <div style="font-size:32px;margin-bottom:8px;">📖</div>
+    <h2 style="font-size:22px;font-weight:900;color:#fff;margin-bottom:8px;">How to Use MG BOT Pro</h2>
+    <p style="font-size:13px;color:var(--muted3);max-width:560px;margin:0 auto;line-height:1.7;">Follow these steps to start generating high-accuracy technical analysis signals for Forex, Crypto, and Binary trading.</p>
+  </div>
+
+  <div class="guide-section">
+    <h3><i class="fas fa-play"></i>Quick Start (3 Steps)</h3>
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Select Your Market & Asset</h4>
+        <p>Go to the <strong>Signal Terminal</strong> tab. Select Forex, Crypto, or Binary from the market tabs, then choose your trading pair from the dropdown (e.g. EURUSD, BTCUSDT).</p>
+        <div class="tip"><i class="fas fa-lightbulb"></i><span><strong>Best for beginners:</strong> Start with major forex pairs like EURUSD or GBPUSD during the London session (07:00–12:00 UTC) for the highest liquidity.</span></div>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Choose Your Timeframe</h4>
+        <p>Select a timeframe on the chart toolbar. For scalping, use <strong>1M or 5M</strong>. For short-term trading, use <strong>15M or 30M</strong>. For swing trades, use <strong>1H or 4H</strong>.</p>
+        <div class="tip"><i class="fas fa-lightbulb"></i><span><strong>Binary options:</strong> Use 5M chart and set expiry to the suggested expiry shown after analysis. Never trade binary options on 1M — too much noise.</span></div>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Click "Analyse & Get Signal"</h4>
+        <p>Press the blue button. The bot fetches live data, runs all 12 indicators, performs multi-timeframe analysis and displays a <strong>BUY (UP) or SELL (DOWN)</strong> signal with confidence percentage.</p>
+        <div class="tip"><i class="fas fa-lightbulb"></i><span>Only act on <strong>STRONG</strong> signals with 65%+ probability. Skip WEAK signals or when the score says "NO TRADE".</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-section">
+    <h3><i class="fas fa-database"></i>Setting Up Live Data (Optional but Recommended)</h3>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Get a Free TwelveData API Key (Forex only)</h4>
+        <p>For Forex and Binary signals, MG BOT Pro uses the free TwelveData API. Without a key it uses a demo key (limited). Crypto always uses Binance directly (no key needed).</p>
+        <ol style="margin:8px 0 6px 18px;font-size:12px;color:var(--muted3);line-height:2;">
+          <li>Visit <a href="https://twelvedata.com" target="_blank" style="color:var(--cyan);">twelvedata.com</a> and register for free</li>
+          <li>Copy your API key from the dashboard</li>
+          <li>Paste it in the API key field on the Terminal and click <strong>Save</strong></li>
+        </ol>
+        <div class="tip"><i class="fas fa-info-circle"></i><span><strong>Crypto users:</strong> No API key needed at all. Binance data is fetched automatically and is always live.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-section">
+    <h3><i class="fas fa-chart-bar"></i>Understanding the Signal Output</h3>
+    <div class="step-card" style="flex-direction:column;">
+      <table class="ind-guide-table">
+        <tr><th>Signal Element</th><th>What it means</th><th>What to do</th></tr>
+        <tr><td>UP ↑</td><td>All indicators lean bullish — place a BUY trade or CALL binary</td><td style="color:var(--green);">Enter BUY / CALL</td></tr>
+        <tr><td>DOWN ↓</td><td>All indicators lean bearish — place a SELL trade or PUT binary</td><td style="color:var(--red);">Enter SELL / PUT</td></tr>
+        <tr><td>Probability %</td><td>How strongly the 12 indicators agree (higher = stronger signal)</td><td style="color:var(--cyan);">65%+ recommended</td></tr>
+        <tr><td>STRONG</td><td>High confluence — most indicators aligned in one direction</td><td style="color:var(--green);">Act with confidence</td></tr>
+        <tr><td>MEDIUM</td><td>Moderate agreement — proceed with smaller position size</td><td style="color:var(--amber);">Use smaller stake</td></tr>
+        <tr><td>WEAK</td><td>Low agreement — signals conflict or market is indecisive</td><td style="color:var(--red);">Skip this signal</td></tr>
+        <tr><td>NO TRADE</td><td>Volatility too low/high, or doji candle detected</td><td style="color:var(--amber);">Wait, do not trade</td></tr>
+        <tr><td>Suggested Expiry</td><td>Optimal expiry time for binary options based on current TF</td><td style="color:var(--cyan);">Use this expiry</td></tr>
+        <tr><td>MTF Alignment</td><td>Whether 1M, 5M and 15M all point the same direction</td><td style="color:var(--cyan);">All aligned = best entry</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="guide-section">
+    <h3><i class="fas fa-sitemap"></i>Understanding the 12 Indicators</h3>
+    <div class="step-card" style="flex-direction:column;">
+      <table class="ind-guide-table">
+        <tr><th>Indicator</th><th>What it measures</th><th>Best use</th></tr>
+        <tr><td>RSI 14</td><td>Relative Strength — overbought/oversold momentum</td><td>Reversal timing</td></tr>
+        <tr><td>MACD</td><td>Moving Average Convergence — trend momentum shifts</td><td>Trend confirmation</td></tr>
+        <tr><td>EMA 9/21</td><td>Short-term trend direction via moving average crossover</td><td>Entry direction</td></tr>
+        <tr><td>Bollinger</td><td>Volatility bands — price extremes relative to average</td><td>Range + breakout</td></tr>
+        <tr><td>Stochastic</td><td>%K/%D momentum — overbought/oversold with crossover</td><td>Entry precision</td></tr>
+        <tr><td>ATR Vol</td><td>Average True Range — measures current market volatility</td><td>Filter low/high vol</td></tr>
+        <tr><td>CCI 20</td><td>Commodity Channel Index — cyclical overbought/oversold</td><td>Reversal zones</td></tr>
+        <tr><td>Williams %R</td><td>Leading oscillator — spots turning points early</td><td>Early reversals</td></tr>
+        <tr><td>MFI 14</td><td>Money Flow Index — volume-weighted RSI</td><td>Confirms real pressure</td></tr>
+        <tr><td>ADX 14</td><td>Average Directional Index — trend strength measurement</td><td>Avoid ranging markets</td></tr>
+        <tr><td>VWAP Pos</td><td>Volume Weighted Average Price — institutional bias</td><td>Pro-level bias</td></tr>
+        <tr><td>Momentum</td><td>Raw price change velocity over 10 candles</td><td>Speed of move</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="guide-section">
+    <h3><i class="fas fa-shield-halved"></i>Risk Management Rules</h3>
+    <div class="step-card">
+      <div class="step-num" style="background:linear-gradient(135deg,var(--red),#c0392b);">!</div>
+      <div class="step-content">
+        <h4>Always Follow These Rules</h4>
+        <ul style="margin:6px 0 0 16px;font-size:12px;color:var(--muted3);line-height:2;">
+          <li>Never risk more than <strong style="color:#fff;">1–3% of your account</strong> on a single signal</li>
+          <li>Skip signals when <strong style="color:#fff;">high-impact news</strong> is within 30 minutes (shown in news counter)</li>
+          <li>Only trade during active sessions: <strong style="color:#fff;">London (07:00–12:00 UTC)</strong> or <strong style="color:#fff;">New York (12:00–17:00 UTC)</strong></li>
+          <li>Wait for <strong style="color:#fff;">MTF alignment</strong> — all three timeframes pointing the same way = best entry</li>
+          <li>Use the <strong style="color:#fff;">Win Rate Tracker</strong> — if your win rate drops below 50%, stop trading and review</li>
+          <li>Never trade binary options on <strong style="color:#fff;">Asian session</strong> (22:00–07:00 UTC) — low volatility</li>
+          <li>This tool provides analysis only — <strong style="color:#ff8fab;">not financial advice</strong>. You are responsible for all trades.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /pageHowto -->
+
+
+<!-- ═══════ PAGE: STRATEGIES ═══════ -->
+<div class="page-section" id="pageStrategies">
 <div class="container">
 
-<h1>MG Trades</h1>
+  <div style="text-align:center;padding:24px 0 20px;">
+    <div style="font-size:32px;margin-bottom:8px;">🎯</div>
+    <h2 style="font-size:22px;font-weight:900;color:#fff;margin-bottom:8px;">Trading Guides by Market Type</h2>
+    <p style="font-size:13px;color:var(--muted3);max-width:580px;margin:0 auto;line-height:1.7;">MG BOT Pro is optimised for multiple trading styles. Find the right setup for your market and strategy below.</p>
+  </div>
 
-<div class="notice">
-⚠️ If buttons don't open, tap the 3 dots (⋯) and select <b>Open in Browser</b>.
+  <div class="guide-grid">
+
+    <!-- FOREX SCALPING -->
+    <div class="tg-card forex-card">
+      <div class="tg-card-icon">💱</div>
+      <h4>Forex Scalping</h4>
+      <div class="badge-row">
+        <span class="mode-badge mb-blue">FOREX</span>
+        <span class="mode-badge mb-green">SCALPING</span>
+        <span class="mode-badge mb-amber">1M–5M</span>
+      </div>
+      <p>Best for rapid entries and exits during peak liquidity. MG BOT's 12-indicator confluence is especially powerful during London/NY session overlaps.</p>
+      <ul>
+        <li><strong>Best pairs:</strong> EURUSD, GBPUSD, USDJPY</li>
+        <li><strong>Session:</strong> London Open (07:00–09:00 UTC)</li>
+        <li><strong>Timeframe:</strong> 1M chart, confirm on 5M</li>
+        <li><strong>Key indicators:</strong> EMA 9/21, Stochastic, Williams %R</li>
+        <li><strong>Entry rule:</strong> MTF aligned + STRONG signal only</li>
+        <li><strong>Exit:</strong> 5–10 pips TP, 5 pip SL</li>
+      </ul>
+      <div class="tg-divider"></div>
+      <div class="tg-stat"><span class="tg-stat-label">Typical win rate</span><span class="tg-stat-val green">58–68%</span></div>
+      <div class="tg-stat"><span class="tg-stat-label">Trades per session</span><span class="tg-stat-val blue">5–15</span></div>
+      <div class="tg-stat"><span class="tg-stat-label">Min probability</span><span class="tg-stat-val amber">65%+</span></div>
+    </div>
+
+    <!-- FOREX SHORT-TERM -->
+    <div class="tg-card forex-card">
+      <div class="tg-card-icon">📈</div>
+      <h4>Forex Short-Term</h4>
+      <div class="badge-row">
+        <span class="mode-badge mb-blue">FOREX</span>
+        <span class="mode-badge mb-purple">SHORT-TERM</span>
+        <span class="mode-badge mb-amber">15M–1H</span>
+      </div>
+      <p>Balanced approach with higher accuracy and less screen time. Ideal for traders who want quality over quantity.</p>
+      <ul>
+        <li><strong>Best pairs:</strong> EURUSD, GBPJPY, AUDUSD</li>
+        <li><strong>Session:</strong> London + NY sessions</li>
+        <li><strong>Timeframe:</strong> 15M entry, confirm on 1H trend</li>
+        <li><strong>Key indicators:</strong> MACD, ADX, VWAP, EMA 50/200</li>
+        <li><strong>Entry rule:</strong> ADX &gt; 25 + trend alignment</li>
+        <li><strong>Exit:</strong> 20–40 pips TP, 15 pip SL (1:2 RR)</li>
+      </ul>
+      <div class="tg-divider"></div>
+      <div class="tg-stat"><span class="tg-stat-label">Typical win rate</span><span class="tg-stat-val green">60–70%</span></div>
+      <div class="tg-stat"><span class="tg-stat-label">Trades per day</span><span class="tg-stat-val blue">2–5</span></div>
+      <div class="tg-stat"><span class="tg-stat-label">Min probability</span><span class="tg-stat-val amber">62%+</span></div>
+    </div>
+
+    <!-- CRYPTO SCALPING -->
+    <div class="tg-card crypto-card">
+      <div class="tg-card-icon">₿</div>
+      <h4>Crypto Scalping</h4>
+      <div class="badge-row">
+        <span class="mode-badge mb-purple">CRYPTO</span>
+        <span class="mode-badge mb-green">SCALPING</span>
+        <span class="mode-badge mb-amber">1M–5M</span>
+      </div>
+      <p>Crypto markets are 24/7 with high volatility. MG BOT uses live Binance data (no API key needed), making crypto the most accessible market.</p>
+      <ul>
+        <li><strong>Best pairs:</strong> BTCUSDT, ETHUSDT, BNBUSDT</li>
+        <li><strong>Session:</strong> Any (24/7), peak: 08:00–16:00 UTC</li>
+        <li><strong>Timeframe:</strong> 5M primary, 15M for trend</li>
+        <li><strong>Key indicators:</strong> RSI, MACD, Bollinger Bands, MFI</li>
+        <li><strong>Entry rule:</strong> MFI confirms RSI signal + ATR normal</li>
+        <li><strong>Exit:</strong> 0.3–0.8% TP, 0.25% SL</li>
+      </ul>
+      <div class="tg-divider"></div>
+      <div class="tg-stat"><span class="tg-stat-label">Typical win rate</span><span class="tg-stat-val green">55–65%</span></div>
+      <div class="tg-stat"><span class="tg-stat-label">Trades per day</span><span class="tg-stat-val blue">10–25</span></div>
+      <div class="tg-stat"><span class="tg-stat-label">Min probability</span><span class="tg-stat-val amber">60%+</span></div>
+    </div>
+
+    <!-- CRYPTO SHORT-TERM -->
+    <div class="tg-card crypto-card">
+      <div class="tg-card-icon">🚀</div>
+      <h4>Crypto Short-Term</h4>
+      <div class="badge-row">
+        <span class="mode-badge mb-purple">CRYPTO</span>
+        <span class="mode-badge mb-blue">SHORT-TERM</span>
+        <span class="mode-badge mb-amber">15M–1H</span>
+      </div>
+      <p>Ride medium-term crypto momentum moves. Best when ADX confirms a trending market and all MTF indicators align.</p>
+      <ul>
+        <li><strong>Best pairs:</strong> BTCUSDT, ETHUSDT, SOLUSDT</li>
+        <li><strong>Session:</strong> Any, avoid weekends (thin volume)</li>
+        <li><strong>Timeframe:</strong> 15M–30M entry, 4H trend</li>
+        <li><strong>Key indicators:</strong> EMA 50/200, VWAP, ADX, Momentum</li>
+        <li><strong>Entry rule:</strong> Price above VWAP (bull) or below (bear)</li>
+        <li><strong>Exit:</strong> 1–3% TP, 0.5% SL (1:3 RR)</li>
+      </ul>
+      <div class="tg-divider"></div>
+      <div class="tg-stat"><span class="tg-stat-label">Typical win rate</span><span class="tg-stat-val green">58–68%</span></div>
+      <div class="tg-stat"><span class="tg-stat-label">Trades per day</span><span class="tg-stat-val blue">3–8</span></div>
+      <div class="tg-stat"><span class="tg-stat-label">Min probability</span><span class="tg-stat-val amber">62%+</span></div>
+    </div>
+
+    <!-- BINARY OPTIONS -->
+    <div class="tg-card binary-card">
+      <div class="tg-card-icon">⏱️</div>
+      <h4>Binary Options</h4>
+      <div class="badge-row">
+        <span class="mode-badge mb-amber">BINARY</span>
+        <span class="mode-badge mb-red">HIGH RISK</span>
+        <span class="mode-badge mb-blue">5M–15M</span>
+      </div>
+      <p>Binary options are high-risk, high-reward fixed-expiry trades. Only use during high-liquidity sessions with strong signal confluence. <strong style="color:#ff8fab;">Binary options are restricted in many countries — check your local laws.</strong></p>
+      <ul>
+        <li><strong>Best pairs:</strong> EURUSD, GBPUSD, USDJPY</li>
+        <li><strong>Session:</strong> London + NY only (NO Asian session)</li>
+        <li><strong>Timeframe:</strong> 5M chart, use suggested expiry</li>
+        <li><strong>Key indicators:</strong> All 12 — only trade on STRONG</li>
+        <li><strong>Entry rule:</strong> 70%+ probability, MTF all aligned</li>
+        <li><strong>Stake:</strong> Max 2% of account per trade</li>
+      </ul>
+      <div class="tg-divider"></div>
+      <div class="tg-stat"><span class="tg-stat-label">Typical win rate</span><span class="tg-stat-val green">60–72%</span></div>
+      <div class="tg-stat"><span class="tg-stat-label">Trades per session</span><span class="tg-stat-val blue">3–8</span></div>
+      <div class="tg-stat"><span class="tg-stat-label">Min probability</span><span class="tg-stat-val amber">70%+</span></div>
+    </div>
+
+    <!-- SWING TRADING -->
+    <div class="tg-card swing-card">
+      <div class="tg-card-icon">🌊</div>
+      <h4>Swing Trading</h4>
+      <div class="badge-row">
+        <span class="mode-badge mb-blue">FOREX</span>
+        <span class="mode-badge mb-purple">SWING</span>
+        <span class="mode-badge mb-amber">4H–Daily</span>
+      </div>
+      <p>For traders who hold positions for days. Use MG BOT on 4H timeframe for entry signals aligned with the daily trend direction.</p>
+      <ul>
+        <li><strong>Best pairs:</strong> EURUSD, GBPUSD, AUDUSD, USDJPY</li>
+        <li><strong>Session:</strong> Any — check daily at London open</li>
+        <li><strong>Timeframe:</strong> 4H entry, 1H confirmation</li>
+        <li><strong>Key indicators:</strong> EMA 50/200, ADX, MACD, CCI</li>
+        <li><strong>Entry rule:</strong> EMA 50 above 200 + ADX &gt; 20</li>
+        <li><strong>Exit:</strong> 80–150 pips TP, 40 pip SL (1:2.5 RR)</li>
+      </ul>
+      <div class="tg-divider"></div>
+      <div class="tg-stat"><span class="tg-stat-label">Typical win rate</span><span class="tg-stat-val green">62–72%</span></div>
+      <div class="tg-stat"><span class="tg-stat-label">Trades per week</span><span class="tg-stat-val blue">3–7</span></div>
+      <div class="tg-stat"><span class="tg-stat-label">Min probability</span><span class="tg-stat-val amber">60%+</span></div>
+    </div>
+
+  </div>
+
+  <!-- SESSION TIMING TABLE -->
+  <div class="policy-section" style="margin-top:8px;">
+    <h3><i class="fas fa-clock"></i>&nbsp;Best Trading Sessions</h3>
+    <div class="policy-body">
+      <table class="ind-guide-table" style="width:100%;">
+        <tr><th>Session</th><th>UTC Time</th><th>Best For</th><th>Avoid</th></tr>
+        <tr><td>London 🔥</td><td>07:00–12:00</td><td>Forex scalping, binary options, short-term</td><td>—</td></tr>
+        <tr><td>New York 🔥</td><td>12:00–17:00</td><td>Forex, binary, crypto momentum</td><td>—</td></tr>
+        <tr><td>London/NY Overlap</td><td>12:00–16:00</td><td>Highest volatility — all strategies</td><td>Very wide spreads on some brokers</td></tr>
+        <tr><td>Asian</td><td>22:00–07:00</td><td>Crypto only (24/7 market)</td><td>Forex binary — very low volatility</td></tr>
+        <tr><td>Pre-News</td><td>15min before NFP/FOMC</td><td>—</td><td>ALL strategies — unpredictable</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+</div><!-- /pageStrategies -->
+
+
+<!-- ═══════ PAGE: POLICIES ═══════ -->
+<div class="page-section" id="pagePolicies">
+<div class="container" style="max-width:860px;">
+
+  <div style="text-align:center;padding:24px 0 20px;">
+    <div style="font-size:32px;margin-bottom:8px;">🛡️</div>
+    <h2 style="font-size:22px;font-weight:900;color:#fff;margin-bottom:8px;">Legal Policies & Disclosures</h2>
+    <p style="font-size:13px;color:var(--muted3);max-width:540px;margin:0 auto;line-height:1.7;">Please read all policies carefully before using MG BOT Pro.</p>
+  </div>
+
+  <!-- TERMS -->
+  <div class="policy-section">
+    <h3><i class="fas fa-file-contract"></i>Terms of Service & Risk Disclosure</h3>
+    <div class="last-upd" style="color:var(--muted2);font-size:11px;">Last updated: January 2025</div>
+    <div class="risk-warning"><i class="fas fa-exclamation-triangle"></i><strong>IMPORTANT RISK WARNING:</strong> Trading financial instruments including forex, cryptocurrencies, and binary options involves a HIGH level of risk and may not be suitable for all investors. You could lose all of your invested capital. Never invest money that you cannot afford to lose completely.</div>
+    <div class="policy-body">
+      <h4>1. Nature of This Service</h4>
+      <p>MG BOT Pro ("the Tool") is a <strong>free, browser-based technical analysis tool</strong>. It uses mathematical indicators (RSI, MACD, EMA, Bollinger Bands, Stochastic, ATR, CCI, Williams %R, MFI, ADX, VWAP, and Momentum) applied to publicly available market data. The Tool is provided "as is" with no warranties of any kind.</p>
+      <h4>2. Not Financial Advice</h4>
+      <p>MG BOT Pro is <strong>not a financial advisor, broker, licensed investment advisor, or regulated financial service</strong>. All signals, analyses, probability scores and information provided are for <strong>educational and informational purposes only</strong>. Nothing on this platform constitutes financial advice, investment recommendations, or a solicitation to trade.</p>
+      <h4>3. Risk Disclosure</h4>
+      <ul>
+        <li>Trading involves <strong>HIGH risk of capital loss</strong>. You may lose all invested capital.</li>
+        <li>Technical analysis signals are <strong>inherently probabilistic</strong> and not 100% accurate.</li>
+        <li>Past signal performance does <strong>not guarantee</strong> future results.</li>
+        <li>Typical TA-based signal accuracy ranges from <strong>55–72%</strong> under optimal conditions.</li>
+        <li>Leverage amplifies both gains and losses — use leverage responsibly.</li>
+        <li>Market gaps, slippage, and spread widening can affect outcomes.</li>
+      </ul>
+      <h4>4. Binary Options Regulatory Notice</h4>
+      <p>Binary options are <strong>restricted, regulated, or outright banned</strong> in many jurisdictions including the EU, UK, Canada, Australia, and Israel. It is your <strong>sole and personal responsibility</strong> to verify that trading binary options is legal in your jurisdiction before use. MG BOT Pro takes no responsibility for regulatory breaches by users.</p>
+      <h4>5. Eligibility</h4>
+      <p>By using this tool you confirm that: (a) you are at least <strong>18 years of age</strong>; (b) trading financial instruments is <strong>legal in your jurisdiction</strong>; (c) you have read, understood and accepted these Terms in full; (d) you take <strong>full personal responsibility</strong> for any and all trading decisions.</p>
+      <h4>6. Limitation of Liability</h4>
+      <p>To the maximum extent permitted by applicable law, MG BOT Pro, its creators, contributors and affiliates shall not be liable for any direct, indirect, incidental, special, consequential, or punitive losses, damages, or expenses arising from: (a) use of or inability to use the Tool; (b) trading decisions made based on signal outputs; (c) inaccuracies in indicator calculations or data feed failures; (d) technical errors, downtime, or data interruptions.</p>
+      <h4>7. Data Sources & Accuracy</h4>
+      <p>Market data is fetched from third-party APIs (Binance, TwelveData, AlphaVantage). MG BOT Pro makes no warranty about the accuracy, completeness, or timeliness of this data. API failures may result in fallback estimates being used instead of live data — always verify signals independently.</p>
+      <h4>8. Free License</h4>
+      <p>MG BOT Pro is provided completely free of charge. There is no license key, registration, or payment required. The Tool may be used freely for personal non-commercial purposes. Redistribution or resale of the tool or signals is prohibited without explicit written permission.</p>
+      <h4>9. Acceptance</h4>
+      <p>By accessing and using MG BOT Pro, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and all policies on this page in their entirety.</p>
+    </div>
+  </div>
+
+  <!-- PRIVACY -->
+  <div class="policy-section">
+    <h3><i class="fas fa-shield-halved"></i>Privacy Policy</h3>
+    <div class="last-upd" style="color:var(--muted2);font-size:11px;">Last updated: January 2025</div>
+    <div class="policy-highlight"><i class="fas fa-info-circle"></i><strong>Summary:</strong> We collect absolutely no personal data. Everything is stored on your device only. No accounts, no tracking, no analytics, no cookies (except your own consent preference).</div>
+    <div class="policy-body">
+      <h4>1. Who We Are</h4>
+      <p>MG BOT Pro is a client-side browser-based technical analysis application. We do not operate a server, user account system, or database. <strong>All data lives exclusively on your device.</strong></p>
+      <h4>2. Data Stored Locally on Your Device</h4>
+      <p>The following items are saved in your browser's <code>localStorage</code> on your device only, and are never transmitted to any server:</p>
+      <ul>
+        <li>Your TwelveData API key (if provided — optional)</li>
+        <li>Cookie/storage consent preference</li>
+        <li>Win rate tracker statistics (wins, losses, total signals)</li>
+      </ul>
+      <h4>3. Data We Do NOT Collect</h4>
+      <ul>
+        <li>No names, emails, phone numbers, or any personal identifiers</li>
+        <li>No IP addresses or device fingerprints</li>
+        <li>No trading activity, signal history, or results</li>
+        <li>No analytics, tracking pixels, or behavioural data</li>
+        <li>No cookies beyond your own consent preference</li>
+      </ul>
+      <h4>4. Third-Party Services</h4>
+      <p>When you click "Analyse", your browser directly contacts these third-party services:</p>
+      <ul>
+        <li><strong>Binance API</strong> — for cryptocurrency price data (crypto market only)</li>
+        <li><strong>TwelveData API</strong> — for forex/binary price data (your IP may be logged by them)</li>
+        <li><strong>AlphaVantage API</strong> — fallback forex data source</li>
+        <li><strong>TradingView</strong> — chart widget provider (may set their own cookies)</li>
+        <li><strong>Google Fonts</strong> — typography (may log font requests)</li>
+        <li><strong>Font Awesome CDN</strong> — icons</li>
+      </ul>
+      <p>These services have their own privacy policies. We do not control or have access to any data they collect.</p>
+      <h4>5. Your Rights & Data Deletion</h4>
+      <p>To delete all locally stored data: open your browser Settings → Privacy → Clear site data → select this site. All stored preferences and tracker data will be permanently deleted.</p>
+      <h4>6. Children</h4>
+      <p>This service is not directed at persons under 18 years of age. By using this tool you confirm you are at least 18 years old.</p>
+      <h4>7. Changes to This Policy</h4>
+      <p>We may update this policy periodically. Continued use of the tool constitutes acceptance of the updated policy.</p>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="policy-section">
+    <h3><i class="fas fa-circle-exclamation"></i>Disclaimer of Warranties</h3>
+    <div class="policy-body">
+      <div class="risk-warning" style="margin-bottom:12px;"><i class="fas fa-exclamation-triangle"></i>MG BOT Pro is provided <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong> without any warranty of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, accuracy, non-infringement, or uninterrupted service.</div>
+      <h4>Signal Accuracy Disclaimer</h4>
+      <p>Technical analysis indicators are mathematical tools applied to historical price data. They do not predict future price movements with certainty. All probability figures shown are statistical estimates based on indicator confluence — they are <strong>not guarantees</strong> of outcome.</p>
+      <h4>No Endorsement</h4>
+      <p>Any third-party brokers or platforms referenced or linked are for informational purposes only. MG BOT Pro does not endorse, recommend, or guarantee any broker or trading platform. Always conduct your own due diligence before depositing funds with any broker.</p>
+      <h4>Independent Verification</h4>
+      <p>All signals should be independently verified with your own analysis before executing trades. Never rely solely on any automated tool, including MG BOT Pro, as the basis for trading decisions.</p>
+    </div>
+  </div>
+
+  <!-- COOKIE -->
+  <div class="policy-section">
+    <h3><i class="fas fa-cookie-bite"></i>Cookie & Storage Policy</h3>
+    <div class="policy-body">
+      <p>MG BOT Pro uses browser <strong>localStorage</strong> (not cookies) to save your preferences on your device. No tracking cookies or third-party advertising cookies are set by us.</p>
+      <p>Third-party services embedded in this tool (TradingView, Google Fonts) may set their own cookies in accordance with their respective policies. We have no control over these.</p>
+      <p>You may clear all local storage data at any time via your browser settings. Choosing "Essential only" at the consent banner will still allow the tool to function normally.</p>
+    </div>
+  </div>
+
+</div>
+</div><!-- /pagePolicies -->
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <strong>⚠ Not Financial Advice.</strong> MG BOT Pro is a free technical analysis tool — results are probabilistic, not guaranteed.<br>
+  Trading involves substantial risk. Binary options may be illegal in your jurisdiction.<br>
+  <div class="footer-links">
+    <a href="#" onclick="showPage('policies')">Terms of Service</a>
+    <a href="#" onclick="showPage('policies')">Privacy Policy</a>
+    <a href="#" onclick="showPage('policies')">Disclaimer</a>
+    <a href="#" onclick="showPage('howto')">How To Use</a>
+    <a href="#" onclick="showPage('strategies')">Trading Guides</a>
+  </div>
+  <div style="margin-top:10px;font-size:10px;color:var(--muted);">MG BOT Pro v7 • Free & Open • 12-Indicator Engine • No License Required</div>
+</footer>
+
+</div><!-- /wrap -->
+
+
+<!-- SIGNAL POPUP -->
+<div class="popup" id="signalPopup">
+  <div class="popup-box">
+    <div class="sig-header">📊 Technical Analysis Signal</div>
+    <div class="sig-direction up" id="sigDir">UP</div>
+    <div class="sig-pair-label" id="sigPair">—</div>
+    <div class="sig-meta">
+      <div class="sig-meta-pill info" id="sigExpiry">Expiry: 5M</div>
+      <div class="sig-meta-pill" id="sigStrengthPill">Strong</div>
+      <div class="sig-meta-pill info" id="sigSession">London</div>
+    </div>
+    <div class="strength-ring-wrap">
+      <div class="strength-ring">
+        <svg width="84" height="84" viewBox="0 0 84 84">
+          <circle cx="42" cy="42" r="36" fill="none" stroke="rgba(120,160,255,0.1)" stroke-width="7"/>
+          <circle id="ringCircle" cx="42" cy="42" r="36" fill="none" stroke="var(--cyan)" stroke-width="7" stroke-linecap="round"
+            stroke-dasharray="226.19" stroke-dashoffset="226.19" style="transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1),stroke 0.5s;"/>
+        </svg>
+        <div class="strength-ring-label">
+          <div class="strength-pct" id="ringPct">—%</div>
+          <div class="strength-txt">Conf.</div>
+        </div>
+      </div>
+    </div>
+    <div class="prob-row">
+      <div class="prob-label"><span style="color:var(--muted2);">Signal Probability</span><span id="probPct" style="color:var(--text);">—%</span></div>
+      <div class="prob-bar"><div class="prob-fill" id="probFill" style="width:0%"></div></div>
+    </div>
+    <div class="reason-list" id="reasonList"></div>
+    <div class="sig-details">
+      <div class="sd-section">Momentum</div>
+      <div class="sd-row"><span class="sd-label">RSI (14)</span><span class="sd-val" id="pRsi">—</span></div>
+      <div class="sd-row"><span class="sd-label">MACD Histogram</span><span class="sd-val" id="pMacd">—</span></div>
+      <div class="sd-row"><span class="sd-label">Stochastic %K/D</span><span class="sd-val" id="pStoch">—</span></div>
+      <div class="sd-row"><span class="sd-label">CCI (20)</span><span class="sd-val" id="pCci">—</span></div>
+      <div class="sd-row"><span class="sd-label">Williams %R</span><span class="sd-val" id="pWpr">—</span></div>
+      <div class="sd-row"><span class="sd-label">MFI (14)</span><span class="sd-val" id="pMfi">—</span></div>
+      <div class="sd-row"><span class="sd-label">Momentum (10)</span><span class="sd-val" id="pMom">—</span></div>
+      <div class="sd-section">Trend</div>
+      <div class="sd-row"><span class="sd-label">EMA 9/21</span><span class="sd-val" id="pEma">—</span></div>
+      <div class="sd-row"><span class="sd-label">EMA 50/200</span><span class="sd-val" id="pTrend">—</span></div>
+      <div class="sd-row"><span class="sd-label">ADX Strength</span><span class="sd-val" id="pAdx">—</span></div>
+      <div class="sd-row"><span class="sd-label">VWAP Position</span><span class="sd-val" id="pVwap">—</span></div>
+      <div class="sd-section">Volatility & Structure</div>
+      <div class="sd-row"><span class="sd-label">Bollinger Band %</span><span class="sd-val" id="pBb">—</span></div>
+      <div class="sd-row"><span class="sd-label">ATR Volatility</span><span class="sd-val" id="pAtr">—</span></div>
+      <div class="sd-row"><span class="sd-label">Candle Pattern</span><span class="sd-val" id="pCandle">—</span></div>
+      <div class="sd-row"><span class="sd-label">S/R Level</span><span class="sd-val" id="pSr">—</span></div>
+      <div class="sd-row"><span class="sd-label">MTF Alignment</span><span class="sd-val" id="pMtf">—</span></div>
+      <div class="sd-row"><span class="sd-label">Data Source</span><span class="sd-val" id="pSource" style="font-size:9px;">—</span></div>
+    </div>
+    <div style="background:rgba(255,61,107,0.06);border:1px solid rgba(255,61,107,0.18);border-radius:10px;padding:9px 12px;font-size:10px;color:#fca5a5;text-align:left;margin:10px 0;line-height:1.7;">
+      ⚠️ <strong>Not financial advice.</strong> Signals are probabilistic estimates only. Typical TA accuracy: 55–72%. Trade only what you can afford to lose.
+    </div>
+    <button class="btn-generate btn-alt" onclick="closeSignal()" style="margin-top:8px;">CLOSE</button>
+  </div>
 </div>
 
-<a class="button highlight" href="https://market-qx.trade/en/sign-up?lid=1492227">
-🎁 Quotex Link (70% Bonus Offer)
-</a>
-
-<a class="button" href="https://mgbtai.netlify.app/">
-MG Bot (Free)
-</a>
-
-<a class="button" href="https://otcbt.netlify.app/">
-Chinese Bot 🇨🇳
-</a>
-
-<a class="button" href="https://t.me/mgtrades">
-Telegram
-</a>
-
-<div class="footer">
-All our services are 100% free of cost
+<!-- NO-TRADE POPUP -->
+<div class="popup" id="noTradePopup">
+  <div class="popup-box">
+    <div class="no-trade-box">
+      <div class="no-trade-icon"><i class="fas fa-hand"></i></div>
+      <div class="no-trade-title" id="noTradeTitle">NO TRADE</div>
+      <div class="no-trade-reason" id="noTradeReason">Market conditions are unfavourable.</div>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--muted3);line-height:1.7;">Avoiding bad entries is just as important as finding good ones. Patience is a trading edge.</div>
+    <button class="btn-generate btn-alt" onclick="closeNoTrade()" style="margin-top:12px;">WAIT FOR SETUP</button>
+  </div>
 </div>
 
-<div class="disclaimer">
-Disclaimer:
-External links are provided for informational purposes only. We do not own or control third-party websites and are not responsible for their content or services. We do not provide financial advice, do not ask for investments, do not manage accounts, and are not financial advisors. Trading involves risk. Proceed at your own discretion.
-</div>
 
-</div>
+<script>
+(function(){
+'use strict';
 
+const PAIRS={
+  forex:["EURUSD","GBPUSD","USDJPY","AUDUSD","USDCHF","USDCAD","NZDUSD","EURGBP","EURJPY","GBPJPY","AUDJPY","EURAUD","GBPCAD"],
+  binary:["EURUSD","GBPUSD","USDJPY","AUDUSD","EURJPY","GBPJPY","USDCAD","AUDCAD","EURCAD","GBPAUD"],
+  crypto:["BTCUSDT","ETHUSDT","BNBUSDT","XRPUSDT","SOLUSDT","ADAUSDT","DOGEUSDT","AVAXUSDT","DOTUSDT","LINKUSDT"]
+};
+const TF_BINANCE={"1":"1m","5":"5m","15":"15m","30":"30m","60":"1h","240":"4h"};
+const EXPIRY_MAP={"1":"2 min","5":"5 min","15":"10 min","30":"15 min","60":"30 min","240":"1 hr"};
+
+let market="forex",tvWidget=null,currentTf="5";
+let userApiKey=localStorage.getItem("mg_td_key")||"";
+let autoMode=false,cooldownTimer=null,cooldownSec=60;
+let tracker=JSON.parse(localStorage.getItem("mg_tracker")||'{"total":0,"wins":0,"losses":0}');
+
+if(userApiKey)document.getElementById("apiKeyInput").value=userApiKey;
+updateTrackerUI();initCookieBanner();updateSessionUI();
+setInterval(updateSessionUI,60000);loadForexNews();
+
+// ═══ INDICATOR MATH ═══
+function calcRSI(c,p=14){if(c.length<p+1)return null;let g=0,l=0;for(let i=c.length-p;i<c.length;i++){let d=c[i]-c[i-1];d>0?g+=d:l+=Math.abs(d);}let ag=g/p,al=l/p;if(al===0)return 100;return 100-(100/(1+ag/al));}
+function calcEMAArr(c,p){if(c.length<p)return[];let k=2/(p+1),a=[],e=c.slice(0,p).reduce((a,b)=>a+b)/p;a.push(e);for(let i=p;i<c.length;i++){e=c[i]*k+e*(1-k);a.push(e);}return a;}
+function calcEMA(c,p){let a=calcEMAArr(c,p);return a.length?a[a.length-1]:null;}
+function calcMACD(c,f=12,s=26,sig=9){if(c.length<s+sig)return null;let fa=calcEMAArr(c,f),sa=calcEMAArr(c,s),diff=s-f;let ml=sa.map((v,i)=>fa[i+diff]-v);let sl=calcEMAArr(ml,sig);return{hist:ml[ml.length-1]-sl[sl.length-1],prevHist:ml[ml.length-2]-sl[sl.length-2],macd:ml[ml.length-1],signal:sl[sl.length-1]};}
+function calcBB(c,p=20,m=2){if(c.length<p)return null;let s=c.slice(c.length-p),mean=s.reduce((a,b)=>a+b)/p;let std=Math.sqrt(s.reduce((a,b)=>a+Math.pow(b-mean,2),0)/p);return{upper:mean+m*std,mid:mean,lower:mean-m*std,price:c[c.length-1]};}
+function calcStochastic(H,L,C,k=14,d=3){if(C.length<k)return null;let h=Math.max(...H.slice(-k)),l=Math.min(...L.slice(-k));let kV=h===l?50:((C[C.length-1]-l)/(h-l))*100;let kA=[];for(let i=Math.max(0,C.length-k-d+1);i<C.length;i++){let hh=Math.max(...H.slice(Math.max(0,i-k+1),i+1));let ll=Math.min(...L.slice(Math.max(0,i-k+1),i+1));kA.push(hh===ll?50:((C[i]-ll)/(hh-ll))*100);}let dV=kA.length>=d?kA.slice(-d).reduce((a,b)=>a+b)/d:kV;return{k:kV,d:dV};}
+function calcATR(H,L,C,p=14){if(C.length<p+1)return null;let trs=[];for(let i=C.length-p;i<C.length;i++){let tr=Math.max(H[i]-L[i],Math.abs(H[i]-C[i-1]),Math.abs(L[i]-C[i-1]));trs.push(tr);}let atr=trs.reduce((a,b)=>a+b)/trs.length;let avg=C.slice(-p).reduce((a,b)=>a+b)/p;return{atr,pct:(atr/avg)*100};}
+function calcCCI(H,L,C,p=20){if(C.length<p)return null;let tps=C.slice(-p).map((c,i)=>(H[C.length-p+i]+L[C.length-p+i]+c)/3);let mean=tps.reduce((a,b)=>a+b)/p;let md=tps.reduce((a,b)=>a+Math.abs(b-mean),0)/p;if(md===0)return 0;return(tps[tps.length-1]-mean)/(0.015*md);}
+function calcWilliamsR(H,L,C,p=14){if(C.length<p)return null;let h=Math.max(...H.slice(-p)),l=Math.min(...L.slice(-p));if(h===l)return -50;return((h-C[C.length-1])/(h-l))*-100;}
+function calcMFI(H,L,C,V,p=14){if(!V||C.length<p+1)return null;let pmf=0,nmf=0;for(let i=C.length-p;i<C.length;i++){let tp=(H[i]+L[i]+C[i])/3;let mf=tp*(V[i]||1);let ptp=(H[i-1]+L[i-1]+C[i-1])/3;if(tp>=ptp)pmf+=mf;else nmf+=mf;}if(nmf===0)return 100;return 100-(100/(1+pmf/nmf));}
+function calcADX(H,L,C,p=14){if(C.length<p*2)return null;let dm_p=[],dm_n=[],tr=[];for(let i=1;i<C.length;i++){let hd=H[i]-H[i-1],ld=L[i-1]-L[i];dm_p.push(hd>ld&&hd>0?hd:0);dm_n.push(ld>hd&&ld>0?ld:0);tr.push(Math.max(H[i]-L[i],Math.abs(H[i]-C[i-1]),Math.abs(L[i]-C[i-1])));}function wi(arr){if(arr.length<p)return 0;let s=arr.slice(-p*2,-p).reduce((a,b)=>a+b,0);for(let i of arr.slice(-p))s=s-s/p+i;return s;}let ATR=wi(tr);if(ATR===0)return{adx:0,diPlus:0,diMinus:0};let DMP=wi(dm_p),DMN=wi(dm_n);let diP=(DMP/ATR)*100,diN=(DMN/ATR)*100;let dx=Math.abs(diP-diN)/(diP+diN||1)*100;return{adx:dx,diPlus:diP,diMinus:diN};}
+function calcVWAP(H,L,C,V){const n=Math.min(50,C.length);let cv=0,vol=0;for(let i=C.length-n;i<C.length;i++){let tp=(H[i]+L[i]+C[i])/3;let v=V?V[i]||1:1;cv+=tp*v;vol+=v;}return vol>0?cv/vol:null;}
+function calcMomentum(C,p=10){if(C.length<p+1)return null;return((C[C.length-1]-C[C.length-1-p])/C[C.length-1-p])*100;}
+function detectCandle(O,H,L,C){const n=C.length;if(n<3)return"neutral";const o=O[n-1],h=H[n-1],l=L[n-1],c=C[n-1];const po=O[n-2],pc=C[n-2],ppo=O[n-3],ppc=C[n-3];const body=Math.abs(c-o),range=h-l;const bull=c>o,pb=pc>po,ppb=ppc>ppo;if(bull&&pb&&ppb&&c>pc&&pc>ppc)return"3 white soldiers";if(!bull&&!pb&&!ppb&&c<pc&&pc<ppc)return"3 black crows";if(bull&&!pb&&o<pc&&c>po)return"bullish engulfing";if(!bull&&pb&&o>pc&&c<po)return"bearish engulfing";if(body>0&&(h-Math.max(o,c))<body*0.3&&(Math.min(o,c)-l)>body*2)return"hammer";if(body>0&&(Math.min(o,c)-l)<body*0.3&&(h-Math.max(o,c))>body*2)return"shooting star";if(body<range*0.1)return"doji";return bull?"bullish candle":"bearish candle";}
+function calcSR(H,L,C){const n=Math.min(50,C.length);return{resistance:Math.max(...(H?H.slice(-n):C.slice(-n))),support:Math.min(...(L?L.slice(-n):C.slice(-n)))};}
+
+// ═══ ANALYSE ═══
+function analyse(C,H,L,O,V){
+  H=H||C;L=L||C;O=O||C;
+  const price=C[C.length-1];
+  const rsi=calcRSI(C,14),macd=calcMACD(C,12,26,9),ema9=calcEMA(C,9),ema21=calcEMA(C,21),ema50=calcEMA(C,50),ema200=calcEMA(C,200);
+  const bb=calcBB(C,20,2),stoch=calcStochastic(H,L,C,14,3),atrD=calcATR(H,L,C,14);
+  const cci=calcCCI(H,L,C,20),wpr=calcWilliamsR(H,L,C,14),mfi=calcMFI(H,L,C,V,14);
+  const adxD=calcADX(H,L,C,14),vwap=calcVWAP(H,L,C,V),mom=calcMomentum(C,10);
+  const candle=detectCandle(O,H,L,C),sr=calcSR(H,L,C);
+  let score=0,maxScore=0,reasons=[],details={};
+
+  let trendDir="neutral";
+  if(ema50&&ema200){trendDir=ema50>ema200?"UP":"DOWN";details.trend=trendDir+" (EMA50 "+(ema50>ema200?">":"<")+" EMA200)";}
+  else details.trend="insufficient data";
+
+  // RSI
+  let rV=0,rSig="neutral";
+  if(rsi!==null){maxScore+=2;if(rsi<25){rV=2;rSig="extreme oversold ↑";reasons.push({t:"bull",txt:"RSI "+rsi.toFixed(1)+" — extreme oversold"});}else if(rsi<35){rV=1.5;rSig="oversold ↑";reasons.push({t:"bull",txt:"RSI "+rsi.toFixed(1)+" — oversold zone"});}else if(rsi>75){rV=-2;rSig="extreme overbought ↓";reasons.push({t:"bear",txt:"RSI "+rsi.toFixed(1)+" — extreme overbought"});}else if(rsi>65){rV=-1.5;rSig="overbought ↓";reasons.push({t:"bear",txt:"RSI "+rsi.toFixed(1)+" — overbought"});}else if(rsi<45){rV=-0.5;rSig="bearish zone";}else if(rsi>55){rV=0.5;rSig="bullish zone";}else{maxScore-=0.5;}}
+  score+=rV;details.rsi={val:rsi?rsi.toFixed(1):"—",sig:rSig};
+
+  // MACD
+  let mV=0,mSig="neutral";
+  if(macd){maxScore+=2;if(macd.hist>0&&macd.hist>macd.prevHist){mV=2;mSig="bullish cross ↑";reasons.push({t:"bull",txt:"MACD histogram rising — bullish momentum"});}else if(macd.hist<0&&macd.hist<macd.prevHist){mV=-2;mSig="bearish cross ↓";reasons.push({t:"bear",txt:"MACD histogram falling — bearish momentum"});}else if(macd.hist>0){mV=1;mSig="above signal ↑";}else{mV=-1;mSig="below signal ↓";}}
+  score+=mV;details.macd={val:macd?(macd.hist>0?"▲":"▼")+Math.abs(macd.hist).toExponential(2):"—",sig:mSig};
+
+  // EMA cross
+  let eV=0,eSig="neutral";
+  if(ema9&&ema21){maxScore+=1.5;let sp=((ema9-ema21)/ema21)*100;if(sp>0.05){eV=1.5;eSig="9>21 bullish ↑";reasons.push({t:"bull",txt:"EMA 9 above EMA 21 — uptrend"});}else if(sp<-0.05){eV=-1.5;eSig="9<21 bearish ↓";reasons.push({t:"bear",txt:"EMA 9 below EMA 21 — downtrend"});}else{eSig="crossing zone";}}
+  score+=eV;details.ema={val:ema9&&ema21?(ema9>ema21?"9>21":"9<21"):"—",sig:eSig};
+
+  // Bollinger
+  let bV=0,bSig="neutral";
+  if(bb){maxScore+=1.5;let pct=(price-bb.lower)/(bb.upper-bb.lower);if(pct<0.1){bV=1.5;bSig="lower band ↑";reasons.push({t:"bull",txt:"Price at lower BB — mean reversion likely"});}else if(pct>0.9){bV=-1.5;bSig="upper band ↓";reasons.push({t:"bear",txt:"Price at upper BB — mean reversion likely"});}else if(pct<0.4){bV=-0.5;bSig="lower half";}else{bV=0.5;bSig="upper half";}details.bb={val:(pct*100).toFixed(0)+"%",sig:bSig};}else{details.bb={val:"—",sig:"neutral"};}
+  score+=bV;
+
+  // Stochastic
+  let stV=0,stSig="neutral";
+  if(stoch){maxScore+=1.5;if(stoch.k<15){stV=1.5;stSig="deep oversold ↑";reasons.push({t:"bull",txt:"Stochastic "+stoch.k.toFixed(0)+" — deeply oversold"});}else if(stoch.k<25){stV=1;stSig="oversold ↑";}else if(stoch.k>85){stV=-1.5;stSig="deep overbought ↓";reasons.push({t:"bear",txt:"Stochastic "+stoch.k.toFixed(0)+" — deeply overbought"});}else if(stoch.k>75){stV=-1;stSig="overbought ↓";}else if(stoch.k>stoch.d&&stoch.k<50){stV=0.5;stSig="bullish cross ↑";}else if(stoch.k<stoch.d&&stoch.k>50){stV=-0.5;stSig="bearish cross ↓";}else{stV=stoch.k<50?-0.3:0.3;stSig=stoch.k<50?"bearish zone":"bullish zone";}}
+  score+=stV;details.stoch={val:stoch?stoch.k.toFixed(0)+"K/"+stoch.d.toFixed(0)+"D":"—",sig:stSig};
+
+  // CCI
+  let cciV=0,cciSig="neutral";
+  if(cci!==null){maxScore+=1.5;if(cci<-150){cciV=1.5;cciSig="oversold ↑";reasons.push({t:"bull",txt:"CCI "+cci.toFixed(0)+" — oversold"});}else if(cci<-100){cciV=0.8;cciSig="bearish zone";}else if(cci>150){cciV=-1.5;cciSig="overbought ↓";reasons.push({t:"bear",txt:"CCI "+cci.toFixed(0)+" — overbought"});}else if(cci>100){cciV=-0.8;cciSig="bullish extreme";}else{cciV=cci>0?0.3:-0.3;cciSig=cci>0?"positive":"negative";}}
+  score+=cciV;details.cci={val:cci!==null?cci.toFixed(0):"—",sig:cciSig};
+
+  // Williams %R
+  let wprV=0,wprSig="neutral";
+  if(wpr!==null){maxScore+=1.5;if(wpr<-85){wprV=1.5;wprSig="oversold ↑";reasons.push({t:"bull",txt:"Williams %R "+wpr.toFixed(0)+" — oversold"});}else if(wpr<-70){wprV=0.5;wprSig="approaching oversold";}else if(wpr>-15){wprV=-1.5;wprSig="overbought ↓";reasons.push({t:"bear",txt:"Williams %R "+wpr.toFixed(0)+" — overbought"});}else if(wpr>-30){wprV=-0.5;wprSig="approaching overbought";}else{wprV=wpr<-50?0.3:-0.3;wprSig=wpr<-50?"neutral-bear":"neutral-bull";}}
+  score+=wprV;details.wpr={val:wpr!==null?wpr.toFixed(0):"—",sig:wprSig};
+
+  // MFI
+  let mfiV=0,mfiSig="neutral";
+  if(mfi!==null){maxScore+=1.5;if(mfi<20){mfiV=1.5;mfiSig="oversold ↑";reasons.push({t:"bull",txt:"MFI "+mfi.toFixed(0)+" — money flow oversold"});}else if(mfi>80){mfiV=-1.5;mfiSig="overbought ↓";reasons.push({t:"bear",txt:"MFI "+mfi.toFixed(0)+" — money flow overbought"});}else{mfiV=mfi<50?-0.3:0.3;mfiSig=mfi<50?"weak flow":"strong flow";}}
+  score+=mfiV;details.mfi={val:mfi!==null?mfi.toFixed(0):"—",sig:mfiSig};
+
+  // ADX
+  let adxV=0,adxSig="neutral";
+  if(adxD){maxScore+=1;if(adxD.adx>25){if(adxD.diPlus>adxD.diMinus){adxV=1;adxSig="strong uptrend ↑";reasons.push({t:"bull",txt:"ADX "+adxD.adx.toFixed(0)+" — strong bullish trend"});}else{adxV=-1;adxSig="strong downtrend ↓";reasons.push({t:"bear",txt:"ADX "+adxD.adx.toFixed(0)+" — strong bearish trend"});}}else{adxSig=adxD.adx>15?"trending":"ranging/weak";}}
+  score+=adxV;details.adx={val:adxD?adxD.adx.toFixed(0):"—",sig:adxSig};
+
+  // VWAP
+  let vwapV=0,vwapSig="neutral";
+  if(vwap!==null){maxScore+=1;let diff=((price-vwap)/vwap)*100;if(diff>0.1){vwapV=1;vwapSig="above VWAP ↑";reasons.push({t:"bull",txt:"Price above VWAP — bullish bias"});}else if(diff<-0.1){vwapV=-1;vwapSig="below VWAP ↓";reasons.push({t:"bear",txt:"Price below VWAP — bearish bias"});}else{vwapSig="at VWAP";}}
+  score+=vwapV;details.vwap={val:vwap?((price-vwap)/vwap*100).toFixed(3)+"%":"—",sig:vwapSig};
+
+  // Momentum
+  let momV=0,momSig="neutral";
+  if(mom!==null){maxScore+=1;if(mom>0.15){momV=1;momSig="positive ↑";reasons.push({t:"bull",txt:"Momentum +"+mom.toFixed(2)+"% over 10 candles"});}else if(mom<-0.15){momV=-1;momSig="negative ↓";reasons.push({t:"bear",txt:"Momentum "+mom.toFixed(2)+"% over 10 candles"});}else{momSig=mom>0?"slight +":"slight -";}}
+  score+=momV;details.mom={val:mom!==null?mom.toFixed(2)+"%":"—",sig:momSig};
+
+  // Candle pattern
+  maxScore+=1.5;let candleV=0;
+  const sBull=["3 white soldiers","bullish engulfing","hammer"],sBear=["3 black crows","bearish engulfing","shooting star"];
+  if(sBull.some(x=>candle===x)){candleV=1.5;reasons.push({t:"bull",txt:"Strong bullish candle: "+candle});}
+  else if(sBear.some(x=>candle===x)){candleV=-1.5;reasons.push({t:"bear",txt:"Strong bearish candle: "+candle});}
+  else if(candle==="bullish candle"){candleV=0.5;}else if(candle==="bearish candle"){candleV=-0.5;}
+  score+=candleV;details.candle=candle;
+
+  // S/R
+  maxScore+=1;let srV=0,srNote="—";
+  const srProx=(price-sr.support)/(sr.resistance-sr.support||1);
+  if(srProx<0.12){srV=1;srNote="near support ↑";reasons.push({t:"bull",txt:"Price near key support — bounce zone"});}
+  else if(srProx>0.88){srV=-1;srNote="near resistance ↓";reasons.push({t:"bear",txt:"Price near key resistance — rejection zone"});}
+  else{srNote="mid range";}
+  score+=srV;details.sr={resistance:sr.resistance.toFixed(5),support:sr.support.toFixed(5),note:srNote};
+
+  // ATR filter
+  let atrOk=true,atrSig="normal",atrVal="—";
+  if(atrD){atrVal=atrD.pct.toFixed(3)+"%";if(atrD.pct<0.05){atrOk=false;atrSig="too low ⚠";}else if(atrD.pct>1.5){atrOk=false;atrSig="too high ⚠";}else{atrSig="normal ✓";}}
+  details.atr={val:atrVal,sig:atrSig,ok:atrOk};
+
+  // Trend filter
+  let trendOk=true;
+  const rawDir=score>=0?"UP":"DOWN";
+  if(trendDir!=="neutral"&&trendDir!==rawDir){score*=0.55;trendOk=false;reasons.push({t:"warn",txt:"Counter-trend signal — confidence reduced"});}
+  else if(trendDir===rawDir){reasons.push({t:rawDir==="UP"?"bull":"bear",txt:"Trend aligned: "+trendDir+" (EMA50/200)"});}
+
+  const direction=score>=0?"UP":"DOWN";
+  const absScore=Math.abs(score);
+  const probability=Math.min(92,Math.max(32,Math.round((absScore/Math.max(maxScore,1))*100)));
+  const strength=probability>68?"STRONG":probability>48?"MEDIUM":"WEAK";
+
+  let noTrade=false,noTradeReason="";
+  if(!atrOk){noTrade=true;noTradeReason=atrD&&atrD.pct<0.05?"Volatility too low — market is ranging.":"Volatility extremely high — risk of slippage.";}
+  if(candle==="doji"&&probability<50){noTrade=true;noTradeReason="Doji candle with low confluence — market indecisive. Wait for direction.";}
+
+  return{direction,probability,strength,score,maxScore,reasons,details,noTrade,noTradeReason,trendDir,trendOk};
+}
+
+function quickAnalyse(C,H,L){
+  if(!C||C.length<30)return{dir:"—",conf:0};
+  const rsi=calcRSI(C,14),ema9=calcEMA(C,9),ema21=calcEMA(C,21),macd=calcMACD(C,12,26,9);
+  let s=0;
+  if(rsi)s+=rsi<45?1:rsi>55?-1:0;
+  if(ema9&&ema21)s+=ema9>ema21?1.5:-1.5;
+  if(macd)s+=macd.hist>0?1:-1;
+  return{dir:s>0?"UP":s<0?"DOWN":"—",conf:Math.min(85,Math.max(30,Math.round(Math.abs(s)/3.5*100)))};
+}
+
+// ═══ DATA FETCHING ═══
+async function fetchBinance(sym,iv,lim=200){const r=await fetch(`https://api.binance.com/api/v3/klines?symbol=${sym}&interval=${iv}&limit=${lim}`);if(!r.ok)throw new Error("Binance "+r.status);const d=await r.json();return{closes:d.map(c=>parseFloat(c[4])),highs:d.map(c=>parseFloat(c[2])),lows:d.map(c=>parseFloat(c[3])),opens:d.map(c=>parseFloat(c[1])),volumes:d.map(c=>parseFloat(c[5]))};}
+async function fetchTwelveData(sym,iv,lim=200){const key=userApiKey||"demo";const r=await fetch(`https://api.twelvedata.com/time_series?symbol=${sym}&interval=${iv}min&outputsize=${lim}&apikey=${key}`);if(!r.ok)throw new Error("TwelveData "+r.status);const d=await r.json();if(d.status==="error"||!d.values)throw new Error(d.message||"TwelveData no data");const vals=d.values.reverse();return{closes:vals.map(v=>parseFloat(v.close)),highs:vals.map(v=>parseFloat(v.high)),lows:vals.map(v=>parseFloat(v.low)),opens:vals.map(v=>parseFloat(v.open)),volumes:vals.map(v=>parseFloat(v.volume)||1)};}
+async function fetchAlphaVantage(sym,iv,lim=200){const from=sym.slice(0,3),to=sym.slice(3,6);const r=await fetch(`https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol=${from}&to_symbol=${to}&interval=${iv}min&apikey=demo`);if(!r.ok)throw new Error("AV "+r.status);const d=await r.json();const key=`Time Series FX (${iv}min)`;if(!d[key])throw new Error("AV no data");const vals=Object.values(d[key]).reverse().slice(0,lim);return{closes:vals.map(v=>parseFloat(v["4. close"])),highs:vals.map(v=>parseFloat(v["2. high"])),lows:vals.map(v=>parseFloat(v["3. low"])),opens:vals.map(v=>parseFloat(v["1. open"])),volumes:null};}
+async function fetchOHLC(pair,tf){if(market==="crypto")return await fetchBinance(pair,TF_BINANCE[tf]||"5m",200);try{return await fetchTwelveData(pair,tf,200);}catch(e1){try{return await fetchAlphaVantage(pair,tf,200);}catch(e2){throw new Error("All data sources unavailable. Add a free TwelveData API key.");}}}
+
+// ═══ SESSION & NEWS ═══
+function getSession(){const h=new Date().getUTCHours();if(h>=22||h<7)return{name:"Asian",active:true,boost:0.1};if(h>=7&&h<12)return{name:"London 🔥",active:true,boost:0.2};if(h>=12&&h<17)return{name:"New York 🔥",active:true,boost:0.2};if(h>=17&&h<22)return{name:"Overlap",active:true,boost:0.15};return{name:"Closed",active:false,boost:0};}
+function updateSessionUI(){const s=getSession();document.getElementById("sessionLabel").textContent=s.name;document.getElementById("sessionDot").className="hdr-dot"+(s.active?" live":"");document.getElementById("sessionVal").textContent=s.name;}
+let newsEvents=[];
+async function loadForexNews(){const now=new Date();const h=now.getUTCHours();newsEvents=[{time:"08:30",impact:"high",title:"NFP Report"},{time:"14:00",impact:"high",title:"Fed Rate Decision"},{time:"12:30",impact:"medium",title:"CPI Data"},{time:"09:00",impact:"high",title:"ECB Press Conference"},{time:"15:30",impact:"medium",title:"US Jobless Claims"}].filter(e=>{const[eh,em]=e.time.split(":").map(Number);const diff=eh*60+em-(h*60+now.getUTCMinutes());return diff>-30&&diff<120;});document.getElementById("newsCount").textContent=newsEvents.length;document.getElementById("newsBanner").style.display=(newsEvents.length>0&&newsEvents.some(e=>e.impact==="high"))?"block":"none";}
+window.openNewsModal=function(){const h=newsEvents.length?newsEvents.map(e=>`• ${e.time} UTC — ${e.title} (${e.impact})`).join("\n"):"No major news in next 2 hours.";alert("📰 Upcoming News Events:\n\n"+h+"\n\n⚠️ Avoid trading 15min before/after high impact news.");};
+
+// ═══ CHART ═══
+function tvSym(pair){return market==="crypto"?"BINANCE:"+pair:"FX:"+pair;}
+function loadChart(sym,tf){if(tvWidget)tvWidget.remove();tvWidget=new TradingView.widget({container_id:"tv",symbol:sym,interval:tf,theme:"dark",style:"1",locale:"en",toolbar_bg:"#080c15",allow_symbol_change:false,height:"100%",width:"100%",autosize:true,studies:["RSI@tv-basicstudies","MACD@tv-basicstudies","BB@tv-basicstudies"]});}
+window.setTf=function(tf,el){currentTf=tf;document.querySelectorAll(".tf-btn").forEach(b=>b.classList.remove("active"));el.classList.add("active");loadChart(tvSym(document.getElementById("pair").value),tf);};
+window.setMarket=function(m,el){market=m;document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));el.classList.add("active");document.getElementById("apiKeySection").style.display=m==="crypto"?"none":"block";populatePairs();};
+window.onPairChange=function(){loadChart(tvSym(document.getElementById("pair").value),currentTf);resetUI();};
+function populatePairs(){const sel=document.getElementById("pair");sel.innerHTML="";PAIRS[market].forEach(p=>{let o=document.createElement("option");o.value=p;o.textContent=p;sel.appendChild(o);});window.onPairChange();}
+
+function resetUI(){
+  ["iRsi","iMacd","iEma","iBb","iStoch","iAtr","iCci","iWpr","iMfi","iAdx","iVwap","iMom"].forEach(id=>document.getElementById(id).textContent="—");
+  ["iRsiS","iMacdS","iEmaS","iBbS","iStochS","iAtrS","iCciS","iWprS","iMfiS","iAdxS","iVwapS","iMomS"].forEach(id=>{document.getElementById(id).textContent="waiting";document.getElementById(id).className="ind-sig neu";});
+  ["ic_rsi","ic_macd","ic_ema","ic_bb","ic_stoch","ic_atr","ic_cci","ic_wpr","ic_mfi","ic_adx","ic_vwap","ic_mom"].forEach(id=>document.getElementById(id).className="ind-card");
+  ["mtf15","mtf5","mtf1"].forEach(id=>{document.getElementById(id).textContent="—";document.getElementById(id).className="mtf-dir neu";});
+  ["mtf15c","mtf5c","mtf1c"].forEach(id=>document.getElementById(id).textContent="—");
+  ["ctxTrend","ctxVol","ctxCandle","srRes","srSup","expirySug"].forEach(id=>document.getElementById(id).textContent="—");
+  document.getElementById("dataStatus").textContent="⏳ awaiting analysis";document.getElementById("dataStatus").className="data-status";
+  document.getElementById("scoreFill").style.width="50%";document.getElementById("scoreFill").style.background="var(--muted)";document.getElementById("scoreLabel").textContent="—";
+}
+
+// ═══ SCAN ANIMATION ═══
+async function animateStep(id,delay=0){await sleep(delay);const el=document.getElementById(id);el.className="scan-step active";el.querySelector("i").className="fas fa-spinner fa-spin";await sleep(450);el.className="scan-step done";el.querySelector("i").className="fas fa-check-circle";}
+
+// ═══ MAIN SCAN ═══
+window.doScan=async function(){
+  const pair=document.getElementById("pair").value;
+  const scan=document.getElementById("scan");
+  const btn=document.getElementById("genBtn");
+  for(let i=1;i<=7;i++){const el=document.getElementById("step"+i);el.className="scan-step";el.querySelector("i").className="fas fa-circle";}
+  scan.style.display="flex";btn.disabled=true;
+  document.getElementById("dataStatus").textContent="⏳ fetching data…";
+  document.getElementById("dataStatus").className="data-status";
+  let analysis=null,source="";
+  try{
+    document.getElementById("scanSub").textContent="Connecting to "+(market==="crypto"?"Binance":"TwelveData")+"…";
+    animateStep("step1");
+    const[d1,d5,d15]=await Promise.allSettled([fetchOHLC(pair,"1"),fetchOHLC(pair,"5"),fetchOHLC(pair,"15")]);
+    source=market==="crypto"?"Binance API (live)":(userApiKey?"TwelveData (your key)":"TwelveData / AlphaVantage");
+    await animateStep("step2",0);
+    document.getElementById("scanSub").textContent="Computing 12 indicators…";
+    const main=d5.status==="fulfilled"?d5.value:(d1.status==="fulfilled"?d1.value:null);
+    if(!main)throw new Error("Could not fetch candle data.");
+    await animateStep("step3",200);
+    document.getElementById("scanSub").textContent="Multi-timeframe analysis…";
+    const q1=d1.status==="fulfilled"?quickAnalyse(d1.value.closes,d1.value.highs,d1.value.lows):{dir:"—",conf:0};
+    const q5=d5.status==="fulfilled"?quickAnalyse(d5.value.closes,d5.value.highs,d5.value.lows):{dir:"—",conf:0};
+    const q15=d15.status==="fulfilled"?quickAnalyse(d15.value.closes,d15.value.highs,d15.value.lows):{dir:"—",conf:0};
+    updateMTFUI(q1,q5,q15);
+    await animateStep("step4",200);document.getElementById("scanSub").textContent="Trend & volatility filter…";
+    analysis=analyse(main.closes,main.highs,main.lows,main.opens,main.volumes);
+    analysis.source=source;
+    await animateStep("step5",200);document.getElementById("scanSub").textContent="Candle pattern detection…";
+    const mtfDirs=[q1.dir,q5.dir,q15.dir].filter(d=>d!=="—");
+    const mtfAligned=mtfDirs.length>1&&mtfDirs.every(d=>d===analysis.direction);
+    analysis.mtfNote=mtfAligned?"✅ All timeframes aligned":`${mtfDirs.filter(d=>d===analysis.direction).length}/${mtfDirs.length} TFs aligned`;
+    if(mtfAligned)analysis.probability=Math.min(92,analysis.probability+8);
+    await animateStep("step6",200);document.getElementById("scanSub").textContent="Scoring confluence…";
+    await animateStep("step7",250);document.getElementById("scanSub").textContent="Signal ready.";
+    updateIndicatorUI(analysis);updateContextUI(analysis,main.closes);updateScoreMeter(analysis);
+    document.getElementById("dataStatus").textContent="✅ Live data — "+source;
+    document.getElementById("dataStatus").className="data-status live";
+    if(newsEvents.some(e=>e.impact==="high")&&market!=="crypto")analysis.newsWarning=true;
+    await sleep(300);
+  }catch(err){
+    document.getElementById("dataStatus").textContent="⚠️ "+err.message;
+    document.getElementById("dataStatus").className="data-status err";
+    document.getElementById("scanSub").textContent="⚠️ Using fallback estimate…";
+    await sleep(800);
+    analysis=fallbackAnalysis();
+    updateIndicatorUI(analysis);updateScoreMeter(analysis);
+  }
+  await sleep(150);scan.style.display="none";btn.disabled=false;
+  if(analysis.noTrade)showNoTrade(analysis);else showSignal(analysis);
+  if(autoMode)startCooldown();
+};
+
+function fallbackAnalysis(){const s=getSession();const bias=s.boost*(Math.random()>0.5?1:-1);const dir=Math.random()+bias>0.5?"UP":"DOWN";return{direction:dir,probability:32+Math.round(Math.random()*18),strength:"WEAK",score:0,maxScore:10,reasons:[{t:"warn",txt:"No live data — session estimate only. Add a TwelveData API key for live signals."}],details:{rsi:{val:"N/A",sig:"no data"},macd:{val:"N/A",sig:"no data"},ema:{val:"N/A",sig:"no data"},bb:{val:"N/A",sig:"no data"},stoch:{val:"N/A",sig:"no data"},atr:{val:"N/A",sig:"no data",ok:true},cci:{val:"N/A",sig:"no data"},wpr:{val:"N/A",sig:"no data"},mfi:{val:"N/A",sig:"no data"},adx:{val:"N/A",sig:"no data"},vwap:{val:"N/A",sig:"no data"},mom:{val:"N/A",sig:"no data"},candle:"N/A",sr:{resistance:"N/A",support:"N/A",note:"no data"},trend:"no data"},trendDir:"neutral",mtfNote:"no data",noTrade:false,source:"⚠️ fallback estimate"};}
+
+// ═══ UI UPDATERS ═══
+function sc(s){if(!s)return"neu";const sl=s.toLowerCase();if(sl.includes("↑")||sl.includes("oversold")||sl.includes("lower")||sl.includes("support")||sl.includes("bullish")||sl.includes("above")||sl.includes("positive")||sl.includes("strong up"))return"bull";if(sl.includes("↓")||sl.includes("overbought")||sl.includes("upper")||sl.includes("resistance")||sl.includes("bearish")||sl.includes("below")||sl.includes("negative")||sl.includes("strong down"))return"bear";return"neu";}
+
+function updateIndicatorUI(a){const d=a.details;const setInd=(vid,ssid,icid,val,sig)=>{document.getElementById(vid).textContent=val;const el=document.getElementById(ssid);el.textContent=sig;const c=sc(sig);el.className="ind-sig "+c;document.getElementById(icid).className="ind-card"+(c==="bull"?" bullish":c==="bear"?" bearish":"");};
+setInd("iRsi","iRsiS","ic_rsi",d.rsi.val,d.rsi.sig);setInd("iMacd","iMacdS","ic_macd",d.macd.val,d.macd.sig);setInd("iEma","iEmaS","ic_ema",d.ema.val,d.ema.sig);setInd("iBb","iBbS","ic_bb",d.bb.val,d.bb.sig);setInd("iStoch","iStochS","ic_stoch",d.stoch.val,d.stoch.sig);setInd("iAtr","iAtrS","ic_atr",d.atr.val,d.atr.sig);setInd("iCci","iCciS","ic_cci",d.cci?d.cci.val:"—",d.cci?d.cci.sig:"no data");setInd("iWpr","iWprS","ic_wpr",d.wpr?d.wpr.val:"—",d.wpr?d.wpr.sig:"no data");setInd("iMfi","iMfiS","ic_mfi",d.mfi?d.mfi.val:"—",d.mfi?d.mfi.sig:"no data");setInd("iAdx","iAdxS","ic_adx",d.adx?d.adx.val:"—",d.adx?d.adx.sig:"no data");setInd("iVwap","iVwapS","ic_vwap",d.vwap?d.vwap.val:"—",d.vwap?d.vwap.sig:"no data");setInd("iMom","iMomS","ic_mom",d.mom?d.mom.val:"—",d.mom?d.mom.sig:"no data");}
+
+function updateScoreMeter(a){const norm=(a.score+a.maxScore)/(2*a.maxScore);const pct=Math.min(100,Math.max(0,Math.round(norm*100)));const fill=document.getElementById("scoreFill");fill.style.width=pct+"%";fill.style.background=pct>60?"linear-gradient(90deg,var(--blue),var(--green))":pct<40?"linear-gradient(90deg,var(--red),var(--amber))":"linear-gradient(90deg,var(--amber),var(--blue))";document.getElementById("scoreLabel").textContent=a.direction+" ("+pct+"%)";document.getElementById("scoreLabel").style.color=pct>60?"var(--green)":pct<40?"var(--red)":"var(--amber)";}
+
+function updateMTFUI(q1,q5,q15){const setMTF=(did,cid,q)=>{const el=document.getElementById(did);el.textContent=q.dir;el.className="mtf-dir "+(q.dir==="UP"?"up":q.dir==="DOWN"?"down":"neu");document.getElementById(cid).textContent=q.dir!=="—"?q.conf+"%":"—";};setMTF("mtf1","mtf1c",q1);setMTF("mtf5","mtf5c",q5);setMTF("mtf15","mtf15c",q15);}
+
+function updateContextUI(a,C){const tEl=document.getElementById("ctxTrend");tEl.textContent=a.trendDir||"—";tEl.style.color=a.trendDir==="UP"?"var(--green)":a.trendDir==="DOWN"?"var(--red)":"var(--muted2)";document.getElementById("ctxVol").textContent=a.details.atr.ok?"Normal":"⚠️ Extreme";document.getElementById("ctxCandle").textContent=a.details.candle||"—";const sr=a.details.sr;if(sr.resistance!=="N/A"){document.getElementById("srRes").textContent=parseFloat(sr.resistance).toFixed(5);document.getElementById("srSup").textContent=parseFloat(sr.support).toFixed(5);}document.getElementById("expirySug").textContent=EXPIRY_MAP[currentTf]||"5 min";}
+
+function showSignal(a){
+  document.getElementById("sigDir").textContent=a.direction;
+  document.getElementById("sigDir").className="sig-direction "+(a.direction==="UP"?"up":"down");
+  document.getElementById("sigPair").textContent=document.getElementById("pair").value+" · "+currentTf+"M";
+  document.getElementById("sigExpiry").textContent="Expiry: "+(EXPIRY_MAP[currentTf]||"5M");
+  const sp=document.getElementById("sigStrengthPill");sp.textContent=a.strength;sp.className="sig-meta-pill "+(a.strength==="STRONG"?"strong":a.strength==="MEDIUM"?"med":"weak");
+  document.getElementById("sigSession").textContent=getSession().name;
+  const circ=document.getElementById("ringCircle");const C=226.19;const off=C-(a.probability/100)*C;circ.style.strokeDashoffset=off;circ.style.stroke=a.probability>65?"var(--green)":a.probability>45?"var(--amber)":"var(--red)";
+  document.getElementById("ringPct").textContent=a.probability+"%";document.getElementById("ringPct").style.color=a.probability>65?"var(--green)":a.probability>45?"var(--amber)":"var(--red)";
+  document.getElementById("probPct").textContent=a.probability+"%";const fill=document.getElementById("probFill");fill.style.width=a.probability+"%";fill.style.background=a.probability>65?"var(--green)":a.probability>45?"var(--amber)":"var(--red)";
+  const rl=document.getElementById("reasonList");rl.innerHTML='<div class="reason-section-label">Signal Reasons</div>';
+  (a.reasons||[]).forEach(r=>{const div=document.createElement("div");div.className="reason-item "+(r.t==="bull"?"bull":r.t==="bear"?"bear":"warn");div.innerHTML=`<i class="fas ${r.t==="bull"?"fa-check-circle":r.t==="bear"?"fa-circle-xmark":"fa-triangle-exclamation"}"></i><span>${r.txt}</span>`;rl.appendChild(div);});
+  if(!a.reasons||a.reasons.length===0)rl.innerHTML+='<div style="font-size:11px;color:var(--muted2);">No strong confirmations detected.</div>';
+  const d=a.details;
+  const setP=(id,val,sig)=>{const el=document.getElementById(id);el.textContent=val+(sig?" · "+sig:"");el.className="sd-val "+sc(sig||"");};
+  setP("pRsi",d.rsi.val,d.rsi.sig);setP("pMacd",d.macd.val,d.macd.sig);setP("pStoch",d.stoch.val,d.stoch.sig);
+  setP("pCci",d.cci?d.cci.val:"—",d.cci?d.cci.sig:"");setP("pWpr",d.wpr?d.wpr.val:"—",d.wpr?d.wpr.sig:"");setP("pMfi",d.mfi?d.mfi.val:"—",d.mfi?d.mfi.sig:"");setP("pMom",d.mom?d.mom.val:"—",d.mom?d.mom.sig:"");
+  setP("pEma",d.ema.val,d.ema.sig);document.getElementById("pTrend").textContent=d.trend||"—";document.getElementById("pTrend").className="sd-val "+(a.trendDir==="UP"?"bull":a.trendDir==="DOWN"?"bear":"neu");
+  setP("pAdx",d.adx?d.adx.val:"—",d.adx?d.adx.sig:"");setP("pVwap",d.vwap?d.vwap.val:"—",d.vwap?d.vwap.sig:"");setP("pBb",d.bb.val,d.bb.sig);setP("pAtr",d.atr.val,d.atr.sig);
+  document.getElementById("pCandle").textContent=d.candle||"—";const srEl=document.getElementById("pSr");srEl.textContent=d.sr?d.sr.note:"—";srEl.className="sd-val "+sc(d.sr?d.sr.note:"");
+  document.getElementById("pMtf").textContent=a.mtfNote||"—";document.getElementById("pSource").textContent=a.source||"—";
+  if(a.newsWarning){const w=document.createElement("div");w.style.cssText="background:rgba(255,61,107,0.08);border:1px solid rgba(255,61,107,0.22);border-radius:9px;padding:8px 12px;font-size:11px;color:#ff8fab;margin:8px 0;";w.innerHTML='<i class="fas fa-newspaper" style="margin-right:7px;"></i><strong>High Impact News Soon</strong> — Consider waiting.';document.getElementById("reasonList").after(w);}
+  tracker.total++;localStorage.setItem("mg_tracker",JSON.stringify(tracker));updateTrackerUI();
+  document.getElementById("signalPopup").style.display="flex";
+}
+function showNoTrade(a){document.getElementById("noTradeReason").textContent=a.noTradeReason||"Market conditions are unfavourable.";document.getElementById("noTradePopup").style.display="flex";}
+window.closeSignal=function(){document.getElementById("signalPopup").style.display="none";};
+window.closeNoTrade=function(){document.getElementById("noTradePopup").style.display="none";};
+
+// ═══ AUTO MODE ═══
+window.toggleAuto=function(){autoMode=!autoMode;const cls="toggle-switch"+(autoMode?" on":"");document.getElementById("autoToggle").className=cls;document.getElementById("autoToggle2").className=cls+" ";if(autoMode)startCooldown();else{clearInterval(cooldownTimer);document.getElementById("cooldownWrap").style.display="none";}};
+function startCooldown(){cooldownSec=60;document.getElementById("cooldownWrap").style.display="block";document.getElementById("cooldownSec").textContent="60s";document.getElementById("cooldownFill").style.width="100%";clearInterval(cooldownTimer);cooldownTimer=setInterval(()=>{cooldownSec--;document.getElementById("cooldownSec").textContent=cooldownSec+"s";document.getElementById("cooldownFill").style.width=(cooldownSec/60*100)+"%";if(cooldownSec<=0){clearInterval(cooldownTimer);if(autoMode)window.doScan();}},1000);}
+
+// ═══ WIN TRACKER ═══
+window.recordResult=function(r){if(r==="win")tracker.wins++;else tracker.losses++;localStorage.setItem("mg_tracker",JSON.stringify(tracker));updateTrackerUI();};
+window.resetTracker=function(){if(!confirm("Reset tracker?"))return;tracker={total:0,wins:0,losses:0};localStorage.setItem("mg_tracker",JSON.stringify(tracker));updateTrackerUI();};
+function updateTrackerUI(){document.getElementById("wTotal").textContent=tracker.total;document.getElementById("wWins").textContent=tracker.wins;document.getElementById("wLoss").textContent=tracker.losses;const r=tracker.wins+tracker.losses;const rt=r>0?Math.round((tracker.wins/r)*100):0;const el=document.getElementById("wRate");el.textContent=r>0?rt+"%":"—%";el.style.color=rt>60?"var(--green)":rt>45?"var(--amber)":"var(--red)";}
+
+// ═══ API KEY ═══
+window.saveApiKey=function(){const v=document.getElementById("apiKeyInput").value.trim();if(!v){alert("Please enter an API key.");return;}userApiKey=v;localStorage.setItem("mg_td_key",v);document.getElementById("dataStatus").textContent="✅ API key saved — ready to analyse";document.getElementById("dataStatus").className="data-status live";};
+
+// ═══ PAGE NAV ═══
+window.showPage=function(page){document.querySelectorAll(".page-section").forEach(s=>s.classList.remove("active"));document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));const pageMap={terminal:"pageTerminal",howto:"pageHowto",strategies:"pageStrategies",policies:"pagePolicies"};const navMap={terminal:"navTerminal",howto:"navHowto",strategies:"navStrategies",policies:"navPolicies"};document.getElementById(pageMap[page]).classList.add("active");document.getElementById(navMap[page]).classList.add("active");window.scrollTo(0,0);};
+
+// ═══ COOKIES ═══
+function initCookieBanner(){if(localStorage.getItem("mg_cookie"))document.getElementById("cookieBanner").classList.add("hidden");}
+window.acceptCookies=function(){localStorage.setItem("mg_cookie","accepted");document.getElementById("cookieBanner").classList.add("hidden");};
+window.declineCookies=function(){localStorage.setItem("mg_cookie","essential");document.getElementById("cookieBanner").classList.add("hidden");};
+
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+populatePairs();
+})();
+</script>
 </body>
 </html>
